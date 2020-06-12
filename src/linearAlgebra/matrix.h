@@ -7,6 +7,8 @@
 #include <linearAlgebra/linearAlgebra.h>
 #include <linearAlgebra/setIdentity.h>
 
+#include <cmath>
+
 LINEAR_ALGEBRA_NS_OPEN
 
 /// \class Matrix
@@ -27,7 +29,7 @@ public:
     /// \typedef ValueType typedef for the value type of the entries.
     typedef ValueT ValueType;
 
-    /// Default constructor, initializing entrys to \em all zeroes.
+    /// Default constructor, initializing entries to \em all zeroes.
     Matrix()
     {
     }
@@ -60,28 +62,44 @@ public:
 
     /// Matrix entry read-access by row & column.
     ///
-    /// \param i_row row of the entry to access.
-    /// \param i_col column of the entry to access.
+    /// \param i_rowIndex row of the entry to access.
+    /// \param i_columnIndex column of the entry to access.
     ///
-    /// \return entry at row \p i_row and column \p i_column.
-    inline const ValueT& operator()( size_t i_row, size_t i_column ) const
+    /// \return entry at row \p i_rowIndex and column \p i_columnIndex.
+    inline const ValueT& operator()( size_t i_rowIndex, size_t i_columnIndex ) const
     {
-        return m_entries[ i_row * 4 + i_column ];
+        return m_entries[ i_rowIndex * 4 + i_columnIndex ];
     }
 
     /// Matrix entry write-access by row & column.
     ///
-    /// \param i_row row of the entry to access.
-    /// \param i_col column of the entry to access.
+    /// \param i_rowIndex row of the entry to access.
+    /// \param i_columnIndex column of the entry to access.
     ///
-    /// \return entry at row \p i_row and column \p i_column.
-    inline ValueT& operator()( size_t i_row, size_t i_column )
+    /// \return entry at row \p i_rowIndex and column \p i_columnIndex.
+    inline ValueT& operator()( size_t i_rowIndex, size_t i_columnIndex )
     {
-        return m_entries[ i_row * 4 + i_column ];
+        return m_entries[ i_rowIndex * 4 + i_columnIndex ];
+    }
+
+    /// Check if any of the entries is not a number (NaN).
+    ///
+    /// \return true if any of the entries is not a number.
+    inline bool HasNans() const
+    {
+        for ( size_t entryIndex = 0; entryIndex < ( M * N ); ++entryIndex )
+        {
+            if ( std::isnan( m_entries[ entryIndex ] ) )
+            {
+                return true;
+            }
+        }
+
+        return false;
     }
 
 private:
-    /// Container of matrix entries memory.
+    /// Container of matrix entries memory, default initialized to all zeroes.
     ValueT m_entries[ M * N ] = {0};
 };
 

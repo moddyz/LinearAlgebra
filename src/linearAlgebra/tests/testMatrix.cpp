@@ -46,3 +46,12 @@ TEST_CASE( "Matrix_Identity" )
     }
 }
 
+TEST_CASE( "Matrix_HasNans" )
+{
+    constexpr size_t                    rows = 5, cols = 5;
+    LinearAlgebra::Matrix< rows, cols > matrix;
+    CHECK( !matrix.HasNans() );
+    matrix( 0, 5 ) = NAN;
+    CHECK( matrix.HasNans() );
+}
+
