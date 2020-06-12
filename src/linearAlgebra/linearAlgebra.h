@@ -9,7 +9,7 @@
 /// \def LINEAR_ALGEBRA_NS
 ///
 /// The namespace hosting all the symbols in the GraphicsMath library.
-#define LINEAR_ALGEBRA_NS gm
+#define LINEAR_ALGEBRA_NS LinearAlgebra
 
 /// \def LINEAR_ALGEBRA_NS_USING
 ///
