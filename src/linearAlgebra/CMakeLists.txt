@@ -23,6 +23,7 @@ target_include_directories(${LIBRARY_NAME}
 )
 
 add_subdirectory(base)
+add_subdirectory(detail)
 
 if (BUILD_TESTING)
     add_subdirectory(tests)

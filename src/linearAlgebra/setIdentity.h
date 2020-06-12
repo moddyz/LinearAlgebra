@@ -1,7 +1,5 @@
 #pragma once
 
-#include <linearAlgebra/detail/setIdentity.h>
-
 /// \file setIdentity.h
 ///
 /// Operation which sets an matrix to the identity element (I).
@@ -9,7 +7,7 @@
 /// The identity matrix has 1's down its main diagonal, and 0 for all other entries.
 /// This operation can only be applied to square matrices (M X M matrices).
 
-#include <type_traits>
+#include <linearAlgebra/detail/setIdentity.h>
 
 LINEAR_ALGEBRA_NS_OPEN
 
