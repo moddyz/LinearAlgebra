@@ -19,17 +19,17 @@ TEST_CASE( "Matrix_DefaultConstructor" )
     }
 }
 
-TEST_CASE( "Matrix_GetRowSize_GetColumnSize" )
+TEST_CASE( "Matrix_RowSize_ColumnSize" )
 {
     constexpr size_t rows = 5, cols = 7;
-    CHECK( LinearAlgebra::Matrix< rows, cols >::GetRowSize() == rows );
-    CHECK( LinearAlgebra::Matrix< rows, cols >::GetColumnSize() == cols );
+    CHECK( LinearAlgebra::Matrix< rows, cols >::RowSize() == rows );
+    CHECK( LinearAlgebra::Matrix< rows, cols >::ColumnSize() == cols );
 }
 
-TEST_CASE( "Matrix_GetIdentity" )
+TEST_CASE( "Matrix_Identity" )
 {
     constexpr size_t                    rows = 5, cols = 5;
-    LinearAlgebra::Matrix< rows, cols > matrix = LinearAlgebra::Matrix< rows, cols >::GetIdentity();
+    LinearAlgebra::Matrix< rows, cols > matrix = LinearAlgebra::Matrix< rows, cols >::Identity();
     for ( size_t row = 0; row < rows; ++row )
     {
         for ( size_t col = 0; col < cols; ++col )

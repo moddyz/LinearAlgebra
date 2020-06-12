@@ -35,7 +35,7 @@ public:
     /// Get the row size of this matrix.
     ///
     /// \return the row size.
-    static inline constexpr int GetRowSize()
+    static inline constexpr int RowSize()
     {
         return M;
     }
@@ -43,7 +43,7 @@ public:
     /// Get the column size of this matrix.
     ///
     /// \return the column size.
-    static inline constexpr int GetColumnSize()
+    static inline constexpr int ColumnSize()
     {
         return N;
     }
@@ -51,7 +51,7 @@ public:
     /// Get the identity element of matrices of dimensions \p M by \p N.
     ///
     /// \return the identity matrix.
-    static inline constexpr Matrix< M, N, ValueT > GetIdentity()
+    static inline constexpr Matrix< M, N, ValueT > Identity()
     {
         Matrix< M, N, ValueT > matrix;
         SetIdentity( matrix );

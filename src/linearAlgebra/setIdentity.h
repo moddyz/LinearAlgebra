@@ -18,7 +18,7 @@ LINEAR_ALGEBRA_NS_OPEN
 // This is the terminating overload chosen when RowIndex and ColumnIndex is equal to the row and column sizes of
 // MatrixT, respectively.
 template < typename MatrixT, int RowIndex, int ColumnIndex >
-typename std::enable_if< RowIndex == MatrixT::GetRowSize() && ColumnIndex == MatrixT::GetColumnSize() >::type
+typename std::enable_if< RowIndex == MatrixT::RowSize() && ColumnIndex == MatrixT::ColumnSize() >::type
 _SetIdentity( MatrixT& o_matrix )
 {
     // Nothing to do in this terminating overload.
@@ -27,11 +27,11 @@ _SetIdentity( MatrixT& o_matrix )
 // This is the operation step overload is chosen when RowIndex and ColumnIndex is not equal to the row and column sizes
 // of MatrixT, respectively. The matrix entry (RowIndex, ColumnIndex) is set here.
 template < typename MatrixT, int RowIndex = 0, int ColumnIndex = 0 >
-typename std::enable_if< RowIndex != MatrixT::GetRowSize() && ColumnIndex != MatrixT::GetColumnSize() >::type
+typename std::enable_if< RowIndex != MatrixT::RowSize() && ColumnIndex != MatrixT::ColumnSize() >::type
 _SetIdentity( MatrixT& o_matrix )
 {
     // Only square matrices have an identity element.
-    static_assert( MatrixT::GetRowSize() == MatrixT::GetColumnSize() );
+    static_assert( MatrixT::RowSize() == MatrixT::ColumnSize() );
 
     // This is the operation, which is applied to all matrix entries when the row index == column index.
     o_matrix( RowIndex, ColumnIndex ) = 1;
@@ -46,7 +46,7 @@ _SetIdentity( MatrixT& o_matrix )
 template < typename MatrixT >
 void SetIdentity( MatrixT& o_matrix )
 {
-    static_assert( MatrixT::GetRowSize() == MatrixT::GetColumnSize() );
+    static_assert( MatrixT::RowSize() == MatrixT::ColumnSize() );
     _SetIdentity< MatrixT, 0, 0 >( o_matrix );
 }
 
