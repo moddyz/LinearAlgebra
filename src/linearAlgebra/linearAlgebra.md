@@ -24,6 +24,12 @@ Python bindings for are available under \p src/linearAlgebra/python.
 
 Tests and benchmark code reside within the respective subdirectories.
 
+\subsection LinearAlgebra_DeveloperNotes_Motivation Motivation
+
+This is developed in tandem while working through [MIT OpenCourseWare's 18.06](https://ocw.mit.edu/courses/mathematics/18-06-linear-algebra-spring-2010/) - thanks MIT and Professor Strang!  Coding and documenting the data structures and operations aided with internalization of the concepts. 
+
+This project is also presents an opportunity to build experience with template metaprogramming.
+
 \section LinearAlgebra_GitHubHosted GitHub Repository
 
 The LinearAlgebra project is hosted on GitHub: https://github.com/moddyz/LinearAlgebra.
