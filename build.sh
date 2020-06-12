@@ -6,7 +6,8 @@ mkdir -p build && cd build
 
 CMAKE_ARGS=\
 \ -DCMAKE_BUILD_TYPE="Debug"\
-\ -DBUILD_TESTING="TRUE"
+\ -DBUILD_TESTING="ON"
+#\ -DBUILD_BENCHMARKING="ON"
 
 # Only build if installation path not specified.
 if [ $# -eq 0 ]
