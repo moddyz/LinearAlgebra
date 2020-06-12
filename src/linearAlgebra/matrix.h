@@ -7,8 +7,9 @@
 #include <linearAlgebra/linearAlgebra.h>
 #include <linearAlgebra/setIdentity.h>
 
-#include <linearAlgebra/detail/assert.h>
-#include <linearAlgebra/detail/typeName.h>
+#include <linearAlgebra/base/almost.h>
+#include <linearAlgebra/base/assert.h>
+#include <linearAlgebra/base/typeName.h>
 
 #include <cmath>
 #include <cstring>
@@ -24,15 +25,15 @@ LINEAR_ALGEBRA_NS_OPEN
 /// to be allocated on the stack, instead of the heap.  This is great for
 /// applications with well-defined input and output parameters.
 ///
-/// \tparam ValueType value type of the entries.
+/// \tparam EntryType value type of the entries.
 /// \tparam M number of rows in this matrix.
 /// \tparam N number of columns in this matrix.
 template < size_t M, size_t N, typename ValueT = float >
 class Matrix
 {
 public:
-    /// \typedef ValueType typedef for the value type of the entries.
-    typedef ValueT                 ValueType;
+    /// \typedef EntryType typedef for the value type of the entries.
+    typedef ValueT                 EntryType;
     typedef Matrix< M, N, ValueT > MatrixType;
 
     /// Default constructor, initializing entries to \em all zeroes.
@@ -136,7 +137,7 @@ public:
     inline std::string GetString() const
     {
         std::stringstream ss;
-        ss << "Matrix< " << M << ", " << N << ", " << std::string( _TypeName< ValueT >() ).c_str() << " >(";
+        ss << "Matrix< " << M << ", " << N << ", " << std::string( TypeName< ValueT >() ).c_str() << " >(";
         for ( size_t rowIndex = 0; rowIndex < M; ++rowIndex )
         {
             ss << "\n    ";

@@ -1,5 +1,7 @@
 #pragma once
 
+/// \file detail/setIdentity.h
+
 #include <type_traits>
 
 LINEAR_ALGEBRA_NS_OPEN

@@ -13,7 +13,7 @@ LINEAR_ALGEBRA_NS_OPEN
 ///
 /// \return string name of the type.
 template < typename T >
-constexpr std::string_view _TypeName()
+constexpr std::string_view TypeName()
 {
     std::string_view name, prefix, suffix;
 #ifdef __clang__
