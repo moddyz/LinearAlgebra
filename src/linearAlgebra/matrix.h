@@ -6,9 +6,12 @@
 
 #include <linearAlgebra/linearAlgebra.h>
 #include <linearAlgebra/setIdentity.h>
+
+#include <linearAlgebra/detail/assert.h>
 #include <linearAlgebra/detail/typeName.h>
 
 #include <cmath>
+#include <cstring>
 #include <sstream>
 
 LINEAR_ALGEBRA_NS_OPEN
@@ -29,12 +32,30 @@ class Matrix
 {
 public:
     /// \typedef ValueType typedef for the value type of the entries.
-    typedef ValueT ValueType;
+    typedef ValueT                 ValueType;
+    typedef Matrix< M, N, ValueT > MatrixType;
 
     /// Default constructor, initializing entries to \em all zeroes.
     Matrix()
     {
     }
+
+#ifdef LINEAR_ALGEBRA_DEBUG
+    /// Copy constructor.
+    Matrix( const MatrixType& i_matrix )
+    {
+        std::memcpy( ( void* ) m_entries, ( const void* ) i_matrix.m_entries, sizeof( MatrixType ) * EntryCount() );
+        LINEAR_ALGEBRA_ASSERT( !HasNans() );
+    }
+
+    /// Copy assignment operator.
+    Matrix& operator=( const MatrixType& i_matrix )
+    {
+        std::memcpy( ( void* ) m_entries, ( const void* ) i_matrix.m_entries, sizeof( MatrixType ) * EntryCount() );
+        LINEAR_ALGEBRA_ASSERT( !HasNans() );
+        return *this;
+    }
+#endif
 
     /// Get the row size of this matrix.
     ///
@@ -115,7 +136,7 @@ public:
     inline std::string GetString() const
     {
         std::stringstream ss;
-        ss << "Matrix< " << M << ", " << N << ", " << std::string(_TypeName< ValueT >() ).c_str() << " >(";
+        ss << "Matrix< " << M << ", " << N << ", " << std::string( _TypeName< ValueT >() ).c_str() << " >(";
         for ( size_t rowIndex = 0; rowIndex < M; ++rowIndex )
         {
             ss << "\n    ";
