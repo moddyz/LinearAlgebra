@@ -33,17 +33,24 @@ public:
     }
 
     /// Get the row size of this matrix.
+    ///
+    /// \return the row size.
     static inline constexpr int GetRowSize()
     {
         return M;
     }
 
     /// Get the column size of this matrix.
+    ///
+    /// \return the column size.
     static inline constexpr int GetColumnSize()
     {
         return N;
     }
 
+    /// Get the identity element of matrices of dimensions \p M by \p N.
+    ///
+    /// \return the identity matrix.
     static inline constexpr Matrix< M, N, ValueT > GetIdentity()
     {
         Matrix< M, N, ValueT > matrix;
