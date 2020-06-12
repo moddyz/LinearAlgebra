@@ -1,0 +1,11 @@
+<map id="/home/richard/code/LinearAlgebra/src/linear/base/matrixEntryArray.h" name="/home/richard/code/LinearAlgebra/src/linear/base/matrixEntryArray.h">
+<area shape="rect" id="node2" href="$rank_8h.html" title="Matrix rank. " alt="" coords="5,317,168,373"/>
+<area shape="rect" id="node4" href="$matrixElimination_8h.html" title="Common matrix elimination sub&#45;routines. " alt="" coords="279,109,449,165"/>
+<area shape="rect" id="node10" href="$matrixRowEchelon_8h.html" title="Matrix row echelon reduction implementation details. " alt="" coords="116,213,295,269"/>
+<area shape="rect" id="node3" href="$rowEchelon_8h.html" title="Matrix row echelon form. " alt="" coords="65,421,228,477"/>
+<area shape="rect" id="node5" href="$determinant_8h_source.html" title="/home/richard/code\l/LinearAlgebra/src/linear\l/determinant.h" alt="" coords="319,213,481,269"/>
+<area shape="rect" id="node6" href="$matrixInverse_8h.html" title="Matrix inverse implementation details. " alt="" coords="505,213,668,269"/>
+<area shape="rect" id="node7" href="$inverse_8h.html" title="Determinant computation. " alt="" coords="505,317,668,373"/>
+<area shape="rect" id="node8" href="$projection_8h.html" title="Projection. " alt="" coords="505,421,668,477"/>
+<area shape="rect" id="node9" href="$orthonormalize_8h.html" title="Matrix orthonormalization. " alt="" coords="505,525,668,581"/>
+</map>

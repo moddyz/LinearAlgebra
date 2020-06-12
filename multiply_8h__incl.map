@@ -1,0 +1,14 @@
+<map id="/home/richard/code/LinearAlgebra/src/linear/multiply.h" name="/home/richard/code/LinearAlgebra/src/linear/multiply.h">
+<area shape="rect" id="node2" href="$linear_8h.html" title="LinearAlgebra: A general&#45;purpose header&#45;only linear algebra library. " alt="" coords="833,333,932,360"/>
+<area shape="rect" id="node3" href="$matrix_8h.html" title="A matrix is rectangular array of numbers, arranged in to rows and columns. " alt="" coords="708,109,812,136"/>
+<area shape="rect" id="node20" href="$matrixMultiplication_8h.html" title="Matrix mutiplication implementation details of compile&#45;time supported matrix multiplication. " alt="" coords="1287,109,1499,136"/>
+<area shape="rect" id="node4" href="$almost_8h.html" title="linear/base/almost.h" alt="" coords="249,184,388,211"/>
+<area shape="rect" id="node6" href="$diagnostic_8h.html" title="Diagnostic utilities. " alt="" coords="66,184,225,211"/>
+<area shape="rect" id="node10" href="$matrixColumn_8h.html" title="Implementation details for extracting a column of a Matrix (compile&#45;time supported). " alt="" coords="507,259,688,285"/>
+<area shape="rect" id="node11" href="$matrixIdentity_8h.html" title="Implementation details to produce a compile&#45;time generated identity matrix. " alt="" coords="1032,259,1211,285"/>
+<area shape="rect" id="node12" href="$matrixRow_8h.html" title="Implementation details for extracting a row of a Matrix (compile&#45;time supported). ..." alt="" coords="1235,259,1397,285"/>
+<area shape="rect" id="node13" href="$sequenceOperations_8h.html" title="Compile&#45;time recursion for performing an unary or binary operation on every single entry of a set of ..." alt="" coords="724,184,943,211"/>
+<area shape="rect" id="node15" href="$typeName_8h.html" title="Utilities to infer type names. " alt="" coords="967,184,1127,211"/>
+<area shape="rect" id="node5" href="$abs_8h.html" title="linear/base/abs.h" alt="" coords="359,259,481,285"/>
+<area shape="rect" id="node7" href="$log_8h.html" title="Logging utility functions. " alt="" coords="5,259,123,285"/>
+</map>

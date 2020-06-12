@@ -1,0 +1,30 @@
+<map id="/home/richard/code/LinearAlgebra/src/linear/linear.h" name="/home/richard/code/LinearAlgebra/src/linear/linear.h">
+<area shape="rect" id="node2" href="$determinant_8h_source.html" title="/home/richard/code\l/LinearAlgebra/src/linear\l/determinant.h" alt="" coords="543,629,705,685"/>
+<area shape="rect" id="node3" href="$inverse_8h.html" title="Determinant computation. " alt="" coords="1455,733,1617,789"/>
+<area shape="rect" id="node4" href="$projection_8h.html" title="Projection. " alt="" coords="1599,837,1761,893"/>
+<area shape="rect" id="node6" href="$matrix_8h.html" title="A matrix is rectangular array of numbers, arranged in to rows and columns. " alt="" coords="1144,317,1307,373"/>
+<area shape="rect" id="node7" href="$multiply_8h.html" title="Matrix multiplication. " alt="" coords="1743,421,1905,477"/>
+<area shape="rect" id="node9" href="$rank_8h.html" title="Matrix rank. " alt="" coords="205,733,368,789"/>
+<area shape="rect" id="node10" href="$rowEchelon_8h.html" title="Matrix row echelon form. " alt="" coords="265,837,428,893"/>
+<area shape="rect" id="node12" href="$matrixElimination_8h.html" title="Common matrix elimination sub&#45;routines. " alt="" coords="539,525,709,581"/>
+<area shape="rect" id="node13" href="$matrixInverse_8h.html" title="Matrix inverse implementation details. " alt="" coords="1049,629,1212,685"/>
+<area shape="rect" id="node14" href="$matrixRowEchelon_8h.html" title="Matrix row echelon reduction implementation details. " alt="" coords="316,629,495,685"/>
+<area shape="rect" id="node15" href="$slice_8h.html" title="Matrix slice. " alt="" coords="2031,421,2193,477"/>
+<area shape="rect" id="node16" href="$transpose_8h.html" title="Matrix transpose. " alt="" coords="1556,421,1719,477"/>
+<area shape="rect" id="node17" href="$abs_8h.html" title="/home/richard/code\l/LinearAlgebra/src/linear\l/base/abs.h" alt="" coords="896,109,1059,165"/>
+<area shape="rect" id="node18" href="$almost_8h.html" title="/home/richard/code\l/LinearAlgebra/src/linear\l/base/almost.h" alt="" coords="841,213,1004,269"/>
+<area shape="rect" id="node19" href="$diagnostic_8h.html" title="Diagnostic utilities. " alt="" coords="420,213,583,269"/>
+<area shape="rect" id="node20" href="$intRange_8h.html" title="Integer range iteration. " alt="" coords="539,421,701,477"/>
+<area shape="rect" id="node21" href="$matrixEntryArray_8h.html" title="Internal implementation for a fixed size array for storage of matrix indices and associated data..." alt="" coords="195,421,362,477"/>
+<area shape="rect" id="node22" href="$matrixColumn_8h.html" title="Implementation details for extracting a column of a Matrix (compile&#45;time supported). " alt="" coords="1028,213,1191,269"/>
+<area shape="rect" id="node23" href="$matrixIdentity_8h.html" title="Implementation details to produce a compile&#45;time generated identity matrix. " alt="" coords="1331,213,1493,269"/>
+<area shape="rect" id="node24" href="$matrixMultiplication_8h.html" title="Matrix mutiplication implementation details of compile&#45;time supported matrix multiplication. " alt="" coords="1673,317,1855,373"/>
+<area shape="rect" id="node25" href="$matrixRow_8h.html" title="Implementation details for extracting a row of a Matrix (compile&#45;time supported). ..." alt="" coords="659,109,821,165"/>
+<area shape="rect" id="node26" href="$matrixSlice_8h.html" title="Implementation details for extracting a slice of a Matrix (compile&#45;time supported). " alt="" coords="2081,317,2244,373"/>
+<area shape="rect" id="node27" href="$matrixTranspose_8h.html" title="Implementation details for transposing a M x N matrix (compile&#45;time supported). " alt="" coords="1623,213,1790,269"/>
+<area shape="rect" id="node28" href="$sequenceOperations_8h.html" title="Compile&#45;time recursion for performing an unary or binary operation on every single entry of a set of ..." alt="" coords="1134,109,1322,165"/>
+<area shape="rect" id="node29" href="$typeName_8h.html" title="Utilities to infer type names. " alt="" coords="1347,109,1509,165"/>
+<area shape="rect" id="node5" href="$orthonormalize_8h.html" title="Matrix orthonormalization. " alt="" coords="1336,941,1499,997"/>
+<area shape="rect" id="node8" href="$normalize_8h_source.html" title="/home/richard/code\l/LinearAlgebra/src/linear\l/normalize.h" alt="" coords="1505,525,1668,581"/>
+<area shape="rect" id="node11" href="$row_8h.html" title="Row operations to perform on a Matrix. " alt="" coords="726,429,925,470"/>
+</map>

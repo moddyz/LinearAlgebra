@@ -1,0 +1,7 @@
+\form#0:$Q$
+\form#1:$p$
+\form#2:$b$
+\form#3:$A$
+\form#4:\[ p = A(A^TA)^-1A^Tb \]
+\form#5:$P$
+\form#6:\[ p = Pb P = A(A^TA)^-1A^T \]

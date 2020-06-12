@@ -1,0 +1,18 @@
+<map id="/home/richard/code/LinearAlgebra/src/linear/rank.h" name="/home/richard/code/LinearAlgebra/src/linear/rank.h">
+<area shape="rect" id="node2" href="$linear_8h.html" title="LinearAlgebra: A general&#45;purpose header&#45;only linear algebra library. " alt="" coords="860,557,959,584"/>
+<area shape="rect" id="node3" href="$matrix_8h.html" title="A matrix is rectangular array of numbers, arranged in to rows and columns. " alt="" coords="696,333,800,360"/>
+<area shape="rect" id="node20" href="$matrixEntryArray_8h.html" title="Internal implementation for a fixed size array for storage of matrix indices and associated data..." alt="" coords="1329,259,1528,285"/>
+<area shape="rect" id="node22" href="$matrixRowEchelon_8h.html" title="Matrix row echelon reduction implementation details. " alt="" coords="1212,109,1423,136"/>
+<area shape="rect" id="node4" href="$almost_8h.html" title="linear/base/almost.h" alt="" coords="43,408,182,435"/>
+<area shape="rect" id="node6" href="$diagnostic_8h.html" title="Diagnostic utilities. " alt="" coords="1214,408,1373,435"/>
+<area shape="rect" id="node10" href="$matrixColumn_8h.html" title="Implementation details for extracting a column of a Matrix (compile&#45;time supported). " alt="" coords="360,483,542,509"/>
+<area shape="rect" id="node11" href="$matrixIdentity_8h.html" title="Implementation details to produce a compile&#45;time generated identity matrix. " alt="" coords="723,483,902,509"/>
+<area shape="rect" id="node12" href="$matrixRow_8h.html" title="Implementation details for extracting a row of a Matrix (compile&#45;time supported). ..." alt="" coords="926,483,1088,509"/>
+<area shape="rect" id="node13" href="$sequenceOperations_8h.html" title="Compile&#45;time recursion for performing an unary or binary operation on every single entry of a set of ..." alt="" coords="702,408,920,435"/>
+<area shape="rect" id="node15" href="$typeName_8h.html" title="Utilities to infer type names. " alt="" coords="206,408,366,435"/>
+<area shape="rect" id="node5" href="$abs_8h.html" title="linear/base/abs.h" alt="" coords="52,483,173,509"/>
+<area shape="rect" id="node7" href="$log_8h.html" title="Logging utility functions. " alt="" coords="1410,483,1527,509"/>
+<area shape="rect" id="node23" href="$intRange_8h.html" title="Integer range iteration. " alt="" coords="1052,333,1204,360"/>
+<area shape="rect" id="node24" href="$matrixElimination_8h.html" title="Common matrix elimination sub&#45;routines. " alt="" coords="954,184,1154,211"/>
+<area shape="rect" id="node25" href="$row_8h.html" title="Row operations to perform on a Matrix. " alt="" coords="837,259,926,285"/>
+</map>

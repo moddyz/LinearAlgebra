@@ -1,0 +1,14 @@
+<map id="/home/richard/code/LinearAlgebra/src/linear/slice.h" name="/home/richard/code/LinearAlgebra/src/linear/slice.h">
+<area shape="rect" id="node2" href="$matrixSlice_8h.html" title="Implementation details for extracting a slice of a Matrix (compile&#45;time supported). " alt="" coords="1525,109,1691,136"/>
+<area shape="rect" id="node3" href="$linear_8h.html" title="LinearAlgebra: A general&#45;purpose header&#45;only linear algebra library. " alt="" coords="881,333,980,360"/>
+<area shape="rect" id="node4" href="$matrix_8h.html" title="A matrix is rectangular array of numbers, arranged in to rows and columns. " alt="" coords="1007,109,1111,136"/>
+<area shape="rect" id="node5" href="$almost_8h.html" title="linear/base/almost.h" alt="" coords="928,184,1067,211"/>
+<area shape="rect" id="node7" href="$diagnostic_8h.html" title="Diagnostic utilities. " alt="" coords="267,184,426,211"/>
+<area shape="rect" id="node11" href="$matrixColumn_8h.html" title="Implementation details for extracting a column of a Matrix (compile&#45;time supported). " alt="" coords="1067,259,1248,285"/>
+<area shape="rect" id="node12" href="$matrixIdentity_8h.html" title="Implementation details to produce a compile&#45;time generated identity matrix. " alt="" coords="1272,259,1451,285"/>
+<area shape="rect" id="node13" href="$matrixRow_8h.html" title="Implementation details for extracting a row of a Matrix (compile&#45;time supported). ..." alt="" coords="5,259,168,285"/>
+<area shape="rect" id="node14" href="$sequenceOperations_8h.html" title="Compile&#45;time recursion for performing an unary or binary operation on every single entry of a set of ..." alt="" coords="501,184,720,211"/>
+<area shape="rect" id="node16" href="$typeName_8h.html" title="Utilities to infer type names. " alt="" coords="744,184,904,211"/>
+<area shape="rect" id="node6" href="$abs_8h.html" title="linear/base/abs.h" alt="" coords="870,259,991,285"/>
+<area shape="rect" id="node8" href="$log_8h.html" title="Logging utility functions. " alt="" coords="192,259,309,285"/>
+</map>
