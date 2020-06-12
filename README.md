@@ -2,7 +2,7 @@
 
 A general-purpose header-only linear algebra library.
 
-This is developed in tandem while working through (MIT OpenCourseWare's 18.06)[https://ocw.mit.edu/courses/mathematics/18-06-linear-algebra-spring-2010/].  Coding and documenting the data structures and operations aided with internalization of the concepts.
+This is developed in tandem while working through [MIT OpenCourseWare's 18.06](https://ocw.mit.edu/courses/mathematics/18-06-linear-algebra-spring-2010/).  Coding and documenting the data structures and operations aided with internalization of the concepts.
 
 ## Usage
 
