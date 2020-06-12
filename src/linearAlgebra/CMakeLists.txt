@@ -21,3 +21,7 @@ target_include_directories(${LIBRARY_NAME}
     INTERFACE
         ${CMAKE_BINARY_DIR}/include/
 )
+
+if (BUILD_TESTING)
+    add_subdirectory(tests)
+endif()

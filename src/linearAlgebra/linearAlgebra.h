@@ -4,8 +4,6 @@
 ///
 /// LinearAlgebra: A general-purpose header-only linear algebra library.
 
-#include <gm/base/hostdevice.h>
-
 /// \def LINEAR_ALGEBRA_NS
 ///
 /// The namespace hosting all the symbols in the LinearAlgebra library.
