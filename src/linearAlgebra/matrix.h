@@ -6,8 +6,10 @@
 
 #include <linearAlgebra/linearAlgebra.h>
 #include <linearAlgebra/setIdentity.h>
+#include <linearAlgebra/detail/typeName.h>
 
 #include <cmath>
+#include <sstream>
 
 LINEAR_ALGEBRA_NS_OPEN
 
@@ -68,7 +70,7 @@ public:
     /// \return entry at row \p i_rowIndex and column \p i_columnIndex.
     inline const ValueT& operator()( size_t i_rowIndex, size_t i_columnIndex ) const
     {
-        return m_entries[ i_rowIndex * 4 + i_columnIndex ];
+        return m_entries[ i_rowIndex * N + i_columnIndex ];
     }
 
     /// Matrix entry write-access by row & column.
@@ -79,7 +81,7 @@ public:
     /// \return entry at row \p i_rowIndex and column \p i_columnIndex.
     inline ValueT& operator()( size_t i_rowIndex, size_t i_columnIndex )
     {
-        return m_entries[ i_rowIndex * 4 + i_columnIndex ];
+        return m_entries[ i_rowIndex * N + i_columnIndex ];
     }
 
     /// Check if any of the entries is not a number (NaN).
@@ -98,9 +100,45 @@ public:
         return false;
     }
 
+    /// Get string representation of this matrix.
+    ///
+    /// \return string representation.
+    inline std::string GetString() const
+    {
+        std::stringstream ss;
+        ss << "Matrix< " << M << ", " << N << ", " << std::string(_TypeName< ValueT >() ).c_str() << " >(";
+        for ( size_t rowIndex = 0; rowIndex < M; ++rowIndex )
+        {
+            ss << "\n    ";
+            for ( size_t columnIndex = 0; columnIndex < N; ++columnIndex )
+            {
+                ss << m_entries[ rowIndex * N + columnIndex ];
+                if ( columnIndex + 1 < N )
+                {
+                    ss << ", ";
+                }
+            }
+        }
+        return ss.str();
+    }
+
 private:
     /// Container of matrix entries memory, default initialized to all zeroes.
     ValueT m_entries[ M * N ] = {0};
 };
+
+/// Operator overload for << to enable writing the string representation of \p i_matrix into an output
+/// stream \p o_outputStream.
+///
+/// \param o_outputStream the output stream to write into.
+/// \param i_matrix the source vector value type.
+///
+/// \return the output stream.
+template < typename MatrixT >
+inline std::ostream& operator<<( std::ostream& o_outputStream, const MatrixT& i_matrix )
+{
+    o_outputStream << i_matrix.GetString();
+    return o_outputStream;
+}
 
 LINEAR_ALGEBRA_NS_CLOSE
