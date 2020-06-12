@@ -1,17 +1,19 @@
 #pragma once
 
 /// \file detail/setIdentity.h
+///
+/// Implementation detail for compile-time identity matrix production.
+///
+/// The SetIdentity operation is unrolled at compile-time, using template recursion with a two overload(s).
 
 #include <type_traits>
 
 LINEAR_ALGEBRA_NS_OPEN
 
-// Implementation detail:
-// To un-roll the set identity operation at compile-time, we use compile-time recursion via enable_if with
-// a two overload(s).
-
-// This is the terminating overload chosen when RowIndex and ColumnIndex is equal to the row and column sizes of
-// MatrixT, respectively.
+/// Overload code path taken to \em terminate the recursion.
+///
+/// The template recursion terminates When \p RowIndex and \p ColumnIndex is equal to the row and column sizes of
+/// \p MatrixT, respectively.
 template < typename MatrixT, int RowIndex, int ColumnIndex >
 typename std::enable_if< RowIndex == MatrixT::RowCount() && ColumnIndex == MatrixT::ColumnCount() >::type
 _SetIdentity( MatrixT& o_matrix )
@@ -19,8 +21,9 @@ _SetIdentity( MatrixT& o_matrix )
     // Nothing to do in this terminating overload.
 }
 
-// This is the operation step overload is chosen when RowIndex and ColumnIndex is not equal to the row and column sizes
-// of MatrixT, respectively. The matrix entry (RowIndex, ColumnIndex) is set here.
+/// Overload code path taken to set \p 1 on one of the main diagonal entries of the matrix \p o_matrix,
+///
+/// This overload code path is taken when \p RowIndex and \p ColumnIndex is not yet equal to the row and column sizes.
 template < typename MatrixT, int RowIndex = 0, int ColumnIndex = 0 >
 typename std::enable_if< RowIndex != MatrixT::RowCount() && ColumnIndex != MatrixT::ColumnCount() >::type
 _SetIdentity( MatrixT& o_matrix )

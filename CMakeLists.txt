@@ -50,6 +50,8 @@ if(BUILD_DOCUMENTATION)
         DOXYFILE ${CMAKE_SOURCE_DIR}/Doxyfile.in
         INPUTS
             ${CMAKE_CURRENT_SOURCE_DIR}/src/linearAlgebra
+            ${CMAKE_CURRENT_SOURCE_DIR}/src/linearAlgebra/base
+            ${CMAKE_CURRENT_SOURCE_DIR}/src/linearAlgebra/detail
     )
 endif()
 
