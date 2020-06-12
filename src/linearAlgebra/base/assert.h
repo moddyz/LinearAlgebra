@@ -4,7 +4,7 @@
 
 #include <stdarg.h>
 
-/// \file detail/assert.h
+/// \file base/assert.h
 ///
 /// Assertion utility for printing out failure location when an expression wrapped with LINEAR_ALGEBRA_ASSERT( ... )
 /// fails to evaluate.

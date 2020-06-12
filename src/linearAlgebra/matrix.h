@@ -33,7 +33,9 @@ class Matrix
 {
 public:
     /// \typedef EntryType typedef for the value type of the entries.
-    typedef ValueT                 EntryType;
+    typedef ValueT EntryType;
+
+    /// \typedef MatrixType typedef for the current matrix type.
     typedef Matrix< M, N, ValueT > MatrixType;
 
     /// Default constructor, initializing entries to \em all zeroes.

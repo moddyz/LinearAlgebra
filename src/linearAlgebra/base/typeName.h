@@ -1,3 +1,9 @@
+#pragma once
+
+/// \file base/typeName.h
+///
+/// Utilities to infer type names.
+
 #include <string_view>
 
 #include <linearAlgebra/linearAlgebra.h>
