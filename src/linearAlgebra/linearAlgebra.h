@@ -8,7 +8,7 @@
 
 /// \def LINEAR_ALGEBRA_NS
 ///
-/// The namespace hosting all the symbols in the GraphicsMath library.
+/// The namespace hosting all the symbols in the LinearAlgebra library.
 #define LINEAR_ALGEBRA_NS LinearAlgebra
 
 /// \def LINEAR_ALGEBRA_NS_USING
@@ -18,10 +18,10 @@
 
 /// \def LINEAR_ALGEBRA_NS_OPEN
 ///
-/// Used throughout the library to open the GraphicsMath namespace scope.
+/// Used throughout the library to open the LinearAlgebra namespace scope.
 #define LINEAR_ALGEBRA_NS_OPEN namespace LINEAR_ALGEBRA_NS {
 
 /// \def LINEAR_ALGEBRA_NS_CLOSE
 ///
-/// Used throughout the library to close the GraphicsMath namespace scope.
+/// Used throughout the library to close the LinearAlgebra namespace scope.
 #define LINEAR_ALGEBRA_NS_CLOSE }
