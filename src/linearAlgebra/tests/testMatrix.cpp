@@ -19,11 +19,11 @@ TEST_CASE( "Matrix_DefaultConstructor" )
     }
 }
 
-TEST_CASE( "Matrix_RowSize_ColumnSize" )
+TEST_CASE( "Matrix_RowCount_ColumnCount" )
 {
     constexpr size_t rows = 5, cols = 7;
-    CHECK( LinearAlgebra::Matrix< rows, cols >::RowSize() == rows );
-    CHECK( LinearAlgebra::Matrix< rows, cols >::ColumnSize() == cols );
+    CHECK( LinearAlgebra::Matrix< rows, cols >::RowCount() == rows );
+    CHECK( LinearAlgebra::Matrix< rows, cols >::ColumnCount() == cols );
 }
 
 TEST_CASE( "Matrix_Identity" )

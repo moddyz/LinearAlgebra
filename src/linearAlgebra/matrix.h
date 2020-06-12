@@ -39,7 +39,7 @@ public:
     /// Get the row size of this matrix.
     ///
     /// \return the row size.
-    static inline constexpr int RowSize()
+    static inline constexpr int RowCount()
     {
         return M;
     }
@@ -47,7 +47,7 @@ public:
     /// Get the column size of this matrix.
     ///
     /// \return the column size.
-    static inline constexpr int ColumnSize()
+    static inline constexpr int ColumnCount()
     {
         return N;
     }

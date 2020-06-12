@@ -19,7 +19,7 @@ LINEAR_ALGEBRA_NS_OPEN
 template < typename MatrixT >
 void SetIdentity( MatrixT& o_matrix )
 {
-    static_assert( MatrixT::RowSize() == MatrixT::ColumnSize() );
+    static_assert( MatrixT::RowCount() == MatrixT::ColumnCount() );
     _SetIdentity< MatrixT, 0, 0 >( o_matrix );
 }
 
