@@ -1,6 +1,6 @@
 # LinearAlgebra
 
-A general-purpose header-only linear algebra library.
+**LinearAlgebra** is general-purpose header-only linear algebra library.
 
 This is developed in tandem while working through [MIT OpenCourseWare's 18.06](https://ocw.mit.edu/courses/mathematics/18-06-linear-algebra-spring-2010/) - thanks MIT and Professor Strang!  Coding and documenting the data structures and operations aided with internalization of the concepts. 
 
@@ -10,6 +10,10 @@ A convenience build script is also provided, for building all targets, and optio
 ```
 ./build.sh <OPTIONAL_INSTALL_LOCATION>
 ```
+## Requirements
+
+- `>= CMake-3.17`
+- `C++17`
 
 ## Documentation
 
