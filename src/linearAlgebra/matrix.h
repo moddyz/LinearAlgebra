@@ -52,6 +52,15 @@ public:
         return N;
     }
 
+    /// Get the total number of entries in this matrix, computed as the product
+    /// of the row & column count.
+    ///
+    /// \return the total number of entries in this matrix.
+    static inline constexpr int EntryCount()
+    {
+        return M * N;
+    }
+
     /// Get the identity element of matrices of dimensions \p M by \p N.
     ///
     /// \return the identity matrix.
