@@ -17,8 +17,9 @@
 /// \def LINEAR_ALGEBRA_NS_OPEN
 ///
 /// Used throughout the library to open the LinearAlgebra namespace scope.
-#define LINEAR_ALGEBRA_NS_OPEN namespace LINEAR_ALGEBRA_NS {
-
+#define LINEAR_ALGEBRA_NS_OPEN                                                                                         \
+    namespace LINEAR_ALGEBRA_NS                                                                                        \
+    {
 /// \def LINEAR_ALGEBRA_NS_CLOSE
 ///
 /// Used throughout the library to close the LinearAlgebra namespace scope.
