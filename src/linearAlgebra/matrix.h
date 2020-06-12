@@ -2,7 +2,7 @@
 
 /// \file matrix.h
 ///
-/// A matrix is rectangular array of numbers, arranged in to rows and columns (RowSize x N).
+/// A matrix is rectangular array of numbers, arranged in to rows and columns (M x N).
 
 #include <linearAlgebra/linearAlgebra.h>
 
@@ -10,7 +10,11 @@ LINEAR_ALGEBRA_NS_OPEN
 
 /// \class Matrix
 ///
-/// Templatized class encoding a M x N matrix.
+/// Class representing a compile-time defined M x N matrix.
+///
+/// Templatizing the number of rows and columns allow the memory of the matrix
+/// to be allocated on the stack, instead of the heap.  This is great for
+/// applications with well-defined input and output parameters.
 ///
 /// \tparam ElementType value type of the elements.
 /// \tparam M number of rows in this matrix.
@@ -19,19 +23,22 @@ template < size_t M, size_t N, typename ElementT = float >
 class Matrix
 {
 public:
-    /// Default constructor, initializing elements to _all_ zeroes.
+    /// \typedef ElementType typedef for the value type of the element(s).
+    typedef ElementT ElementType;
+
+    /// Default constructor, initializing elements to \em all zeroes.
     Matrix()
     {
     }
 
     /// Get the row size of this matrix.
-    constexpr int RowSize() const
+    static inline constexpr int GetRowSize()
     {
         return M;
     }
 
     /// Get the column size of this matrix.
-    constexpr int ColumnSize() const
+    static inline constexpr int GetColumnSize()
     {
         return N;
     }
@@ -59,7 +66,7 @@ public:
     }
 
 private:
-    /// Storage of matrix memory.
+    /// Container of matrix element memory.
     ElementT m_elements[ M * N ] = {0};
 };
 

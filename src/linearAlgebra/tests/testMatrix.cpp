@@ -19,3 +19,10 @@ TEST_CASE( "Matrix_DefaultConstructor" )
     }
 }
 
+TEST_CASE( "Matrix_GetRowSize_GetColumnSize" )
+{
+    constexpr size_t rows = 5, cols = 7;
+    CHECK( LinearAlgebra::Matrix< rows, cols >::GetRowSize() == rows );
+    CHECK( LinearAlgebra::Matrix< rows, cols >::GetColumnSize() == cols );
+}
+
