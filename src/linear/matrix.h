@@ -298,4 +298,18 @@ constexpr inline Matrix< ROWS, COLS, ValueT > operator*( const ScalarT&         
     return ArrayBinaryOperation( std::multiplies< ValueT >(), i_matrix, i_scalar );
 }
 
+/// Matrix-Scalar division.
+///
+/// \param i_matrix the lhs matrix.
+/// \param i_scalar the rhs scalar factor.
+///
+/// \return the computed matrix such that every entry in \p i_matrix is divided by a factor of \p i_scalar.
+template < size_t ROWS, size_t COLS, typename ValueT, typename ScalarT >
+constexpr inline Matrix< ROWS, COLS, ValueT > operator/( const Matrix< ROWS, COLS, ValueT >& i_matrix,
+                                                         const ScalarT&                      i_scalar )
+{
+    LINEAR_ALGEBRA_ASSERT( i_scalar != 0 );
+    return ArrayBinaryOperation( std::divides< ValueT >(), i_matrix, i_scalar );
+}
+
 LINEAR_ALGEBRA_NS_CLOSE
