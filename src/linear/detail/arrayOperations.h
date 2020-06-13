@@ -21,6 +21,8 @@ LINEAR_ALGEBRA_NS_OPEN
 ///
 /// \pre The \em shape of \p i_lhs, \p i_rhs, and \p o_output \em must be the same!
 ///
+/// The template recursion terminates when \p Index equals the array entry count.
+///
 /// \tparam BinaryOperatorT the function prototype of the binary operation to perform.
 /// \tparam ArrayT the array type.
 /// \tparam Index the index of the entry to make a comparison for.
@@ -29,8 +31,6 @@ LINEAR_ALGEBRA_NS_OPEN
 /// \param i_lhs the left-hand-side array.
 /// \param i_rhs the right-hand-side array.
 /// \param o_output the output array.
-///
-/// The template recursion terminates when \p Index equals \ref ArrayT::EntryCount().
 template < typename BinaryOperatorT,
            typename ArrayT,
            int Index                                                       = 0,
@@ -47,6 +47,8 @@ void ArrayBinaryOperation( BinaryOperatorT i_binaryOperator,
 ///
 /// \pre The \em shape of \p i_lhs, \p i_rhs, and \p o_output \em must be the same!
 ///
+/// This overload code path is taken when \p Index is not equal the array count.
+///
 /// \tparam BinaryOperatorT the function prototype of the binary operation to perform.
 /// \tparam ArrayT the array type.
 /// \tparam Index the index of the entry to make a comparison for.
@@ -55,8 +57,6 @@ void ArrayBinaryOperation( BinaryOperatorT i_binaryOperator,
 /// \param i_lhs the left-hand-side array.
 /// \param i_rhs the right-hand-side array.
 /// \param o_output the output array.
-///
-/// This overload code path is taken when \p Index is not equal the \ref ArrayT::EntryCount().
 template < typename BinaryOperatorT,
            typename ArrayT,
            int Index                                                       = 0,
@@ -104,6 +104,8 @@ constexpr bool ArrayLogicalBinaryOperation( LogicalOperatorT i_logicalOperator,
     return i_terminatingValue;
 }
 
+/// \overload
+///
 /// The \em operational overload of a array-based logical binary operation, between \p i_lhs and \p i_rhs.
 ///
 /// \pre The \em shape of \p i_lhs and \p i_rhs \em must be the same!

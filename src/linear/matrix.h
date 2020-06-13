@@ -36,10 +36,10 @@ class Matrix
 {
 public:
     /// \typedef EntryType typedef for the value type of the entries.
-    typedef ValueT EntryType;
+    using EntryType = ValueT;
 
     /// \typedef MatrixType typedef for the current matrix type.
-    typedef Matrix< M, N, ValueT > MatrixType;
+    using MatrixType = Matrix< M, N, ValueT >;
 
     /// Default constructor, initializing entries to \em all zeroes.
     constexpr Matrix()
@@ -156,7 +156,7 @@ public:
 
     /// In-equality comparison operator.
     ///
-    /// \return true if this matrix and \p i_matrix are <em>not equal<\em>.
+    /// \return true if this matrix and \p i_matrix are <em>not equal</em>.
     constexpr inline bool operator!=( const MatrixType& i_matrix ) const
     {
         return !( *this == i_matrix );
