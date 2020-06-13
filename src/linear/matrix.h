@@ -79,7 +79,7 @@ public:
     /// Get the row size of this matrix.
     ///
     /// \return The row size.
-    static inline constexpr int RowCount()
+    constexpr static inline int RowCount()
     {
         return M;
     }
@@ -87,7 +87,7 @@ public:
     /// Get the column size of this matrix.
     ///
     /// \return The column size.
-    static inline constexpr int ColumnCount()
+    constexpr static inline int ColumnCount()
     {
         return N;
     }
@@ -96,7 +96,7 @@ public:
     /// of the row & column count.
     ///
     /// \return The total number of entries in this matrix.
-    static inline constexpr int EntryCount()
+    constexpr static inline int EntryCount()
     {
         return M * N;
     }
