@@ -32,7 +32,7 @@ constexpr inline MatrixT GetIdentity()
 template < typename MatrixT >
 inline void SetIdentity( MatrixT& o_matrix )
 {
-    o_matrix = GetIdentity< MatrixT >();
+    o_matrix = _GetIdentity< MatrixT >();
 }
 
 LINEAR_ALGEBRA_NS_CLOSE

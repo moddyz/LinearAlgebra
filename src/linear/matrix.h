@@ -8,8 +8,8 @@
 #include <linear/linear.h>
 
 #include <linear/base/almost.h>
-#include <linear/base/arrayOperations.h>
 #include <linear/base/assert.h>
+#include <linear/base/sequenceOperations.h>
 #include <linear/base/typeName.h>
 
 #include <cmath>
@@ -47,7 +47,7 @@ public:
 
     /// Packed parameter list constructor, initializing entries to \p i_entries.
     ///
-    /// \p i_entries should be a row-major indexed array of values.
+    /// \p i_entries should be a row-major indexed sequence of values.
     ///
     /// \pre \p i_entries.size() must equal EntryCount().
     template < typename... Args >
@@ -146,11 +146,11 @@ public:
     /// \return true if this matrix and \p i_matrix are \em equal.
     constexpr inline bool operator==( const MatrixType& i_matrix ) const
     {
-        return ArrayLogicalBinaryOperation( std::logical_and< bool >(),
-                                            AlmostEqual< ValueType >,
-                                            /* terminatingValue */ true,
-                                            *this,
-                                            i_matrix );
+        return SequenceLogicalBinaryOperation( std::logical_and< bool >(),
+                                               AlmostEqual< ValueType >,
+                                               /* terminatingValue */ true,
+                                               *this,
+                                               i_matrix );
     }
 
     /// In-equality comparison operator.
@@ -171,7 +171,7 @@ public:
     {
         // TODO How to perform compile-time nan-check?
         // LINEAR_ALGEBRA_ASSERT( !HasNans() );
-        return ArrayBinaryOperation( std::plus< ValueType >(), *this, i_matrix );
+        return SequenceBinaryOperation( std::plus< ValueType >(), *this, i_matrix );
     }
 
     /// Matrix addition assignment.
@@ -182,7 +182,7 @@ public:
     inline void operator+=( const MatrixType& i_matrix )
     {
         LINEAR_ALGEBRA_ASSERT( !HasNans() );
-        MutableArrayBinaryOperation( std::plus< ValueType >(), *this, i_matrix, *this );
+        MutableSequenceBinaryOperation( std::plus< ValueType >(), *this, i_matrix, *this );
     }
 
     /// Matrix subtraction.
@@ -195,7 +195,7 @@ public:
     {
         // TODO How to perform compile-time nan-check?
         // LINEAR_ALGEBRA_ASSERT( !HasNans() );
-        return ArrayBinaryOperation( std::minus< ValueType >(), *this, i_matrix );
+        return SequenceBinaryOperation( std::minus< ValueType >(), *this, i_matrix );
     }
 
     /// Matrix subtraction assignment.
@@ -206,7 +206,7 @@ public:
     inline void operator-=( const MatrixType& i_matrix )
     {
         LINEAR_ALGEBRA_ASSERT( !HasNans() );
-        MutableArrayBinaryOperation( std::minus< ValueType >(), *this, i_matrix, *this );
+        MutableSequenceBinaryOperation( std::minus< ValueType >(), *this, i_matrix, *this );
     }
 
     /// Get the identity element of matrices of dimensions \p ROWS by \p COLS.
@@ -224,7 +224,7 @@ public:
     /// \return \p true if any of the entries is not a number.
     constexpr inline bool HasNans() const
     {
-        return ArrayLogicalUnaryOperation(
+        return SequenceLogicalUnaryOperation(
             std::logical_or< bool >(),
             []( ValueType i_entry ) { return std::isnan( i_entry ); },
             /* terminatingValue */ false,
@@ -282,7 +282,7 @@ template < size_t ROWS, size_t COLS, typename ValueT, typename ScalarT >
 constexpr inline Matrix< ROWS, COLS, ValueT > operator*( const Matrix< ROWS, COLS, ValueT >& i_matrix,
                                                          const ScalarT&                      i_scalar )
 {
-    return ArrayBinaryOperation( std::multiplies< ValueT >(), i_matrix, i_scalar );
+    return SequenceBinaryOperation( std::multiplies< ValueT >(), i_matrix, i_scalar );
 }
 
 /// Scalar-Matrix multiplication.
@@ -295,7 +295,7 @@ template < size_t ROWS, size_t COLS, typename ValueT, typename ScalarT >
 constexpr inline Matrix< ROWS, COLS, ValueT > operator*( const ScalarT&                      i_scalar,
                                                          const Matrix< ROWS, COLS, ValueT >& i_matrix )
 {
-    return ArrayBinaryOperation( std::multiplies< ValueT >(), i_matrix, i_scalar );
+    return SequenceBinaryOperation( std::multiplies< ValueT >(), i_matrix, i_scalar );
 }
 
 /// Matrix-Scalar division.
@@ -309,7 +309,7 @@ constexpr inline Matrix< ROWS, COLS, ValueT > operator/( const Matrix< ROWS, COL
                                                          const ScalarT&                      i_scalar )
 {
     LINEAR_ALGEBRA_ASSERT( i_scalar != 0 );
-    return ArrayBinaryOperation( std::divides< ValueT >(), i_matrix, i_scalar );
+    return SequenceBinaryOperation( std::divides< ValueT >(), i_matrix, i_scalar );
 }
 
 LINEAR_ALGEBRA_NS_CLOSE
