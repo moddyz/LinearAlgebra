@@ -45,7 +45,7 @@ public:
     {
     }
 
-    /// Initializer list constructor, initializing entries to \p i_entries.
+    /// Packed parameter list constructor, initializing entries to \p i_entries.
     ///
     /// \p i_entries should be a row-major indexed array of values.
     ///
