@@ -94,6 +94,14 @@ TEST_CASE( "Matrix_Addition_constexpr" )
     CHECK( matrixC == linear::Matrix< 2, 2 >( 1, 2, 2, 1 ) );
 }
 
+TEST_CASE( "Matrix_AdditionAssignment" )
+{
+    linear::Matrix< 2, 2 > matrixA( 1, 0, 0, 1 );
+    linear::Matrix< 2, 2 > matrixB( 0, 2, 2, 0 );
+    matrixB += matrixA;
+    CHECK( matrixB == linear::Matrix< 2, 2 >( 1, 2, 2, 1 ) );
+}
+
 TEST_CASE( "Matrix_Subtraction" )
 {
     linear::Matrix< 2, 2 > matrixA( 1, 3, 3, 1 );

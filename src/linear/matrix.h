@@ -163,8 +163,8 @@ public:
 
     /// Matrix addition.
     ///
-    /// Each entry (i, j) in the output matrix is the \em sum of the same
-    /// entry (i, j) from this matrix and \p i_matrix.
+    /// The corresponding entries in the current matrix and \p i_matrix are added and the
+    /// resulting matrix returned.
     ///
     /// \pre this matrix and \p i_matrix must have the same shape.
     constexpr inline MatrixType operator+( const MatrixType& i_matrix ) const
@@ -174,10 +174,21 @@ public:
         return ArrayBinaryOperation( std::plus< EntryType >(), *this, i_matrix );
     }
 
+    /// Matrix addition assignment.
+    ///
+    /// The entries in \p i_matrix are added to corresponding entries in the current matrix.
+    ///
+    /// \pre this matrix and \p i_matrix must have the same shape.
+    inline void operator+=( const MatrixType& i_matrix )
+    {
+        LINEAR_ALGEBRA_ASSERT( !HasNans() );
+        MutableArrayBinaryOperation( std::plus< EntryType >(), *this, i_matrix, *this );
+    }
+
     /// Matrix subtraction.
     ///
-    /// Each entry (i, j) in the output matrix is the \em difference of the same
-    /// entry (i, j) from this matrix and \p i_matrix.
+    /// The corresponding entries in the current matrix and \p i_matrix are subtracted and the
+    /// resulting matrix returned.
     ///
     /// \pre this matrix and \p i_matrix must have the same shape.
     constexpr inline MatrixType operator-( const MatrixType& i_matrix ) const

@@ -56,22 +56,54 @@ constexpr ArrayT ArrayBinaryOperation( BinaryOperatorT i_binaryOperator, const A
     return ArrayIndexSequenceBinaryOperation( i_binaryOperator, i_lhs, i_rhs, Indices{} );
 }
 
-/// The \em terminating overload of a array-based logical binary operation, between \p i_lhs and \p i_rhs.
+/// The \em terminating overload of \ref MutableArrayBinaryOperation.
+template < typename BinaryOperatorT,
+           typename ArrayT,
+           int Index                                                       = 0,
+           typename std::enable_if< Index == ArrayT::EntryCount() >::type* = nullptr >
+void MutableArrayBinaryOperation( BinaryOperatorT i_binaryOperator,
+                                  const ArrayT&   i_lhs,
+                                  const ArrayT&   i_rhs,
+                                  ArrayT&         o_output )
+{
+    // Nothing to do in this terminating overload.
+}
+
+/// The \em operational overload of a binary operation performed on arrays.
 ///
-/// \pre The \em shape of \p i_lhs and \p i_rhs \em must be the same!
+/// This is a variation of \ref ArrayBinaryOperation which cannot be used in a constexpr, because
+/// it modifies the memory of \p o_output.  For example, this is used to implement the arithmetic
+/// assignment operators of the \ref Matrix class.
 ///
-/// \tparam LogicalOperatorT the function prototype of the logical operation to perform.
-/// \tparam BinaryOperatorT the function prototype of the logical binary operation to perform.
+/// \pre The \em shape of \p i_lhs, \p i_rhs, and \p o_output \em must be the same!
+///
+/// This overload code path is taken when \p Index is not equal the array count.
+///
+/// \tparam BinaryOperatorT the function prototype of the binary operation to perform.
 /// \tparam ArrayT the array type.
-/// \tparam Index the index of the array entry.
+/// \tparam Index the index of the entry to make a comparison for.
 ///
-/// \param i_logicalOperator the logical operator function object.
-/// \param i_binaryOperator the binary operator function object.
-/// \param i_terminatingValue the value to return in the terminating overload.
-/// \param i_lhs lhs array to operate on.
-/// \param i_rhs rhs array to operate on.
-///
-/// \return the combined logical result.
+/// \param i_binaryOperator the binary operator to perform.
+/// \param i_lhs the left-hand-side array.
+/// \param i_rhs the right-hand-side array.
+/// \param o_output the output array.
+template < typename BinaryOperatorT,
+           typename ArrayT,
+           int Index                                                       = 0,
+           typename std::enable_if< Index != ArrayT::EntryCount() >::type* = nullptr >
+void MutableArrayBinaryOperation( BinaryOperatorT i_binaryOperator,
+                                  const ArrayT&   i_lhs,
+                                  const ArrayT&   i_rhs,
+                                  ArrayT&         o_output )
+{
+    // Execute for one entry of the operation.
+    o_output[ Index ] = i_binaryOperator( i_lhs[ Index ], i_rhs[ Index ] );
+
+    // Recursively expand to execute on all other elements...
+    MutableArrayBinaryOperation< BinaryOperatorT, ArrayT, Index + 1 >( i_binaryOperator, i_lhs, i_rhs, o_output );
+}
+
+/// The \em terminating overload of \ref ArrayLogicalBinaryOperation.
 template < typename LogicalOperatorT,
            typename BinaryOperatorT,
            typename ArrayT,
@@ -87,8 +119,6 @@ constexpr bool ArrayLogicalBinaryOperation( LogicalOperatorT i_logicalOperator,
     return i_terminatingValue;
 }
 
-/// \overload
-///
 /// The \em operational overload of a array-based logical binary operation, between \p i_lhs and \p i_rhs.
 ///
 /// \pre The \em shape of \p i_lhs and \p i_rhs \em must be the same!
@@ -127,20 +157,7 @@ constexpr bool ArrayLogicalBinaryOperation( LogicalOperatorT i_logicalOperator,
                                                                                              i_rhs ) );
 }
 
-/// The \em terminating overload of a logical combination of unary operations across \p i_array.
-///
-/// \pre The \em shape of \p i_lhs and \p i_rhs \em must be the same!
-///
-/// \tparam UnaryOperatorT the function prototype of the logical uniary operation to perform.
-/// \tparam ArrayT the array type.
-/// \tparam Index the index of the array entry.
-///
-/// \param i_logicalOperator the logical operator function object.
-/// \param i_unaryOperator the unary operator function object.
-/// \param i_terminatingValue the value to return in the terminating overload.
-/// \param i_array the array to operate on.
-///
-/// \return the combined logical result.
+/// The \em terminating overload of \ref ArrayLogicalUnaryOperation.
 template < typename LogicalOperatorT,
            typename UnaryOperatorT,
            typename ArrayT,
