@@ -11,7 +11,8 @@
 #include <linear/base/assert.h>
 #include <linear/base/typeName.h>
 
-#include <linear/detail/entryWise.h>
+#include <linear/detail/arrayOperations.h>
+#include <linear/detail/arrayEntryOperators.h>
 
 #include <cmath>
 #include <cstring>
@@ -147,7 +148,7 @@ public:
     /// \return true if this matrix and \p i_matrix are \em equal.
     inline bool operator==( const MatrixType& i_matrix ) const
     {
-        return EntryWiseEquality( *this, i_matrix );
+        return ArrayEquality( *this, i_matrix );
     }
 
     /// In-equality comparison operator.
@@ -168,7 +169,7 @@ public:
     {
         LINEAR_ALGEBRA_ASSERT( !HasNans() );
         MatrixType matrix;
-        EntryWiseBinaryOperation( EntryWiseAdditionOperator< MatrixType >, *this, i_matrix, matrix );
+        ArrayBinaryOperation( ArrayEntryAddition< MatrixType >, *this, i_matrix, matrix );
         return matrix;
     }
 

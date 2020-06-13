@@ -14,9 +14,13 @@ LINEAR_ALGEBRA_NS_OPEN
 ///
 /// The template recursion terminates When \p RowIndex and \p ColumnIndex is equal to the row and column sizes of
 /// \p MatrixT, respectively.
-template < typename MatrixT, int RowIndex, int ColumnIndex >
-typename std::enable_if< RowIndex == MatrixT::RowCount() && ColumnIndex == MatrixT::ColumnCount() >::type
-_SetIdentity( MatrixT& o_matrix )
+template < typename MatrixT,
+           int RowIndex    = 0,
+           int ColumnIndex = 0,
+           typename std::enable_if< RowIndex == MatrixT::RowCount() && ColumnIndex == MatrixT::ColumnCount() >::type* =
+               nullptr >
+
+void _SetIdentity( MatrixT& o_matrix )
 {
     // Nothing to do in this terminating overload.
 }
@@ -24,9 +28,12 @@ _SetIdentity( MatrixT& o_matrix )
 /// Overload code path taken to set \p 1 on one of the main diagonal entries of the matrix \p o_matrix,
 ///
 /// This overload code path is taken when \p RowIndex and \p ColumnIndex is not yet equal to the row and column sizes.
-template < typename MatrixT, int RowIndex = 0, int ColumnIndex = 0 >
-typename std::enable_if< RowIndex != MatrixT::RowCount() && ColumnIndex != MatrixT::ColumnCount() >::type
-_SetIdentity( MatrixT& o_matrix )
+template < typename MatrixT,
+           int RowIndex    = 0,
+           int ColumnIndex = 0,
+           typename std::enable_if< RowIndex != MatrixT::RowCount() && ColumnIndex != MatrixT::ColumnCount() >::type* =
+               nullptr >
+void _SetIdentity( MatrixT& o_matrix )
 {
     // Only square matrices have an identity element.
     static_assert( MatrixT::RowCount() == MatrixT::ColumnCount() );
