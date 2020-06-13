@@ -5,7 +5,7 @@
 /// A matrix is rectangular array of numbers, arranged in to rows and columns (M x N).
 
 #include <linear/linear.h>
-#include <linear/setIdentity.h>
+#include <linear/identity.h>
 
 #include <linear/base/almost.h>
 #include <linear/base/assert.h>
@@ -181,11 +181,9 @@ public:
     /// \pre Must be a square matrix.
     ///
     /// \return The identity matrix.
-    static inline Matrix< M, N, ValueT > Identity()
+    constexpr static inline Matrix< M, N, ValueT > Identity()
     {
-        Matrix< M, N, ValueT > matrix;
-        SetIdentity( matrix );
-        return matrix;
+        return GetIdentity< MatrixType >();
     }
 
     /// Check if any of the entries is not a number (NaN).
