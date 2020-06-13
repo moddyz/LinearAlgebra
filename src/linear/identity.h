@@ -1,6 +1,6 @@
 #pragma once
 
-/// \file setIdentity.h
+/// \file identity.h
 ///
 /// Operation which sets an matrix to the identity element (I).
 ///
