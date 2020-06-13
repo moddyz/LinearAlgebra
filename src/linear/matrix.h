@@ -4,13 +4,13 @@
 ///
 /// A matrix is rectangular array of numbers, arranged in to rows and columns (M x N).
 
-#include <linear/linear.h>
 #include <linear/identity.h>
+#include <linear/linear.h>
 
 #include <linear/base/almost.h>
+#include <linear/base/arrayOperations.h>
 #include <linear/base/assert.h>
 #include <linear/base/typeName.h>
-#include <linear/base/arrayOperations.h>
 
 #include <cmath>
 #include <cstring>
@@ -176,7 +176,7 @@ public:
 
     /// Matrix addition assignment.
     ///
-    /// The entries in \p i_matrix are added to corresponding entries in the current matrix.
+    /// The entries in \p i_matrix are <em>added to</em> corresponding entries in the current matrix.
     ///
     /// \pre this matrix and \p i_matrix must have the same shape.
     inline void operator+=( const MatrixType& i_matrix )
@@ -196,6 +196,17 @@ public:
         // TODO How to perform compile-time nan-check?
         // LINEAR_ALGEBRA_ASSERT( !HasNans() );
         return ArrayBinaryOperation( std::minus< EntryType >(), *this, i_matrix );
+    }
+
+    /// Matrix subtraction assignment.
+    ///
+    /// The entries in \p i_matrix are <em>subtracted from</em> the corresponding entries in the current matrix.
+    ///
+    /// \pre this matrix and \p i_matrix must have the same shape.
+    inline void operator-=( const MatrixType& i_matrix )
+    {
+        LINEAR_ALGEBRA_ASSERT( !HasNans() );
+        MutableArrayBinaryOperation( std::minus< EntryType >(), *this, i_matrix, *this );
     }
 
     /// Get the identity element of matrices of dimensions \p M by \p N.

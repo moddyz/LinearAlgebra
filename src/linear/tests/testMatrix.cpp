@@ -118,6 +118,14 @@ TEST_CASE( "Matrix_Subtraction_constexpr" )
     CHECK( matrixC == linear::Matrix< 2, 2 >( 1, 1, 1, -2 ) );
 }
 
+TEST_CASE( "Matrix_SubtractionAssignment" )
+{
+    linear::Matrix< 2, 2 > matrixA( 1, 3, 3, 1 );
+    linear::Matrix< 2, 2 > matrixB( 0, 2, 2, 3 );
+    matrixA -= matrixB;
+    CHECK( matrixA == linear::Matrix< 2, 2 >( 1, 1, 1, -2 ) );
+}
+
 TEST_CASE( "Matrix_Identity" )
 {
     linear::Matrix< 3, 3 > matrix = linear::Matrix< 3, 3 >::Identity();
