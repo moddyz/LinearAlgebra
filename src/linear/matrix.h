@@ -12,7 +12,6 @@
 #include <linear/base/typeName.h>
 
 #include <linear/detail/arrayOperations.h>
-#include <linear/detail/arrayEntryOperators.h>
 
 #include <cmath>
 #include <cstring>
@@ -148,7 +147,11 @@ public:
     /// \return true if this matrix and \p i_matrix are \em equal.
     constexpr inline bool operator==( const MatrixType& i_matrix ) const
     {
-        return ArrayEquality( *this, i_matrix );
+        return ArrayLogicalBinaryOperation( std::logical_and< bool >(),
+                                            std::equal_to< EntryType >(),
+                                            /* terminatingValue */ true,
+                                            *this,
+                                            i_matrix );
     }
 
     /// In-equality comparison operator.
@@ -165,11 +168,11 @@ public:
     /// entry (i, j) from this matrix and \p i_matrix.
     ///
     /// \pre this matrix and \p i_matrix must have the same shape.
-    inline MatrixType operator+( const MatrixType& i_matrix ) const
+    constexpr inline MatrixType operator+( const MatrixType& i_matrix ) const
     {
         LINEAR_ALGEBRA_ASSERT( !HasNans() );
         MatrixType matrix;
-        ArrayBinaryOperation( ArrayEntryAddition< MatrixType >, *this, i_matrix, matrix );
+        ArrayBinaryOperation( std::plus< EntryType >(), *this, i_matrix, matrix );
         return matrix;
     }
 
@@ -188,17 +191,13 @@ public:
     /// Check if any of the entries is not a number (NaN).
     ///
     /// \return \p true if any of the entries is not a number.
-    inline bool HasNans() const
+    constexpr inline bool HasNans() const
     {
-        for ( size_t entryIndex = 0; entryIndex < EntryCount(); ++entryIndex )
-        {
-            if ( std::isnan( m_entries[ entryIndex ] ) )
-            {
-                return true;
-            }
-        }
-
-        return false;
+        return ArrayLogicalUnaryOperation(
+            std::logical_or< bool >(),
+            []( EntryType i_entry ) { return std::isnan( i_entry ); },
+            /* terminatingValue */ false,
+            *this );
     }
 
     /// Get string representation of this matrix.
