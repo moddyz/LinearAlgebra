@@ -10,8 +10,7 @@
 #include <linear/base/almost.h>
 #include <linear/base/assert.h>
 #include <linear/base/typeName.h>
-
-#include <linear/detail/arrayOperations.h>
+#include <linear/base/arrayOperations.h>
 
 #include <cmath>
 #include <cstring>

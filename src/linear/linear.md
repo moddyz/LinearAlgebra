@@ -20,8 +20,7 @@ To build python bindings for LinearAlgebra, set the cmake option `BUILD_PYTHON_B
 
 The C++ headers are organized as follows:
 - \p src/linear - Linear Algebra types and operations.
-- \p src/linear/base - Common Support utilities.
-- \p src/linear/detail - Internal implementation details.
+- \p src/linear/base - Common support utilities and implementation details.
 
 Python bindings for are available under \p src/linear/python.
 

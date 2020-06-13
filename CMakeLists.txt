@@ -51,7 +51,6 @@ if(BUILD_DOCUMENTATION)
         INPUTS
             ${CMAKE_CURRENT_SOURCE_DIR}/src/linear
             ${CMAKE_CURRENT_SOURCE_DIR}/src/linear/base
-            ${CMAKE_CURRENT_SOURCE_DIR}/src/linear/detail
     )
 endif()
 
