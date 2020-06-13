@@ -19,7 +19,7 @@ LINEAR_ALGEBRA_NS_OPEN
 ///
 /// \return the identity matrix.
 template < typename MatrixT >
-constexpr MatrixT GetIdentity()
+constexpr inline MatrixT GetIdentity()
 {
     return _GetIdentity< MatrixT >();
 }
@@ -30,7 +30,7 @@ constexpr MatrixT GetIdentity()
 ///
 /// \tparam MatrixT the matrix type.
 template < typename MatrixT >
-void SetIdentity( MatrixT& o_matrix )
+inline void SetIdentity( MatrixT& o_matrix )
 {
     o_matrix = GetIdentity< MatrixT >();
 }
