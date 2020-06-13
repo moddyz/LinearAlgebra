@@ -88,12 +88,26 @@ TEST_CASE( "Matrix_Addition" )
 
 TEST_CASE( "Matrix_Addition_constexpr" )
 {
-    /*
     constexpr linear::Matrix< 2, 2 > matrixA( 1, 0, 0, 1 );
     constexpr linear::Matrix< 2, 2 > matrixB( 0, 2, 2, 0 );
     constexpr linear::Matrix< 2, 2 > matrixC = matrixA + matrixB;
     CHECK( matrixC == linear::Matrix< 2, 2 >( 1, 2, 2, 1 ) );
-    */
+}
+
+TEST_CASE( "Matrix_Subtraction" )
+{
+    linear::Matrix< 2, 2 > matrixA( 1, 3, 3, 1 );
+    linear::Matrix< 2, 2 > matrixB( 0, 2, 2, 3 );
+    linear::Matrix< 2, 2 > matrixC = matrixA - matrixB;
+    CHECK( matrixC == linear::Matrix< 2, 2 >( 1, 1, 1, -2 ) );
+}
+
+TEST_CASE( "Matrix_Subtraction_constexpr" )
+{
+    constexpr linear::Matrix< 2, 2 > matrixA( 1, 3, 3, 1 );
+    constexpr linear::Matrix< 2, 2 > matrixB( 0, 2, 2, 3 );
+    constexpr linear::Matrix< 2, 2 > matrixC = matrixA - matrixB;
+    CHECK( matrixC == linear::Matrix< 2, 2 >( 1, 1, 1, -2 ) );
 }
 
 TEST_CASE( "Matrix_Identity" )

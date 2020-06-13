@@ -13,9 +13,9 @@ LINEAR_ALGEBRA_NS_OPEN
 ///
 /// \return whether the input values are within the threshold \p i_epsilon.
 template < typename ValueT >
-bool AlmostEqual( const ValueT& i_valueA, const ValueT& i_valueB, const ValueT& i_epsilon = 0.0001 )
+constexpr bool AlmostEqual( const ValueT& i_valueA, const ValueT& i_valueB )
 {
-    return std::abs( i_valueA - i_valueB ) < i_epsilon;
+    return std::abs( i_valueA - i_valueB ) < 0.0001;
 }
 
 LINEAR_ALGEBRA_NS_CLOSE

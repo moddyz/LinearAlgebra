@@ -148,7 +148,7 @@ public:
     constexpr inline bool operator==( const MatrixType& i_matrix ) const
     {
         return ArrayLogicalBinaryOperation( std::logical_and< bool >(),
-                                            std::equal_to< EntryType >(),
+                                            AlmostEqual< EntryType >,
                                             /* terminatingValue */ true,
                                             *this,
                                             i_matrix );
@@ -170,10 +170,22 @@ public:
     /// \pre this matrix and \p i_matrix must have the same shape.
     constexpr inline MatrixType operator+( const MatrixType& i_matrix ) const
     {
-        LINEAR_ALGEBRA_ASSERT( !HasNans() );
-        MatrixType matrix;
-        ArrayBinaryOperation( std::plus< EntryType >(), *this, i_matrix, matrix );
-        return matrix;
+        // TODO How to perform compile-time nan-check?
+        // LINEAR_ALGEBRA_ASSERT( !HasNans() );
+        return ArrayBinaryOperation( std::plus< EntryType >(), *this, i_matrix );
+    }
+
+    /// Matrix subtraction.
+    ///
+    /// Each entry (i, j) in the output matrix is the \em difference of the same
+    /// entry (i, j) from this matrix and \p i_matrix.
+    ///
+    /// \pre this matrix and \p i_matrix must have the same shape.
+    constexpr inline MatrixType operator-( const MatrixType& i_matrix ) const
+    {
+        // TODO How to perform compile-time nan-check?
+        // LINEAR_ALGEBRA_ASSERT( !HasNans() );
+        return ArrayBinaryOperation( std::minus< EntryType >(), *this, i_matrix );
     }
 
     /// Get the identity element of matrices of dimensions \p M by \p N.

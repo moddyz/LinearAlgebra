@@ -17,60 +17,43 @@
 
 LINEAR_ALGEBRA_NS_OPEN
 
-/// The \em terminating overload of a binary operation performed on arrays.
+/// Perform a binary operator on the corresponding array entries, and return the computed array.
 ///
-/// \pre The \em shape of \p i_lhs, \p i_rhs, and \p o_output \em must be the same!
-///
-/// The template recursion terminates when \p Index equals the array entry count.
-///
-/// \tparam BinaryOperatorT the function prototype of the binary operation to perform.
+/// \tparam BinaryOperatorT the function prototype of the logical binary operation to perform.
 /// \tparam ArrayT the array type.
-/// \tparam Index the index of the entry to make a comparison for.
+/// \tparam Index an index in the sequence.
 ///
-/// \param i_binaryOperator the binary operator to perform.
-/// \param i_lhs the left-hand-side array.
-/// \param i_rhs the right-hand-side array.
-/// \param o_output the output array.
-template < typename BinaryOperatorT,
-           typename ArrayT,
-           int Index                                                       = 0,
-           typename std::enable_if< Index == ArrayT::EntryCount() >::type* = nullptr >
-void ArrayBinaryOperation( BinaryOperatorT i_binaryOperator,
-                           const ArrayT&   i_lhs,
-                           const ArrayT&   i_rhs,
-                           ArrayT&         o_output )
+/// \param i_binaryOperator the binary operator function object.
+/// \param i_lhs lhs array to operate on.
+/// \param i_rhs rhs array to operate on.
+///
+/// \return the computed array.
+template < typename BinaryOperatorT, typename ArrayT, std::size_t... Index >
+constexpr ArrayT ArrayIndexSequenceBinaryOperation( BinaryOperatorT i_binaryOperator,
+                                                    const ArrayT&   i_lhs,
+                                                    const ArrayT&   i_rhs,
+                                                    std::index_sequence< Index... > )
 {
-    // Nothing to do in this terminating overload.
+    return ArrayT( i_binaryOperator( i_lhs[ Index ], i_rhs[ Index ] )... );
 }
 
-/// The \em operational overload of a binary operation performed on arrays.
+/// Perform a binary operator on the corresponding array entries, and return the computed array.
 ///
-/// \pre The \em shape of \p i_lhs, \p i_rhs, and \p o_output \em must be the same!
-///
-/// This overload code path is taken when \p Index is not equal the array count.
-///
-/// \tparam BinaryOperatorT the function prototype of the binary operation to perform.
+/// \tparam BinaryOperatorT the function prototype of the logical binary operation to perform.
 /// \tparam ArrayT the array type.
-/// \tparam Index the index of the entry to make a comparison for.
+/// \tparam Indices the index sequence with respect to the number of array entries.
 ///
-/// \param i_binaryOperator the binary operator to perform.
-/// \param i_lhs the left-hand-side array.
-/// \param i_rhs the right-hand-side array.
-/// \param o_output the output array.
+/// \param i_binaryOperator the binary operator function object.
+/// \param i_lhs lhs array to operate on.
+/// \param i_rhs rhs array to operate on.
+///
+/// \return the computed array.
 template < typename BinaryOperatorT,
            typename ArrayT,
-           int Index                                                       = 0,
-           typename std::enable_if< Index != ArrayT::EntryCount() >::type* = nullptr >
-void ArrayBinaryOperation( BinaryOperatorT i_binaryOperator,
-                           const ArrayT&   i_lhs,
-                           const ArrayT&   i_rhs,
-                           ArrayT&         o_output )
+           typename Indices = std::make_index_sequence< ArrayT::EntryCount() > >
+constexpr ArrayT ArrayBinaryOperation( BinaryOperatorT i_binaryOperator, const ArrayT& i_lhs, const ArrayT& i_rhs )
 {
-    // Execute for one entry of the operation.
-    o_output[ Index ] = i_binaryOperator( i_lhs[ Index ], i_rhs[ Index ] );
-
-    // Recursively expand to execute on all other elements...
-    ArrayBinaryOperation< BinaryOperatorT, ArrayT, Index + 1 >( i_binaryOperator, i_lhs, i_rhs, o_output );
+    return ArrayIndexSequenceBinaryOperation( i_binaryOperator, i_lhs, i_rhs, Indices{} );
 }
 
 /// The \em terminating overload of a array-based logical binary operation, between \p i_lhs and \p i_rhs.
@@ -82,8 +65,8 @@ void ArrayBinaryOperation( BinaryOperatorT i_binaryOperator,
 /// \tparam ArrayT the array type.
 /// \tparam Index the index of the array entry.
 ///
-/// \param i_logicalOperator function object of the logical operator.
-/// \param i_binaryOperator function object of the binary operator.
+/// \param i_logicalOperator the logical operator function object.
+/// \param i_binaryOperator the binary operator function object.
 /// \param i_terminatingValue the value to return in the terminating overload.
 /// \param i_lhs lhs array to operate on.
 /// \param i_rhs rhs array to operate on.
@@ -117,8 +100,8 @@ constexpr bool ArrayLogicalBinaryOperation( LogicalOperatorT i_logicalOperator,
 /// \tparam ArrayT the array type.
 /// \tparam Index the index of the array entry.
 ///
-/// \param i_logicalOperator function object of the logical operator.
-/// \param i_binaryOperator function object of the binary operator.
+/// \param i_logicalOperator the logical operator function object.
+/// \param i_binaryOperator the binary operator function object.
 /// \param i_terminatingValue the value to return in the terminating overload.
 /// \param i_lhs lhs array to operate on.
 /// \param i_rhs rhs array to operate on.
@@ -152,8 +135,8 @@ constexpr bool ArrayLogicalBinaryOperation( LogicalOperatorT i_logicalOperator,
 /// \tparam ArrayT the array type.
 /// \tparam Index the index of the array entry.
 ///
-/// \param i_logicalOperator function object of the logical operator.
-/// \param i_unaryOperator function object of the unary operator.
+/// \param i_logicalOperator the logical operator function object.
+/// \param i_unaryOperator the unary operator function object.
 /// \param i_terminatingValue the value to return in the terminating overload.
 /// \param i_array the array to operate on.
 ///
@@ -182,8 +165,8 @@ constexpr bool ArrayLogicalUnaryOperation( LogicalOperatorT i_logicalOperator,
 /// \tparam ArrayT the array type.
 /// \tparam Index the index of the array entry.
 ///
-/// \param i_logicalOperator function object of the logical operator.
-/// \param i_unaryOperator function object of the unary operator.
+/// \param i_logicalOperator the logical operator function object.
+/// \param i_unaryOperator the unary operator function object.
 /// \param i_terminatingValue the value to return in the terminating overload.
 /// \param i_array the array to operate on.
 ///
