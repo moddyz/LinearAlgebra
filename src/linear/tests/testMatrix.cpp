@@ -39,6 +39,26 @@ TEST_CASE( "Matrix_RowCount_ColumnCount_EntryCount" )
     CHECK( linear::Matrix< rows, cols >::EntryCount() == rows * cols );
 }
 
+TEST_CASE( "Matrix_Addition" )
+{
+    linear::Matrix< 2, 2 > matrixA(
+        1, 0,
+        0, 1
+    );
+    linear::Matrix< 2, 2 > matrixB(
+        0, 2,
+        2, 0
+    );
+
+    linear::Matrix< 2, 2 > matrixC = matrixA + matrixB;
+
+    CHECK( matrixC( 0, 0 ) == 1 );
+    CHECK( matrixC( 0, 1 ) == 2 );
+    CHECK( matrixC( 1, 0 ) == 2 );
+    CHECK( matrixC( 1, 1 ) == 1 );
+}
+
+
 TEST_CASE( "Matrix_Identity" )
 {
     constexpr size_t             rows = 5, cols = 5;

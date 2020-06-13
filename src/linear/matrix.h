@@ -11,6 +11,8 @@
 #include <linear/base/assert.h>
 #include <linear/base/typeName.h>
 
+#include <linear/detail/entryWise.h>
+
 #include <cmath>
 #include <cstring>
 #include <sstream>
@@ -21,8 +23,10 @@ LINEAR_ALGEBRA_NS_OPEN
 ///
 /// Class representing a M x N \em dense matrix.
 ///
-/// The row & column count(s) are templated so that the required memory allocation
+/// The row & column count(s) (M, and N) are templated so that the required memory allocation
 /// of a given matrix is known at compile time, thus can be allocated on the stack.
+///
+/// M and N define the \em shape of the matrix.
 ///
 /// \tparam M number of rows in this matrix.
 /// \tparam N number of columns in this matrix.
@@ -96,19 +100,7 @@ public:
         return M * N;
     }
 
-    /// Get the identity element of matrices of dimensions \p M by \p N.
-    ///
-    /// \pre Must be a square matrix.
-    ///
-    /// \return The identity matrix.
-    static inline constexpr Matrix< M, N, ValueT > Identity()
-    {
-        Matrix< M, N, ValueT > matrix;
-        SetIdentity( matrix );
-        return matrix;
-    }
-
-    /// Matrix entry read-access by row & column.
+    /// Matrix entry read-access by row & column indices.
     ///
     /// \param i_rowIndex row of the entry to access.
     /// \param i_columnIndex column of the entry to access.
@@ -119,7 +111,7 @@ public:
         return m_entries[ i_rowIndex * N + i_columnIndex ];
     }
 
-    /// Matrix entry write-access by row & column.
+    /// Matrix entry write-access by row & column indices.
     ///
     /// \param i_rowIndex row of the entry to access.
     /// \param i_columnIndex column of the entry to access.
@@ -128,6 +120,26 @@ public:
     inline ValueT& operator()( size_t i_rowIndex, size_t i_columnIndex )
     {
         return m_entries[ i_rowIndex * N + i_columnIndex ];
+    }
+
+    /// Matrix entry read-access by single index, with respect to row-major.
+    ///
+    /// \param i_index the index of the entry to access.
+    ///
+    /// \return Value entry at entry \p i_index.
+    inline const ValueT& operator[]( size_t i_index ) const
+    {
+        return m_entries[ i_index ];
+    }
+
+    /// Matrix entry write-access by single index, with respect to row-major.
+    ///
+    /// \param i_index the index of the entry to access.
+    ///
+    /// \return Value entry at entry \p i_index.
+    inline ValueT& operator[]( size_t i_index )
+    {
+        return m_entries[ i_index ];
     }
 
     /// Check if any of the entries is not a number (NaN).
@@ -144,6 +156,32 @@ public:
         }
 
         return false;
+    }
+
+    /// Matrix addition.
+    ///
+    /// Each entry (i, j) in the output matrix is the \em sum of the same
+    /// entry (i, j) from this matrix and \p i_matrix.
+    ///
+    /// \pre this matrix and \p i_matrix must have the same shape.
+    inline MatrixType operator+( const MatrixType& i_matrix ) const
+    {
+        LINEAR_ALGEBRA_ASSERT( !HasNans() );
+        MatrixType matrix;
+        EntryWiseBinaryOperation( EntryWiseAdditionOperator< MatrixType >, *this, i_matrix, matrix );
+        return matrix;
+    }
+
+    /// Get the identity element of matrices of dimensions \p M by \p N.
+    ///
+    /// \pre Must be a square matrix.
+    ///
+    /// \return The identity matrix.
+    static inline constexpr Matrix< M, N, ValueT > Identity()
+    {
+        Matrix< M, N, ValueT > matrix;
+        SetIdentity( matrix );
+        return matrix;
     }
 
     /// Get string representation of this matrix.
