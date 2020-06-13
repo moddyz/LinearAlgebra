@@ -1,9 +1,9 @@
 #pragma once
 
-/// \file arrayEntryOps.h
+/// \file arrayEntryOperators.h
 ///
-/// A collection array entry operators, for performing a \em unit of work on an entry a set of array(s),
-/// for a \em single index.
+/// A collection array entry operators, for performing a \em unit of work on an <em>single array indexed</em>
+/// entry on an array or set of array(s),
 ///
 /// These are generally used to perform the work inside an over-arching traversal pattern.
 

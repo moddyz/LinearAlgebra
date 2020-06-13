@@ -43,7 +43,7 @@ public:
     typedef Matrix< M, N, ValueT > MatrixType;
 
     /// Default constructor, initializing entries to \em all zeroes.
-    Matrix()
+    constexpr Matrix()
     {
     }
 
@@ -53,7 +53,7 @@ public:
     ///
     /// \pre \p i_entries.size() must equal EntryCount().
     template < typename... Args >
-    Matrix( Args... i_entries )
+    constexpr Matrix( Args... i_entries )
         : m_entries{i_entries...}
     {
         static_assert( sizeof...( i_entries ) == EntryCount() );
@@ -107,7 +107,7 @@ public:
     /// \param i_columnIndex column of the entry to access.
     ///
     /// \return Value entry at row \p i_rowIndex and column \p i_columnIndex.
-    inline const ValueT& operator()( size_t i_rowIndex, size_t i_columnIndex ) const
+    constexpr inline const ValueT& operator()( size_t i_rowIndex, size_t i_columnIndex ) const
     {
         return m_entries[ i_rowIndex * N + i_columnIndex ];
     }
@@ -118,7 +118,7 @@ public:
     /// \param i_columnIndex column of the entry to access.
     ///
     /// \return Value entry at row \p i_rowIndex and column \p i_columnIndex.
-    inline ValueT& operator()( size_t i_rowIndex, size_t i_columnIndex )
+    constexpr inline ValueT& operator()( size_t i_rowIndex, size_t i_columnIndex )
     {
         return m_entries[ i_rowIndex * N + i_columnIndex ];
     }
@@ -128,7 +128,7 @@ public:
     /// \param i_index the index of the entry to access.
     ///
     /// \return Value entry at entry \p i_index.
-    inline const ValueT& operator[]( size_t i_index ) const
+    constexpr inline const ValueT& operator[]( size_t i_index ) const
     {
         return m_entries[ i_index ];
     }
@@ -138,7 +138,7 @@ public:
     /// \param i_index the index of the entry to access.
     ///
     /// \return Value entry at entry \p i_index.
-    inline ValueT& operator[]( size_t i_index )
+    constexpr inline ValueT& operator[]( size_t i_index )
     {
         return m_entries[ i_index ];
     }
@@ -146,7 +146,7 @@ public:
     /// Equality comparison operator.
     ///
     /// \return true if this matrix and \p i_matrix are \em equal.
-    inline bool operator==( const MatrixType& i_matrix ) const
+    constexpr inline bool operator==( const MatrixType& i_matrix ) const
     {
         return ArrayEquality( *this, i_matrix );
     }
@@ -154,7 +154,7 @@ public:
     /// In-equality comparison operator.
     ///
     /// \return true if this matrix and \p i_matrix are <em>not equal<\em>.
-    inline bool operator!=( const MatrixType& i_matrix ) const
+    constexpr inline bool operator!=( const MatrixType& i_matrix ) const
     {
         return !( *this == i_matrix );
     }
@@ -178,7 +178,7 @@ public:
     /// \pre Must be a square matrix.
     ///
     /// \return The identity matrix.
-    static inline constexpr Matrix< M, N, ValueT > Identity()
+    static inline Matrix< M, N, ValueT > Identity()
     {
         Matrix< M, N, ValueT > matrix;
         SetIdentity( matrix );

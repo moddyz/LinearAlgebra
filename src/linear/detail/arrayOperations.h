@@ -37,7 +37,7 @@ void ArrayBinaryOperation( ArrayBinaryOperatorT i_operator, const ArrayT& i_lhs,
     // Nothing to do in this terminating overload.
 }
 
-/// The \p operational code path taken to perform an entry-wise binary operation the matrices \p i_lhs and \p i_rhs,
+/// The \em operational code path taken to perform an entry-wise binary operation the matrices \p i_lhs and \p i_rhs,
 /// storing the result in \p o_output.
 ///
 /// \pre The \em shape of \p i_lhs, \p i_rhs, and \p o_output \em must be the same!
@@ -74,7 +74,7 @@ void ArrayBinaryOperation( ArrayBinaryOperatorT i_operator, const ArrayT& i_lhs,
 ///
 /// The template recursion terminates when \p Index equals \ref ArrayT::EntryCount().
 template < typename ArrayT, int Index = 0, typename std::enable_if< Index == ArrayT::EntryCount() >::type* = nullptr >
-bool ArrayEquality( const ArrayT& i_lhs, const ArrayT& i_rhs )
+constexpr bool ArrayEquality( const ArrayT& i_lhs, const ArrayT& i_rhs )
 {
     // Nothing to do in this terminating overload.
     return true;
@@ -89,7 +89,7 @@ bool ArrayEquality( const ArrayT& i_lhs, const ArrayT& i_rhs )
 ///
 /// This code path is taken when \p Index is not equal the \ref ArrayT::EntryCount().
 template < typename ArrayT, int Index = 0, typename std::enable_if< Index != ArrayT::EntryCount() >::type* = nullptr >
-bool ArrayEquality( const ArrayT& i_lhs, const ArrayT& i_rhs )
+constexpr bool ArrayEquality( const ArrayT& i_lhs, const ArrayT& i_rhs )
 {
     // For N = ArrayT::EntryCount(), this expands to:
     //
