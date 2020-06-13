@@ -2,7 +2,7 @@
 
 \section LinearAlgebra_Introduction Introduction
 
-LinearAlgebra is a C++ header-only computer graphics math library.  It has optional python bindings.
+LinearAlgebra is a C++ header-only computer graphics math library. 
 
 This is developed in tandem while working through MIT OpenCourseWare's 18.06.  Coding and documenting the data structures and operations aided with internalization of the concepts.
 
@@ -19,11 +19,11 @@ To build python bindings for LinearAlgebra, set the cmake option `BUILD_PYTHON_B
 \subsection LinearAlgebra_DeveloperNotes_SourceTree Source Tree
 
 The C++ headers are organized as follows:
-- \p src/linearAlgebra/ - linear algebra types and operations.
-- \p src/linearAlgebra/base - common support utilities.
-- \p src/lineraAlgebra/detail - internal implementation details.
+- \p src/linear - Linear Algebra types and operations.
+- \p src/linear/base - Common Support utilities.
+- \p src/linear/detail - Internal implementation details.
 
-Python bindings for are available under \p src/linearAlgebra/python.
+Python bindings for are available under \p src/linear/python.
 
 Tests and benchmark code reside within the respective subdirectories.
 

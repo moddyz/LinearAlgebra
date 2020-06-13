@@ -6,7 +6,7 @@
 
 #include <string_view>
 
-#include <linearAlgebra/linearAlgebra.h>
+#include <linear/linear.h>
 
 LINEAR_ALGEBRA_NS_OPEN
 
@@ -24,15 +24,15 @@ constexpr std::string_view TypeName()
     std::string_view name, prefix, suffix;
 #ifdef __clang__
     name   = __PRETTY_FUNCTION__;
-    prefix = "std::string_view LinearAlgebra::_TypeName() [T = ";
+    prefix = "std::string_view linear::_TypeName() [T = ";
     suffix = "]";
 #elif defined( __GNUC__ )
     name   = __PRETTY_FUNCTION__;
-    prefix = "constexpr std::string_view LinearAlgebra::_TypeName() [with T = ";
+    prefix = "constexpr std::string_view linear::_TypeName() [with T = ";
     suffix = "; std::string_view = std::basic_string_view<char>]";
 #elif defined( _MSC_VER )
     name   = __FUNCSIG__;
-    prefix = "class std::basic_string_view<char,struct std::char_traits<char> > __cdecl LinearAlgebra::_TypeName<";
+    prefix = "class std::basic_string_view<char,struct std::char_traits<char> > __cdecl linear::_TypeName<";
     suffix = ">(void)";
 #endif
     name.remove_prefix( prefix.size() );

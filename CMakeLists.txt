@@ -49,9 +49,9 @@ if(BUILD_DOCUMENTATION)
         GENERATE_TAGFILE TRUE
         DOXYFILE ${CMAKE_SOURCE_DIR}/Doxyfile.in
         INPUTS
-            ${CMAKE_CURRENT_SOURCE_DIR}/src/linearAlgebra
-            ${CMAKE_CURRENT_SOURCE_DIR}/src/linearAlgebra/base
-            ${CMAKE_CURRENT_SOURCE_DIR}/src/linearAlgebra/detail
+            ${CMAKE_CURRENT_SOURCE_DIR}/src/linear
+            ${CMAKE_CURRENT_SOURCE_DIR}/src/linear/base
+            ${CMAKE_CURRENT_SOURCE_DIR}/src/linear/detail
     )
 endif()
 

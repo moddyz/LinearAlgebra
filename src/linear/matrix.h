@@ -4,12 +4,12 @@
 ///
 /// A matrix is rectangular array of numbers, arranged in to rows and columns (M x N).
 
-#include <linearAlgebra/linearAlgebra.h>
-#include <linearAlgebra/setIdentity.h>
+#include <linear/linear.h>
+#include <linear/setIdentity.h>
 
-#include <linearAlgebra/base/almost.h>
-#include <linearAlgebra/base/assert.h>
-#include <linearAlgebra/base/typeName.h>
+#include <linear/base/almost.h>
+#include <linear/base/assert.h>
+#include <linear/base/typeName.h>
 
 #include <cmath>
 #include <cstring>
@@ -19,15 +19,14 @@ LINEAR_ALGEBRA_NS_OPEN
 
 /// \class Matrix
 ///
-/// Class representing a compile-time defined M x N matrix.
+/// Class representing a M x N \em dense matrix.
 ///
-/// Templatizing the number of rows and columns allow the memory of the matrix
-/// to be allocated on the stack, instead of the heap.  This is great for
-/// applications with well-defined input and output parameters.
+/// The row & column count(s) are templated so that the required memory allocation
+/// of a given matrix is known at compile time, thus can be allocated on the stack.
 ///
-/// \tparam EntryType value type of the entries.
 /// \tparam M number of rows in this matrix.
 /// \tparam N number of columns in this matrix.
+/// \tparam ValueT value type of the entries.
 template < size_t M, size_t N, typename ValueT = float >
 class Matrix
 {
@@ -41,6 +40,18 @@ public:
     /// Default constructor, initializing entries to \em all zeroes.
     Matrix()
     {
+    }
+
+    /// Initializer list constructor, initializing entries to \p i_entries.
+    ///
+    /// \p i_entries should be a row-major indexed array of values.
+    ///
+    /// \pre \p i_entries.size() must equal EntryCount().
+    template < typename... Args >
+    Matrix( Args... i_entries )
+        : m_entries{i_entries...}
+    {
+        static_assert( sizeof...( i_entries ) == EntryCount() );
     }
 
 #ifdef LINEAR_ALGEBRA_DEBUG
@@ -62,7 +73,7 @@ public:
 
     /// Get the row size of this matrix.
     ///
-    /// \return the row size.
+    /// \return The row size.
     static inline constexpr int RowCount()
     {
         return M;
@@ -70,7 +81,7 @@ public:
 
     /// Get the column size of this matrix.
     ///
-    /// \return the column size.
+    /// \return The column size.
     static inline constexpr int ColumnCount()
     {
         return N;
@@ -79,7 +90,7 @@ public:
     /// Get the total number of entries in this matrix, computed as the product
     /// of the row & column count.
     ///
-    /// \return the total number of entries in this matrix.
+    /// \return The total number of entries in this matrix.
     static inline constexpr int EntryCount()
     {
         return M * N;
@@ -87,7 +98,9 @@ public:
 
     /// Get the identity element of matrices of dimensions \p M by \p N.
     ///
-    /// \return the identity matrix.
+    /// \pre Must be a square matrix.
+    ///
+    /// \return The identity matrix.
     static inline constexpr Matrix< M, N, ValueT > Identity()
     {
         Matrix< M, N, ValueT > matrix;
@@ -100,7 +113,7 @@ public:
     /// \param i_rowIndex row of the entry to access.
     /// \param i_columnIndex column of the entry to access.
     ///
-    /// \return entry at row \p i_rowIndex and column \p i_columnIndex.
+    /// \return Value entry at row \p i_rowIndex and column \p i_columnIndex.
     inline const ValueT& operator()( size_t i_rowIndex, size_t i_columnIndex ) const
     {
         return m_entries[ i_rowIndex * N + i_columnIndex ];
@@ -111,7 +124,7 @@ public:
     /// \param i_rowIndex row of the entry to access.
     /// \param i_columnIndex column of the entry to access.
     ///
-    /// \return entry at row \p i_rowIndex and column \p i_columnIndex.
+    /// \return Value entry at row \p i_rowIndex and column \p i_columnIndex.
     inline ValueT& operator()( size_t i_rowIndex, size_t i_columnIndex )
     {
         return m_entries[ i_rowIndex * N + i_columnIndex ];
@@ -119,10 +132,10 @@ public:
 
     /// Check if any of the entries is not a number (NaN).
     ///
-    /// \return true if any of the entries is not a number.
+    /// \return \p true if any of the entries is not a number.
     inline bool HasNans() const
     {
-        for ( size_t entryIndex = 0; entryIndex < ( M * N ); ++entryIndex )
+        for ( size_t entryIndex = 0; entryIndex < EntryCount(); ++entryIndex )
         {
             if ( std::isnan( m_entries[ entryIndex ] ) )
             {
@@ -135,7 +148,7 @@ public:
 
     /// Get string representation of this matrix.
     ///
-    /// \return string representation.
+    /// \return String representation of the current matrix.
     inline std::string GetString() const
     {
         std::stringstream ss;

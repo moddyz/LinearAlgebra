@@ -1,6 +1,6 @@
 #pragma once
 
-#include <linearAlgebra/linearAlgebra.h>
+#include <linear/linear.h>
 
 #include <stdarg.h>
 

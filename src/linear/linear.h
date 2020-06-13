@@ -1,13 +1,13 @@
 #pragma once
 
-/// \file linearAlgebra/linearAlgebra.h
+/// \file linear/linear.h
 ///
 /// LinearAlgebra: A general-purpose header-only linear algebra library.
 
 /// \def LINEAR_ALGEBRA_NS
 ///
 /// The namespace hosting all the symbols in the LinearAlgebra library.
-#define LINEAR_ALGEBRA_NS LinearAlgebra
+#define LINEAR_ALGEBRA_NS linear
 
 /// \def LINEAR_ALGEBRA_NS_USING
 ///

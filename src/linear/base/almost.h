@@ -2,7 +2,7 @@
 
 /// \file base/almost.h
 
-#include <linearAlgebra/linearAlgebra.h>
+#include <linear/linear.h>
 
 LINEAR_ALGEBRA_NS_OPEN
 

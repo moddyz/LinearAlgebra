@@ -1,4 +1,4 @@
-set(LIBRARY_NAME "linearAlgebra")
+set(LIBRARY_NAME "linear")
 
 # Top level headers.
 file(GLOB HEADERS *.h)

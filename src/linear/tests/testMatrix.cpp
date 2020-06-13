@@ -4,12 +4,12 @@
 
 #include <catch2/catch.hpp>
 
-#include <linearAlgebra/matrix.h>
+#include <linear/matrix.h>
 
 TEST_CASE( "Matrix_DefaultConstructor" )
 {
-    constexpr size_t                    rows = 5, cols = 5;
-    LinearAlgebra::Matrix< rows, cols > matrix;
+    constexpr size_t             rows = 5, cols = 5;
+    linear::Matrix< rows, cols > matrix;
     for ( size_t row = 0; row < rows; ++row )
     {
         for ( size_t col = 0; col < cols; ++col )
@@ -19,18 +19,30 @@ TEST_CASE( "Matrix_DefaultConstructor" )
     }
 }
 
+TEST_CASE( "Matrix_InitializerListConstructor" )
+{
+    linear::Matrix< 2, 2 > matrix(
+        2, 0,
+        0, 2
+    );
+    CHECK( matrix( 0, 0 ) == 2 );
+    CHECK( matrix( 0, 1 ) == 0 );
+    CHECK( matrix( 1, 0 ) == 0 );
+    CHECK( matrix( 1, 1 ) == 2 );
+}
+
 TEST_CASE( "Matrix_RowCount_ColumnCount_EntryCount" )
 {
     constexpr size_t rows = 5, cols = 7;
-    CHECK( LinearAlgebra::Matrix< rows, cols >::RowCount() == rows );
-    CHECK( LinearAlgebra::Matrix< rows, cols >::ColumnCount() == cols );
-    CHECK( LinearAlgebra::Matrix< rows, cols >::EntryCount() == rows * cols );
+    CHECK( linear::Matrix< rows, cols >::RowCount() == rows );
+    CHECK( linear::Matrix< rows, cols >::ColumnCount() == cols );
+    CHECK( linear::Matrix< rows, cols >::EntryCount() == rows * cols );
 }
 
 TEST_CASE( "Matrix_Identity" )
 {
-    constexpr size_t                    rows = 5, cols = 5;
-    LinearAlgebra::Matrix< rows, cols > matrix = LinearAlgebra::Matrix< rows, cols >::Identity();
+    constexpr size_t             rows = 5, cols = 5;
+    linear::Matrix< rows, cols > matrix = linear::Matrix< rows, cols >::Identity();
     for ( size_t row = 0; row < rows; ++row )
     {
         for ( size_t col = 0; col < cols; ++col )
@@ -49,8 +61,8 @@ TEST_CASE( "Matrix_Identity" )
 
 TEST_CASE( "Matrix_HasNans" )
 {
-    constexpr size_t                    rows = 5, cols = 5;
-    LinearAlgebra::Matrix< rows, cols > matrix;
+    constexpr size_t             rows = 5, cols = 5;
+    linear::Matrix< rows, cols > matrix;
     CHECK( !matrix.HasNans() );
     matrix( 0, 5 ) = NAN;
     CHECK( matrix.HasNans() );
