@@ -17,8 +17,9 @@
 
 LINEAR_ALGEBRA_NS_OPEN
 
-/// The \em terminating overload of a entry-wise binary operation, between \p i_lhs and \p i_rhs, and writing to
-/// \p o_output.
+/// The \em terminating overload of a binary operation performed on arrays.
+///
+/// \pre The \em shape of \p i_lhs, \p i_rhs, and \p o_output \em must be the same!
 ///
 /// \tparam BinaryOperatorT the function prototype of the binary operation to perform.
 /// \tparam ArrayT the array type.
@@ -42,8 +43,7 @@ void ArrayBinaryOperation( BinaryOperatorT i_binaryOperator,
     // Nothing to do in this terminating overload.
 }
 
-/// The \em operational code path taken to perform an entry-wise binary operation the matrices \p i_lhs and \p i_rhs,
-/// storing the result in \p o_output.
+/// The \em operational overload of a binary operation performed on arrays.
 ///
 /// \pre The \em shape of \p i_lhs, \p i_rhs, and \p o_output \em must be the same!
 ///
@@ -77,11 +77,18 @@ void ArrayBinaryOperation( BinaryOperatorT i_binaryOperator,
 ///
 /// \pre The \em shape of \p i_lhs and \p i_rhs \em must be the same!
 ///
+/// \tparam LogicalOperatorT the function prototype of the logical operation to perform.
 /// \tparam BinaryOperatorT the function prototype of the logical binary operation to perform.
 /// \tparam ArrayT the array type.
 /// \tparam Index the index of the array entry.
 ///
-/// The template recursion terminates when \p Index equals \ref ArrayT::EntryCount().
+/// \param i_logicalOperator function object of the logical operator.
+/// \param i_binaryOperator function object of the binary operator.
+/// \param i_terminatingValue the value to return in the terminating overload.
+/// \param i_lhs lhs array to operate on.
+/// \param i_rhs rhs array to operate on.
+///
+/// \return the combined logical result.
 template < typename LogicalOperatorT,
            typename BinaryOperatorT,
            typename ArrayT,
@@ -101,11 +108,20 @@ constexpr bool ArrayLogicalBinaryOperation( LogicalOperatorT i_logicalOperator,
 ///
 /// \pre The \em shape of \p i_lhs and \p i_rhs \em must be the same!
 ///
-/// \tparam BinaryOperatorT the function prototype of the logical binary operation to perform.
+/// This code path is taken when \p Index is not equal the \ref ArrayT::EntryCount().
+///
+/// \tparam LogicalOperatorT the function prototype of the logical operation to perform.
+/// \tparam BinaryOperatorT the function prototype binary operation to perform.
 /// \tparam ArrayT the array type.
 /// \tparam Index the index of the array entry.
 ///
-/// This code path is taken when \p Index is not equal the \ref ArrayT::EntryCount().
+/// \param i_logicalOperator function object of the logical operator.
+/// \param i_binaryOperator function object of the binary operator.
+/// \param i_terminatingValue the value to return in the terminating overload.
+/// \param i_lhs lhs array to operate on.
+/// \param i_rhs rhs array to operate on.
+///
+/// \return the combined logical result.
 template < typename LogicalOperatorT,
            typename BinaryOperatorT,
            typename ArrayT,
@@ -126,7 +142,7 @@ constexpr bool ArrayLogicalBinaryOperation( LogicalOperatorT i_logicalOperator,
                                                                                              i_rhs ) );
 }
 
-/// The \em terminating overload of a array-based logical uniary operation on \p i_array.
+/// The \em terminating overload of a logical combination of unary operations across \p i_array.
 ///
 /// \pre The \em shape of \p i_lhs and \p i_rhs \em must be the same!
 ///
@@ -134,7 +150,12 @@ constexpr bool ArrayLogicalBinaryOperation( LogicalOperatorT i_logicalOperator,
 /// \tparam ArrayT the array type.
 /// \tparam Index the index of the array entry.
 ///
-/// The template recursion terminates when \p Index equals \ref ArrayT::EntryCount().
+/// \param i_logicalOperator function object of the logical operator.
+/// \param i_unaryOperator function object of the unary operator.
+/// \param i_terminatingValue the value to return in the terminating overload.
+/// \param i_array the array to operate on.
+///
+/// \return the combined logical result.
 template < typename LogicalOperatorT,
            typename UnaryOperatorT,
            typename ArrayT,
@@ -149,15 +170,22 @@ constexpr bool ArrayLogicalUnaryOperation( LogicalOperatorT i_logicalOperator,
     return i_terminatingValue;
 }
 
-/// The \em operating overload of a array-based logical uniary operation on \p i_array.
+/// The \em operational overload of a logical combination of unary operations across \p i_array.
 ///
 /// \pre The \em shape of \p i_lhs and \p i_rhs \em must be the same!
+///
+/// This code path is taken when \p Index is not equal the \ref ArrayT::EntryCount().
 ///
 /// \tparam UnaryOperatorT the function prototype of the logical binary operation to perform.
 /// \tparam ArrayT the array type.
 /// \tparam Index the index of the array entry.
 ///
-/// This code path is taken when \p Index is not equal the \ref ArrayT::EntryCount().
+/// \param i_logicalOperator function object of the logical operator.
+/// \param i_unaryOperator function object of the unary operator.
+/// \param i_terminatingValue the value to return in the terminating overload.
+/// \param i_array the array to operate on.
+///
+/// \return the combined logical result.
 template < typename LogicalOperatorT,
            typename UnaryOperatorT,
            typename ArrayT,
