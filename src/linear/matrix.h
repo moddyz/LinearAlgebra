@@ -2,7 +2,7 @@
 
 /// \file matrix.h
 ///
-/// A matrix is rectangular array of numbers, arranged in to rows and columns (M x N).
+/// A matrix is rectangular array of numbers, arranged in to rows and columns.
 
 #include <linear/identity.h>
 #include <linear/linear.h>
@@ -20,25 +20,25 @@ LINEAR_ALGEBRA_NS_OPEN
 
 /// \class Matrix
 ///
-/// Class representing a M x N \em dense matrix.
+/// Class representing a ROWS x COLS \em dense matrix.
 ///
-/// The row & column count(s) (M, and N) are templated so that the required memory allocation
+/// The row & column count(s) (ROWS, and COLS) are templated so that the required memory allocation
 /// of a given matrix is known at compile time, thus can be allocated on the stack.
 ///
-/// M and N define the \em shape of the matrix.
+/// ROWS and COLS define the \em shape of the matrix.
 ///
-/// \tparam M number of rows in this matrix.
-/// \tparam N number of columns in this matrix.
+/// \tparam ROWS number of rows in this matrix.
+/// \tparam COLS number of columns in this matrix.
 /// \tparam ValueT value type of the entries.
-template < size_t M, size_t N, typename ValueT = float >
+template < size_t ROWS, size_t COLS, typename ValueT = float >
 class Matrix
 {
 public:
-    /// \typedef EntryType typedef for the value type of the entries.
-    using EntryType = ValueT;
+    /// \typedef ValueType typedef for the value type of the entries.
+    using ValueType = ValueT;
 
     /// \typedef MatrixType typedef for the current matrix type.
-    using MatrixType = Matrix< M, N, ValueT >;
+    using MatrixType = Matrix< ROWS, COLS, ValueT >;
 
     /// Default constructor, initializing entries to \em all zeroes.
     constexpr Matrix()
@@ -79,7 +79,7 @@ public:
     /// \return The row size.
     constexpr static inline int RowCount()
     {
-        return M;
+        return ROWS;
     }
 
     /// Get the column size of this matrix.
@@ -87,7 +87,7 @@ public:
     /// \return The column size.
     constexpr static inline int ColumnCount()
     {
-        return N;
+        return COLS;
     }
 
     /// Get the total number of entries in this matrix, computed as the product
@@ -96,7 +96,7 @@ public:
     /// \return The total number of entries in this matrix.
     constexpr static inline int EntryCount()
     {
-        return M * N;
+        return ROWS * COLS;
     }
 
     /// Matrix entry read-access by row & column indices.
@@ -107,7 +107,7 @@ public:
     /// \return Value entry at row \p i_rowIndex and column \p i_columnIndex.
     constexpr inline const ValueT& operator()( size_t i_rowIndex, size_t i_columnIndex ) const
     {
-        return m_entries[ i_rowIndex * N + i_columnIndex ];
+        return m_entries[ i_rowIndex * COLS + i_columnIndex ];
     }
 
     /// Matrix entry write-access by row & column indices.
@@ -118,7 +118,7 @@ public:
     /// \return Value entry at row \p i_rowIndex and column \p i_columnIndex.
     constexpr inline ValueT& operator()( size_t i_rowIndex, size_t i_columnIndex )
     {
-        return m_entries[ i_rowIndex * N + i_columnIndex ];
+        return m_entries[ i_rowIndex * COLS + i_columnIndex ];
     }
 
     /// Matrix entry read-access by single index, with respect to row-major.
@@ -147,7 +147,7 @@ public:
     constexpr inline bool operator==( const MatrixType& i_matrix ) const
     {
         return ArrayLogicalBinaryOperation( std::logical_and< bool >(),
-                                            AlmostEqual< EntryType >,
+                                            AlmostEqual< ValueType >,
                                             /* terminatingValue */ true,
                                             *this,
                                             i_matrix );
@@ -171,7 +171,7 @@ public:
     {
         // TODO How to perform compile-time nan-check?
         // LINEAR_ALGEBRA_ASSERT( !HasNans() );
-        return ArrayBinaryOperation( std::plus< EntryType >(), *this, i_matrix );
+        return ArrayBinaryOperation( std::plus< ValueType >(), *this, i_matrix );
     }
 
     /// Matrix addition assignment.
@@ -182,7 +182,7 @@ public:
     inline void operator+=( const MatrixType& i_matrix )
     {
         LINEAR_ALGEBRA_ASSERT( !HasNans() );
-        MutableArrayBinaryOperation( std::plus< EntryType >(), *this, i_matrix, *this );
+        MutableArrayBinaryOperation( std::plus< ValueType >(), *this, i_matrix, *this );
     }
 
     /// Matrix subtraction.
@@ -195,7 +195,7 @@ public:
     {
         // TODO How to perform compile-time nan-check?
         // LINEAR_ALGEBRA_ASSERT( !HasNans() );
-        return ArrayBinaryOperation( std::minus< EntryType >(), *this, i_matrix );
+        return ArrayBinaryOperation( std::minus< ValueType >(), *this, i_matrix );
     }
 
     /// Matrix subtraction assignment.
@@ -206,10 +206,10 @@ public:
     inline void operator-=( const MatrixType& i_matrix )
     {
         LINEAR_ALGEBRA_ASSERT( !HasNans() );
-        MutableArrayBinaryOperation( std::minus< EntryType >(), *this, i_matrix, *this );
+        MutableArrayBinaryOperation( std::minus< ValueType >(), *this, i_matrix, *this );
     }
 
-    /// Get the identity element of matrices of dimensions \p M by \p N.
+    /// Get the identity element of matrices of dimensions \p ROWS by \p COLS.
     ///
     /// \pre Must be a square matrix.
     ///
@@ -226,7 +226,7 @@ public:
     {
         return ArrayLogicalUnaryOperation(
             std::logical_or< bool >(),
-            []( EntryType i_entry ) { return std::isnan( i_entry ); },
+            []( ValueType i_entry ) { return std::isnan( i_entry ); },
             /* terminatingValue */ false,
             *this );
     }
@@ -237,14 +237,14 @@ public:
     inline std::string GetString() const
     {
         std::stringstream ss;
-        ss << "Matrix< " << M << ", " << N << ", " << std::string( TypeName< ValueT >() ).c_str() << " >(";
-        for ( size_t rowIndex = 0; rowIndex < M; ++rowIndex )
+        ss << "Matrix< " << ROWS << ", " << COLS << ", " << std::string( TypeName< ValueT >() ).c_str() << " >(";
+        for ( size_t rowIndex = 0; rowIndex < ROWS; ++rowIndex )
         {
             ss << "\n    ";
-            for ( size_t columnIndex = 0; columnIndex < N; ++columnIndex )
+            for ( size_t columnIndex = 0; columnIndex < COLS; ++columnIndex )
             {
-                ss << m_entries[ rowIndex * N + columnIndex ];
-                if ( columnIndex + 1 < N )
+                ss << m_entries[ rowIndex * COLS + columnIndex ];
+                if ( columnIndex + 1 < COLS )
                 {
                     ss << ", ";
                 }
@@ -255,7 +255,7 @@ public:
 
 private:
     /// Container of matrix entries memory, default initialized to all zeroes.
-    ValueT m_entries[ M * N ] = {0};
+    ValueT m_entries[ ROWS * COLS ] = {0};
 };
 
 /// Operator overload for << to enable writing the string representation of \p i_matrix into an output
@@ -265,11 +265,37 @@ private:
 /// \param i_matrix the source vector value type.
 ///
 /// \return the output stream.
-template < size_t M, size_t N, typename ValueT = float >
-inline std::ostream& operator<<( std::ostream& o_outputStream, const Matrix< M, N, ValueT >& i_matrix )
+template < size_t ROWS, size_t COLS, typename ValueT >
+inline std::ostream& operator<<( std::ostream& o_outputStream, const Matrix< ROWS, COLS, ValueT >& i_matrix )
 {
     o_outputStream << i_matrix.GetString();
     return o_outputStream;
+}
+
+/// Matrix-Scalar multiplication.
+///
+/// \param i_matrix the lhs matrix.
+/// \param i_scalar the rhs scalar factor.
+///
+/// \return the computed matrix such that every entry in \p i_matrix is multiplied by a factor of \p i_scalar.
+template < size_t ROWS, size_t COLS, typename ValueT, typename ScalarT >
+constexpr inline Matrix< ROWS, COLS, ValueT > operator*( const Matrix< ROWS, COLS, ValueT >& i_matrix,
+                                                         const ScalarT&                      i_scalar )
+{
+    return ArrayBinaryOperation( std::multiplies< ValueT >(), i_matrix, i_scalar );
+}
+
+/// Scalar-Matrix multiplication.
+///
+/// \param i_scalar the lhs scalar factor.
+/// \param i_matrix the rhs matrix.
+///
+/// \return the computed matrix such that every entry in \p i_matrix is multiplied by a factor of \p i_scalar.
+template < size_t ROWS, size_t COLS, typename ValueT, typename ScalarT >
+constexpr inline Matrix< ROWS, COLS, ValueT > operator*( const ScalarT&                      i_scalar,
+                                                         const Matrix< ROWS, COLS, ValueT >& i_matrix )
+{
+    return ArrayBinaryOperation( std::multiplies< ValueT >(), i_matrix, i_scalar );
 }
 
 LINEAR_ALGEBRA_NS_CLOSE

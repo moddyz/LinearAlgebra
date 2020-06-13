@@ -6,6 +6,10 @@
 
 #include <linear/matrix.h>
 
+//
+// Constructors.
+//
+
 TEST_CASE( "Matrix_DefaultConstructor" )
 {
     linear::Matrix< 2, 2 > matrix;
@@ -44,21 +48,9 @@ TEST_CASE( "Matrix_InitializerListConstructor_constexpr" )
     static_assert( matrix( 1, 1 ) == 2 );
 }
 
-TEST_CASE( "Matrix_RowCount_ColumnCount_EntryCount" )
-{
-    // Runtime check.
-    CHECK( linear::Matrix< 5, 5 >::RowCount() == 5 );
-    CHECK( linear::Matrix< 2, 7 >::ColumnCount() == 7 );
-    CHECK( linear::Matrix< 3, 4 >::EntryCount() == 12 );
-}
-
-TEST_CASE( "Matrix_RowCount_ColumnCount_EntryCount_constexpr" )
-{
-    // Compile-time check.
-    static_assert( linear::Matrix< 5, 5 >::RowCount() == 5 );
-    static_assert( linear::Matrix< 2, 7 >::ColumnCount() == 7 );
-    static_assert( linear::Matrix< 3, 4 >::EntryCount() == 12 );
-}
+//
+// Logical operators.
+//
 
 TEST_CASE( "Matrix_Equality" )
 {
@@ -78,6 +70,10 @@ TEST_CASE( "Matrix_Equality_constexpr" )
     static_assert( matrixA != matrixC );
 }
 
+//
+// Arithmetic operators.
+//
+
 TEST_CASE( "Matrix_Addition" )
 {
     linear::Matrix< 2, 2 > matrixA( 1, 0, 0, 1 );
@@ -91,7 +87,7 @@ TEST_CASE( "Matrix_Addition_constexpr" )
     constexpr linear::Matrix< 2, 2 > matrixA( 1, 0, 0, 1 );
     constexpr linear::Matrix< 2, 2 > matrixB( 0, 2, 2, 0 );
     constexpr linear::Matrix< 2, 2 > matrixC = matrixA + matrixB;
-    CHECK( matrixC == linear::Matrix< 2, 2 >( 1, 2, 2, 1 ) );
+    static_assert( matrixC == linear::Matrix< 2, 2 >( 1, 2, 2, 1 ) );
 }
 
 TEST_CASE( "Matrix_AdditionAssignment" )
@@ -115,16 +111,63 @@ TEST_CASE( "Matrix_Subtraction_constexpr" )
     constexpr linear::Matrix< 2, 2 > matrixA( 1, 3, 3, 1 );
     constexpr linear::Matrix< 2, 2 > matrixB( 0, 2, 2, 3 );
     constexpr linear::Matrix< 2, 2 > matrixC = matrixA - matrixB;
-    CHECK( matrixC == linear::Matrix< 2, 2 >( 1, 1, 1, -2 ) );
+    static_assert( matrixC == linear::Matrix< 2, 2 >( 1, 1, 1, -2 ) );
 }
 
 TEST_CASE( "Matrix_SubtractionAssignment" )
 {
-    linear::Matrix< 2, 2 > matrixA( 1, 3, 3, 1 );
+    linear::Matrix< 2, 2 > matrixA( 1, 3, 3, 1.5 );
     linear::Matrix< 2, 2 > matrixB( 0, 2, 2, 3 );
     matrixA -= matrixB;
-    CHECK( matrixA == linear::Matrix< 2, 2 >( 1, 1, 1, -2 ) );
+    CHECK( matrixA == linear::Matrix< 2, 2 >( 1, 1, 1, -1.5 ) );
 }
+
+TEST_CASE( "Matrix_ScalarMultiplication" )
+{
+    linear::Matrix< 2, 2 > matrixA( 1, 0, 0, 1 );
+
+    // Matrix-Scalar.
+    linear::Matrix< 2, 2 > matrixB = matrixA * 2.5f;
+    CHECK( matrixB == linear::Matrix< 2, 2 >( 2.5, 0, 0, 2.5 ) );
+
+    // Scalar-Matrix.
+    linear::Matrix< 2, 2 > matrixC = 2.5f * matrixA;
+    CHECK( matrixC == linear::Matrix< 2, 2 >( 2.5, 0, 0, 2.5 ) );
+}
+
+TEST_CASE( "Matrix_ScalarMultiplication_constexpr" )
+{
+    constexpr linear::Matrix< 2, 2 > matrixA( 1, 0, 0, 1 );
+
+    // Matrix-Scalar.
+    constexpr linear::Matrix< 2, 2 > matrixB = matrixA * 2.5f;
+    static_assert( matrixB == linear::Matrix< 2, 2 >( 2.5, 0, 0, 2.5 ) );
+
+    // Scalar-Matrix.
+    constexpr linear::Matrix< 2, 2 > matrixC = 2.5f * matrixA;
+    static_assert( matrixC == linear::Matrix< 2, 2 >( 2.5, 0, 0, 2.5 ) );
+}
+
+//
+// Custom functionality.
+//
+
+TEST_CASE( "Matrix_RowCount_ColumnCount_EntryCount" )
+{
+    // Runtime check.
+    CHECK( linear::Matrix< 5, 5 >::RowCount() == 5 );
+    CHECK( linear::Matrix< 2, 7 >::ColumnCount() == 7 );
+    CHECK( linear::Matrix< 3, 4 >::EntryCount() == 12 );
+}
+
+TEST_CASE( "Matrix_RowCount_ColumnCount_EntryCount_constexpr" )
+{
+    // Compile-time check.
+    static_assert( linear::Matrix< 5, 5 >::RowCount() == 5 );
+    static_assert( linear::Matrix< 2, 7 >::ColumnCount() == 7 );
+    static_assert( linear::Matrix< 3, 4 >::EntryCount() == 12 );
+}
+
 
 TEST_CASE( "Matrix_Identity" )
 {

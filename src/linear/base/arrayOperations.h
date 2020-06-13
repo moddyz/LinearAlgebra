@@ -17,17 +17,8 @@
 
 LINEAR_ALGEBRA_NS_OPEN
 
-/// Perform a binary operator on the corresponding array entries, and return the computed array.
-///
-/// \tparam BinaryOperatorT the function prototype of the logical binary operation to perform.
-/// \tparam ArrayT the array type.
-/// \tparam Index an index in the sequence.
-///
-/// \param i_binaryOperator the binary operator function object.
-/// \param i_lhs lhs array to operate on.
-/// \param i_rhs rhs array to operate on.
-///
-/// \return the computed array.
+/// This is a helper function for the array * array variation of  \ref ArrayBinaryOperation, which expands the index
+/// sequence into a series of operations.
 template < typename BinaryOperatorT, typename ArrayT, std::size_t... Index >
 constexpr ArrayT ArrayIndexSequenceBinaryOperation( BinaryOperatorT i_binaryOperator,
                                                     const ArrayT&   i_lhs,
@@ -37,7 +28,20 @@ constexpr ArrayT ArrayIndexSequenceBinaryOperation( BinaryOperatorT i_binaryOper
     return ArrayT( i_binaryOperator( i_lhs[ Index ], i_rhs[ Index ] )... );
 }
 
-/// Perform a binary operator on the corresponding array entries, and return the computed array.
+/// \overload
+///
+/// This is a helper function for the array * scalar variation of \ref ArrayBinaryOperation, which expands the index
+/// sequence into a series of operations.
+template < typename BinaryOperatorT, typename ArrayT, std::size_t... Index >
+constexpr ArrayT ArrayIndexSequenceBinaryOperation( BinaryOperatorT                   i_binaryOperator,
+                                                    const ArrayT&                     i_lhs,
+                                                    const typename ArrayT::ValueType& i_rhs,
+                                                    std::index_sequence< Index... > )
+{
+    return ArrayT( i_binaryOperator( i_lhs[ Index ], i_rhs )... );
+}
+
+/// Perform a binary operation on the corresponding entries of two arrays, and return the computed array.
 ///
 /// \tparam BinaryOperatorT the function prototype of the logical binary operation to perform.
 /// \tparam ArrayT the array type.
@@ -52,6 +56,19 @@ template < typename BinaryOperatorT,
            typename ArrayT,
            typename Indices = std::make_index_sequence< ArrayT::EntryCount() > >
 constexpr ArrayT ArrayBinaryOperation( BinaryOperatorT i_binaryOperator, const ArrayT& i_lhs, const ArrayT& i_rhs )
+{
+    return ArrayIndexSequenceBinaryOperation( i_binaryOperator, i_lhs, i_rhs, Indices{} );
+}
+
+/// \overload
+///
+/// This is an overload of \ref ArrayBinaryOperation which multiplies each array entry with a \em scalar right-hand
+/// side.
+template < typename BinaryOperatorT,
+           typename ArrayT,
+           typename Indices = std::make_index_sequence< ArrayT::EntryCount() > >
+constexpr ArrayT
+ArrayBinaryOperation( BinaryOperatorT i_binaryOperator, const ArrayT& i_lhs, const typename ArrayT::ValueType& i_rhs )
 {
     return ArrayIndexSequenceBinaryOperation( i_binaryOperator, i_lhs, i_rhs, Indices{} );
 }
