@@ -193,7 +193,7 @@ public:
     /// \pre Must be a square matrix.
     ///
     /// \return The identity matrix.
-    constexpr static inline Matrix< M, N, ValueT > Identity()
+    constexpr static inline MatrixType Identity()
     {
         return GetIdentity< MatrixType >();
     }
