@@ -142,20 +142,20 @@ public:
         return m_entries[ i_index ];
     }
 
-    /// Check if any of the entries is not a number (NaN).
+    /// Equality comparison operator.
     ///
-    /// \return \p true if any of the entries is not a number.
-    inline bool HasNans() const
+    /// \return true if this matrix and \p i_matrix are \em equal.
+    inline bool operator==( const MatrixType& i_matrix ) const
     {
-        for ( size_t entryIndex = 0; entryIndex < EntryCount(); ++entryIndex )
-        {
-            if ( std::isnan( m_entries[ entryIndex ] ) )
-            {
-                return true;
-            }
-        }
+        return EntryWiseEquality( *this, i_matrix );
+    }
 
-        return false;
+    /// In-equality comparison operator.
+    ///
+    /// \return true if this matrix and \p i_matrix are <em>not equal<\em>.
+    inline bool operator!=( const MatrixType& i_matrix ) const
+    {
+        return !( *this == i_matrix );
     }
 
     /// Matrix addition.
@@ -182,6 +182,22 @@ public:
         Matrix< M, N, ValueT > matrix;
         SetIdentity( matrix );
         return matrix;
+    }
+
+    /// Check if any of the entries is not a number (NaN).
+    ///
+    /// \return \p true if any of the entries is not a number.
+    inline bool HasNans() const
+    {
+        for ( size_t entryIndex = 0; entryIndex < EntryCount(); ++entryIndex )
+        {
+            if ( std::isnan( m_entries[ entryIndex ] ) )
+            {
+                return true;
+            }
+        }
+
+        return false;
     }
 
     /// Get string representation of this matrix.
@@ -218,8 +234,8 @@ private:
 /// \param i_matrix the source vector value type.
 ///
 /// \return the output stream.
-template < typename MatrixT >
-inline std::ostream& operator<<( std::ostream& o_outputStream, const MatrixT& i_matrix )
+template < size_t M, size_t N, typename ValueT = float >
+inline std::ostream& operator<<( std::ostream& o_outputStream, const Matrix< M, N, ValueT >& i_matrix )
 {
     o_outputStream << i_matrix.GetString();
     return o_outputStream;

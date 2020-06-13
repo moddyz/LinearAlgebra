@@ -39,6 +39,25 @@ TEST_CASE( "Matrix_RowCount_ColumnCount_EntryCount" )
     CHECK( linear::Matrix< rows, cols >::EntryCount() == rows * cols );
 }
 
+TEST_CASE( "Matrix_Equality" )
+{
+    linear::Matrix< 2, 2 > matrixA(
+        2, 0,
+        0, 2
+    );
+    linear::Matrix< 2, 2 > matrixB(
+        2, 0,
+        0, 2
+    );
+    linear::Matrix< 2, 2 > matrixC(
+        3, 0,
+        0, 3
+    );
+
+    CHECK( matrixA == matrixB );
+    CHECK( matrixA != matrixC );
+}
+
 TEST_CASE( "Matrix_Addition" )
 {
     linear::Matrix< 2, 2 > matrixA(
