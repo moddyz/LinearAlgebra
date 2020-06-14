@@ -90,14 +90,6 @@ TEST_CASE( "Matrix_Addition_constexpr" )
     static_assert( matrixC == linear::Matrix< 2, 2 >( 1, 2, 2, 1 ) );
 }
 
-TEST_CASE( "Matrix_AdditionAssignment" )
-{
-    linear::Matrix< 2, 2 > matrixA( 1, 0, 0, 1 );
-    linear::Matrix< 2, 2 > matrixB( 0, 2, 2, 0 );
-    matrixB += matrixA;
-    CHECK( matrixB == linear::Matrix< 2, 2 >( 1, 2, 2, 1 ) );
-}
-
 TEST_CASE( "Matrix_Subtraction" )
 {
     linear::Matrix< 2, 2 > matrixA( 1, 3, 3, 1 );
@@ -112,14 +104,6 @@ TEST_CASE( "Matrix_Subtraction_constexpr" )
     constexpr linear::Matrix< 2, 2 > matrixB( 0, 2, 2, 3 );
     constexpr linear::Matrix< 2, 2 > matrixC = matrixA - matrixB;
     static_assert( matrixC == linear::Matrix< 2, 2 >( 1, 1, 1, -2 ) );
-}
-
-TEST_CASE( "Matrix_SubtractionAssignment" )
-{
-    linear::Matrix< 2, 2 > matrixA( 1, 3, 3, 1.5 );
-    linear::Matrix< 2, 2 > matrixB( 0, 2, 2, 3 );
-    matrixA -= matrixB;
-    CHECK( matrixA == linear::Matrix< 2, 2 >( 1, 1, 1, -1.5 ) );
 }
 
 TEST_CASE( "Matrix_ScalarMultiplication" )
@@ -148,13 +132,6 @@ TEST_CASE( "Matrix_ScalarMultiplication_constexpr" )
     static_assert( matrixC == linear::Matrix< 2, 2 >( 2.5, 0, 0, 2.5 ) );
 }
 
-TEST_CASE( "Matrix_ScalarMultiplicationAssignment" )
-{
-    linear::Matrix< 2, 2 > matrixA( 1, 0, 0, 1 );
-    matrixA *= 2.5f;
-    CHECK( matrixA == linear::Matrix< 2, 2 >( 2.5, 0, 0, 2.5 ) );
-}
-
 TEST_CASE( "Matrix_ScalarDivision" )
 {
     linear::Matrix< 2, 2 > matrixA( 2.5, 0, 0, 2.5 );
@@ -167,6 +144,36 @@ TEST_CASE( "Matrix_ScalarDivision_constexpr" )
     constexpr linear::Matrix< 2, 2 > matrixA( 2.5, 0, 0, 2.5 );
     constexpr linear::Matrix< 2, 2 > matrixB = matrixA / 2.5;
     static_assert( matrixB == linear::Matrix< 2, 2 >( 1, 0, 0, 1 ) );
+}
+
+TEST_CASE( "Matrix_AdditionAssignment" )
+{
+    linear::Matrix< 2, 2 > matrixA( 1, 0, 0, 1 );
+    linear::Matrix< 2, 2 > matrixB( 0, 2, 2, 0 );
+    matrixB += matrixA;
+    CHECK( matrixB == linear::Matrix< 2, 2 >( 1, 2, 2, 1 ) );
+}
+
+TEST_CASE( "Matrix_SubtractionAssignment" )
+{
+    linear::Matrix< 2, 2 > matrixA( 1, 3, 3, 1.5 );
+    linear::Matrix< 2, 2 > matrixB( 0, 2, 2, 3 );
+    matrixA -= matrixB;
+    CHECK( matrixA == linear::Matrix< 2, 2 >( 1, 1, 1, -1.5 ) );
+}
+
+TEST_CASE( "Matrix_ScalarMultiplicationAssignment" )
+{
+    linear::Matrix< 2, 2 > matrixA( 1, 0, 0, 1 );
+    matrixA *= 2.5f;
+    CHECK( matrixA == linear::Matrix< 2, 2 >( 2.5, 0, 0, 2.5 ) );
+}
+
+TEST_CASE( "Matrix_ScalarDivisionAssignment" )
+{
+    linear::Matrix< 2, 2 > matrixA( 2.5, 0, 0, 2.5 );
+    matrixA /= 2.5f;
+    CHECK( matrixA == linear::Matrix< 2, 2 >( 1, 0, 0, 1 ) );
 }
 
 //
@@ -188,7 +195,6 @@ TEST_CASE( "Matrix_RowCount_ColumnCount_EntryCount_constexpr" )
     static_assert( linear::Matrix< 2, 7 >::ColumnCount() == 7 );
     static_assert( linear::Matrix< 3, 4 >::EntryCount() == 12 );
 }
-
 
 TEST_CASE( "Matrix_Identity" )
 {

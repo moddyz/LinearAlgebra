@@ -40,6 +40,10 @@ public:
     /// \typedef MatrixType typedef for the current matrix type.
     using MatrixType = Matrix< ROWS, COLS, ValueT >;
 
+    //
+    // Constructors.
+    //
+
     /// Default constructor, initializing entries to \em all zeroes.
     constexpr Matrix()
     {
@@ -74,6 +78,10 @@ public:
     }
 #endif
 
+    //
+    // Shape query.
+    //
+
     /// Get the row size of this matrix.
     ///
     /// \return The row size.
@@ -98,6 +106,10 @@ public:
     {
         return ROWS * COLS;
     }
+
+    //
+    // Entry-access operators.
+    //
 
     /// Matrix entry read-access by row & column indices.
     ///
@@ -141,6 +153,10 @@ public:
         return m_entries[ i_index ];
     }
 
+    //
+    // Logical operators.
+    //
+
     /// Equality comparison operator.
     ///
     /// \return true if this matrix and \p i_matrix are \em equal.
@@ -161,12 +177,16 @@ public:
         return !( *this == i_matrix );
     }
 
+    //
+    // Arithmetic operators.
+    //
+
     /// Matrix addition.
     ///
     /// The corresponding entries in the current matrix and \p i_matrix are added and the
     /// resulting matrix returned.
     ///
-    /// \pre this matrix and \p i_matrix must have the same shape.
+    /// \pre the current matrix and \p i_matrix must have the same shape.
     constexpr inline MatrixType operator+( const MatrixType& i_matrix ) const
     {
         // TODO How to perform compile-time nan-check?
@@ -174,23 +194,12 @@ public:
         return SequenceBinaryOperation( std::plus< ValueType >(), *this, i_matrix );
     }
 
-    /// Matrix addition assignment.
-    ///
-    /// The entries in \p i_matrix are <em>added to</em> corresponding entries in the current matrix.
-    ///
-    /// \pre this matrix and \p i_matrix must have the same shape.
-    inline void operator+=( const MatrixType& i_matrix )
-    {
-        LINEAR_ALGEBRA_ASSERT( !HasNans() );
-        MutableSequenceBinaryOperation( std::plus< ValueType >(), *this, i_matrix, *this );
-    }
-
     /// Matrix subtraction.
     ///
     /// The corresponding entries in the current matrix and \p i_matrix are subtracted and the
     /// resulting matrix returned.
     ///
-    /// \pre this matrix and \p i_matrix must have the same shape.
+    /// \pre the current matrix and \p i_matrix must have the same shape.
     constexpr inline MatrixType operator-( const MatrixType& i_matrix ) const
     {
         // TODO How to perform compile-time nan-check?
@@ -198,11 +207,22 @@ public:
         return SequenceBinaryOperation( std::minus< ValueType >(), *this, i_matrix );
     }
 
+    /// Matrix addition assignment.
+    ///
+    /// The entries in \p i_matrix are <em>added to</em> corresponding entries in the current matrix.
+    ///
+    /// \pre the current matrix and \p i_matrix must have the same shape.
+    inline void operator+=( const MatrixType& i_matrix )
+    {
+        LINEAR_ALGEBRA_ASSERT( !HasNans() );
+        MutableSequenceBinaryOperation( std::plus< ValueType >(), *this, i_matrix, *this );
+    }
+
     /// Matrix subtraction assignment.
     ///
     /// The entries in \p i_matrix are <em>subtracted from</em> the corresponding entries in the current matrix.
     ///
-    /// \pre this matrix and \p i_matrix must have the same shape.
+    /// \pre the current matrix and \p i_matrix must have the same shape.
     inline void operator-=( const MatrixType& i_matrix )
     {
         LINEAR_ALGEBRA_ASSERT( !HasNans() );
@@ -218,6 +238,22 @@ public:
         LINEAR_ALGEBRA_ASSERT( !HasNans() );
         MutableSequenceBinaryOperation( std::multiplies< ValueType >(), *this, i_scalar, *this );
     }
+
+    /// Matrix-Scalar division assignment.
+    ///
+    /// The entries in the current matrix are divided by a factor of \p i_scalar.
+    template < typename ScalarT >
+    inline void operator/=( const ScalarT& i_scalar )
+    {
+        LINEAR_ALGEBRA_ASSERT( !HasNans() );
+        LINEAR_ALGEBRA_ASSERT( !std::isnan( i_scalar ) );
+        LINEAR_ALGEBRA_ASSERT( i_scalar != 0 );
+        MutableSequenceBinaryOperation( std::divides< ValueType >(), *this, i_scalar, *this );
+    }
+
+    //
+    // Custom functionality.
+    //
 
     /// Get the identity element of matrices of dimensions \p ROWS by \p COLS.
     ///
