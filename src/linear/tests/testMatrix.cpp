@@ -131,14 +131,14 @@ TEST_CASE( "Matrix_ScalarMultiplication_constexpr" )
 TEST_CASE( "Matrix_ScalarDivision" )
 {
     linear::Matrix< 2, 2 > matrixA( 2.5, 0, 0, 2.5 );
-    linear::Matrix< 2, 2 > matrixB = matrixA / 2.5;
+    linear::Matrix< 2, 2 > matrixB = matrixA / 2.5f;
     CHECK( matrixB == linear::Matrix< 2, 2 >( 1, 0, 0, 1 ) );
 }
 
 TEST_CASE( "Matrix_ScalarDivision_constexpr" )
 {
     constexpr linear::Matrix< 2, 2 > matrixA( 2.5, 0, 0, 2.5 );
-    constexpr linear::Matrix< 2, 2 > matrixB = matrixA / 2.5;
+    constexpr linear::Matrix< 2, 2 > matrixB = matrixA / 2.5f;
     static_assert( matrixB == linear::Matrix< 2, 2 >( 1, 0, 0, 1 ) );
 }
 
@@ -172,6 +172,47 @@ TEST_CASE( "Matrix_ScalarDivisionAssignment" )
     CHECK( matrixA == linear::Matrix< 2, 2 >( 1, 0, 0, 1 ) );
 }
 
+//
+// Linear algebra functionality.
+//
+
+TEST_CASE( "Matrix_Multiplication" )
+{
+    using MatrixT = linear::Matrix< 2, 2 >;
+    MatrixT matrixA = MatrixT::Identity();
+    MatrixT matrixB = MatrixT::Identity();
+    CHECK( matrixA * matrixB == MatrixT::Identity() );
+}
+
+TEST_CASE( "Matrix_Multiplication_constexpr" )
+{
+    using MatrixT = linear::Matrix< 2, 2 >;
+    constexpr MatrixT matrixA = MatrixT::Identity();
+    constexpr MatrixT matrixB = MatrixT::Identity();
+    static_assert( matrixA * matrixB == MatrixT::Identity() );
+}
+
+TEST_CASE( "Matrix_Identity" )
+{
+    using MatrixT = linear::Matrix< 3, 3 >;
+    MatrixT matrix = MatrixT::Identity();
+    CHECK( matrix == MatrixT( 1, 0, 0, 0, 1, 0, 0, 0, 1 ) );
+}
+
+TEST_CASE( "Matrix_Identity_constexpr" )
+{
+    using MatrixT = linear::Matrix< 3, 3 >;
+    constexpr MatrixT matrix = MatrixT::Identity();
+    static_assert( matrix == MatrixT( 1, 0, 0, 0, 1, 0, 0, 0, 1 ) );
+}
+
+TEST_CASE( "Matrix_SetIdentity" )
+{
+    using MatrixT = linear::Matrix< 3, 3 >;
+    MatrixT matrix;
+    matrix.SetIdentity();
+    CHECK( matrix == MatrixT( 1, 0, 0, 0, 1, 0, 0, 0, 1 ) );
+}
 //
 // Custom functionality.
 //

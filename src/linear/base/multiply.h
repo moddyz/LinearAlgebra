@@ -1,10 +1,20 @@
 #pragma once
 
-/// \file multiplyImpl.h
+/// \file multiply.h
 ///
-/// Implementation details to produce a compile-time generated matrix product.
+/// Matrix mutiplication (A * B = AB).
+///
+/// This file hosts implementation deatils of a compile-time supported matrix multiplication.
+///
+/// Mathematically described as the composition of two linear maps.
+///
+/// Each entry (i, j) in the matrix product AB can be computed as the inner product of the \em i'th
+/// row of A and the \em j'th column of B.
 ///
 /// The entry point is \ref linear::_MatrixMult, so read from bottom up.
+
+#include <linear/linear.h>
+#include <linear/matrix.h>
 
 LINEAR_ALGEBRA_NS_OPEN
 
