@@ -7,6 +7,8 @@
 /// The identity matrix has 1's down its main diagonal, and 0 for all other entries.
 /// This operation can only be applied to square matrices (M X M matrices).
 
+#include <linear/matrix.h>
+
 #include <linear/base/identityImpl.h>
 
 LINEAR_ALGEBRA_NS_OPEN

@@ -182,7 +182,7 @@ public:
     }
 
     //
-    // Arithmetic operators.
+    // Basic arithmetic operators.
     //
 
     /// Matrix addition.
@@ -258,16 +258,6 @@ public:
     //
     // Custom functionality.
     //
-
-    /// Get the identity element of matrices of dimensions \p ROWS by \p COLS.
-    ///
-    /// \pre Must be a square matrix.
-    ///
-    /// \return The identity matrix.
-    constexpr static inline MatrixType Identity()
-    {
-        return GetIdentity< MatrixType >();
-    }
 
     /// Check if any of the entries is not a number (NaN).
     ///

@@ -196,19 +196,6 @@ TEST_CASE( "Matrix_RowCount_ColumnCount_EntryCount_constexpr" )
     static_assert( linear::Matrix< 3, 4 >::EntryCount() == 12 );
 }
 
-TEST_CASE( "Matrix_Identity" )
-{
-    linear::Matrix< 3, 3 > matrix = linear::Matrix< 3, 3 >::Identity();
-    CHECK( matrix == linear::Matrix< 3, 3 >( 1, 0, 0, 0, 1, 0, 0, 0, 1 ) );
-}
-
-TEST_CASE( "Matrix_Identity_constexpr" )
-{
-    static_assert( linear::Matrix< 3, 3 >::Identity() == linear::Matrix< 3, 3 >( 1, 0, 0, 0, 1, 0, 0, 0, 1 ) );
-    static_assert( linear::Matrix< 4, 4 >::Identity() ==
-                   linear::Matrix< 4, 4 >( 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1 ) );
-}
-
 TEST_CASE( "Matrix_HasNans" )
 {
     constexpr size_t             rows = 5, cols = 5;
