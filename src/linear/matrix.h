@@ -68,14 +68,14 @@ public:
     /// Copy constructor.
     Matrix( const MatrixType& i_matrix )
     {
-        std::memcpy( ( void* ) m_entries, ( const void* ) i_matrix.m_entries, sizeof( MatrixType ) * EntryCount() );
+        std::memcpy( ( void* ) m_entries, ( const void* ) i_matrix.m_entries, sizeof( MatrixType ) );
         LINEAR_ALGEBRA_ASSERT( !HasNans() );
     }
 
     /// Copy assignment operator.
     Matrix& operator=( const MatrixType& i_matrix )
     {
-        std::memcpy( ( void* ) m_entries, ( const void* ) i_matrix.m_entries, sizeof( MatrixType ) * EntryCount() );
+        std::memcpy( ( void* ) m_entries, ( const void* ) i_matrix.m_entries, sizeof( MatrixType ) );
         LINEAR_ALGEBRA_ASSERT( !HasNans() );
         return *this;
     }
