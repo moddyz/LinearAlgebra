@@ -182,7 +182,7 @@ constexpr bool SequenceLogicalBinaryOperation( LogicalOperatorT i_logicalOperato
 ///
 /// \pre The \em shape of \p i_lhs and \p i_rhs \em must be the same!
 ///
-/// This code path is taken when \p Index is not equal the \ref SequenceT::EntryCount().
+/// This code path is taken when \p Index is not equal the SequenceT::EntryCount().
 ///
 /// \tparam LogicalOperatorT the function prototype of the logical operation to perform.
 /// \tparam BinaryOperatorT the function prototype binary operation to perform.
@@ -235,7 +235,7 @@ constexpr bool SequenceLogicalUnaryOperation( LogicalOperatorT i_logicalOperator
 ///
 /// \pre The \em shape of \p i_lhs and \p i_rhs \em must be the same!
 ///
-/// This code path is taken when \p Index is not equal the \ref SequenceT::EntryCount().
+/// This code path is taken when \p Index is not equal the SequenceT::EntryCount().
 ///
 /// \tparam UnaryOperatorT the function prototype of the logical binary operation to perform.
 /// \tparam SequenceT the sequence type.

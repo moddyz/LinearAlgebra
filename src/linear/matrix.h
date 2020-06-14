@@ -34,10 +34,14 @@ template < size_t ROWS, size_t COLS, typename ValueT = float >
 class Matrix
 {
 public:
-    /// \typedef ValueType typedef for the value type of the entries.
+    /// \var ValueType
+    ///
+    /// Convenience type definition for the value type of the entries.
     using ValueType = ValueT;
 
-    /// \typedef MatrixType typedef for the current matrix type.
+    /// \var MatrixType
+    ///
+    /// Convenience type definition for the current matrix type.
     using MatrixType = Matrix< ROWS, COLS, ValueT >;
 
     //
