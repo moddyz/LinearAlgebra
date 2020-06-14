@@ -3,9 +3,19 @@
 /// \file identityImpl.h
 ///
 /// Implementation details to produce a compile-time generated matrix product.
+///
+/// The entry point is \ref linear::_MatrixMult, so read from bottom up.
 
 LINEAR_ALGEBRA_NS_OPEN
 
+/// Inner product computation of the \p RowIndex'th row of \p i_lhs and the \p ColumnIndex'th column of \p i_rhs.
+///
+/// Expands the index sequence into packed parameters and perform a sum of the product(s), for \p N number of entries:
+/// \verbatim
+/// lhs( Row, 0 ) * rhs( 0, Col ) + lhs( Row, 1 ) * rhs( 1, Col ) + ... + lhs( Row, N ) * rhs( N, Col )
+/// \endverbatim
+///
+/// \return the inner product.
 template < typename LeftMatrixT,
            typename RightMatrixT,
            typename MatrixProductT,
@@ -20,6 +30,12 @@ _InnerProductIndexExpansion( const LeftMatrixT&  i_lhs,
     return ( ( i_lhs( RowIndex, InnerProductIndex ) * i_rhs( InnerProductIndex, ColIndex ) ) + ... );
 }
 
+/// An index sequence is generated with the same length as the column count of \p i_lhs (or, row count of \p i_rhs).
+/// Forwards this inner product index sequence to \ref _InnerProductIndexExpansion, for expansion.
+///
+/// The row and column indices are resolved, row-major-wise, into row and column indices.
+///
+/// \return the inner product.
 template < typename LeftMatrixT,
            typename RightMatrixT,
            typename MatrixProductT,
@@ -32,6 +48,11 @@ constexpr inline typename MatrixProductT::ValueType _InnerProduct( const LeftMat
     return _InnerProductIndexExpansion< LeftMatrixT, RightMatrixT, MatrixProductT, rowIndex, columnIndex >( i_lhs, i_rhs, InnerProductIndices{} );
 }
 
+/// Expands the index sequence into a packed parameters to construct \p MatrixProductT, via a fold expression.
+///
+/// Each parameter is computed as the \ref _InnerProduct of a row of \p i_lhs and a column of \p i_rhs.
+///
+/// \return the matrix product.
 template < typename LeftMatrixT, typename RightMatrixT, typename MatrixProductT, std::size_t... EntryIndex >
 constexpr inline MatrixProductT
 _MatrixMultIndexExpansion( const LeftMatrixT& i_lhs, const RightMatrixT& i_rhs, std::index_sequence< EntryIndex... > )
@@ -39,6 +60,11 @@ _MatrixMultIndexExpansion( const LeftMatrixT& i_lhs, const RightMatrixT& i_rhs, 
     return MatrixProductT( _InnerProduct< LeftMatrixT, RightMatrixT, MatrixProductT, EntryIndex >( i_lhs, i_rhs )... );
 }
 
+/// Generates an index sequence \p EntryIndices of the same length as the entry count of \p MatrixProductT.
+///
+/// Forwards the index sequence to \ref _MatrixMultIndexExpansion, for expansion.
+///
+/// \return the matrix product.
 template < typename LeftMatrixT,
            typename RightMatrixT,
            typename MatrixProductT,

@@ -3,6 +3,8 @@
 /// \file identityImpl.h
 ///
 /// Implementation details to produce a compile-time generated identity matrix.
+///
+/// The entry point is \ref linear::_GetIdentity, so read from bottom up.
 
 #include <linear/linear.h>
 
@@ -26,18 +28,18 @@ constexpr int _IdentityEntry()
     }
 }
 
-/// Expand each index sequence element I, to form a packed parameter list to construct \p MatrixT.
-template < typename MatrixT, std::size_t... I >
-constexpr MatrixT _IndicesToIdentity( std::index_sequence< I... > )
+/// Expand each index sequence element \p EntryIndex, to form packed parameters to construct \p MatrixT.
+template < typename MatrixT, std::size_t... EntryIndex >
+constexpr MatrixT _GetIdentityIndexExpansion( std::index_sequence< EntryIndex... > )
 {
-    return MatrixT( _IdentityEntry< MatrixT, I >() ... );
+    return MatrixT( _IdentityEntry< MatrixT, EntryIndex >() ... );
 }
 
 /// Generate an index_sequence of size \ref Matrix::EntryCount().
-template < typename MatrixT, typename Indices = std::make_index_sequence< MatrixT::EntryCount() > >
+template < typename MatrixT, typename EntryIndices = std::make_index_sequence< MatrixT::EntryCount() > >
 constexpr MatrixT _GetIdentity()
 {
-    return _IndicesToIdentity< MatrixT >( Indices{} );
+    return _GetIdentityIndexExpansion< MatrixT >( EntryIndices{} );
 }
 
 LINEAR_ALGEBRA_NS_CLOSE
