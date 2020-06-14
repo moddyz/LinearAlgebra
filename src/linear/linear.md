@@ -2,7 +2,7 @@
 
 \section LinearAlgebra_Introduction Introduction
 
-LinearAlgebra is a C++ header-only computer graphics math library. 
+**LinearAlgebra** is general-purpose header-only linear algebra library.
 
 This is developed in tandem while working through MIT OpenCourseWare's 18.06.  Coding and documenting the data structures and operations aided with internalization of the concepts.
 
