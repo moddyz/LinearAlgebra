@@ -1,6 +1,6 @@
 #pragma once
 
-/// \file identityImpl.h
+/// \file multiplyImpl.h
 ///
 /// Implementation details to produce a compile-time generated matrix product.
 ///
