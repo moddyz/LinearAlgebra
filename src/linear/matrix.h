@@ -4,7 +4,6 @@
 ///
 /// A matrix is rectangular array of numbers, arranged in to rows and columns.
 
-#include <linear/identity.h>
 #include <linear/linear.h>
 
 #include <linear/base/almost.h>
