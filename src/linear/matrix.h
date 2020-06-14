@@ -209,6 +209,16 @@ public:
         MutableSequenceBinaryOperation( std::minus< ValueType >(), *this, i_matrix, *this );
     }
 
+    /// Matrix-Scalar multiplication assignment.
+    ///
+    /// The entries in the current matrix are mutltiplied by a factor of \p i_scalar.
+    template < typename ScalarT >
+    inline void operator*=( const ScalarT& i_scalar )
+    {
+        LINEAR_ALGEBRA_ASSERT( !HasNans() );
+        MutableSequenceBinaryOperation( std::multiplies< ValueType >(), *this, i_scalar, *this );
+    }
+
     /// Get the identity element of matrices of dimensions \p ROWS by \p COLS.
     ///
     /// \pre Must be a square matrix.

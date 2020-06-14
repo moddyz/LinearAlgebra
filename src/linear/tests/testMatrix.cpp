@@ -148,6 +148,13 @@ TEST_CASE( "Matrix_ScalarMultiplication_constexpr" )
     static_assert( matrixC == linear::Matrix< 2, 2 >( 2.5, 0, 0, 2.5 ) );
 }
 
+TEST_CASE( "Matrix_ScalarMultiplicationAssignment" )
+{
+    linear::Matrix< 2, 2 > matrixA( 1, 0, 0, 1 );
+    matrixA *= 2.5f;
+    CHECK( matrixA == linear::Matrix< 2, 2 >( 2.5, 0, 0, 2.5 ) );
+}
+
 TEST_CASE( "Matrix_ScalarDivision" )
 {
     linear::Matrix< 2, 2 > matrixA( 2.5, 0, 0, 2.5 );

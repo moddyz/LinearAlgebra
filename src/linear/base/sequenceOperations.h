@@ -3,13 +3,18 @@
 /// \file sequenceOperations.h
 ///
 /// Compile-time recursion for performing an unary or binary operation on <em>every single entry</em> of a
-/// set of objects, whom allow for single sequence indexing.
+/// set of Sequence objects. Template function recursion and index sequence techniques are both used in the.
+///
+/// A Sequence object is defined to support indexing via operator[].
 ///
 /// For example, to add the corresponding entries of matrices \p A and \p B, and store into matrix \p C:
 /// \code{.cpp}
 /// linear::Matrix< 5, 5 > A, B;
 /// linear::Matrix< 5, 5 > C = linear::SequenceBinaryOperation( std::plus< float >(), A, B );
 /// \endcode
+///
+/// Although matrices are traditionally indexed by two components (row, column), the Matrix::operator[] has been
+/// overloaded to perform a operations on every single entry
 
 #include <linear/linear.h>
 
@@ -20,25 +25,12 @@ LINEAR_ALGEBRA_NS_OPEN
 /// This is a helper function for the sequence * sequence variation of  \ref SequenceBinaryOperation, which expands the
 /// index sequence into a series of operations.
 template < typename BinaryOperatorT, typename SequenceT, std::size_t... Index >
-constexpr SequenceT SequenceIndexSequenceBinaryOperation( BinaryOperatorT  i_binaryOperator,
-                                                          const SequenceT& i_lhs,
-                                                          const SequenceT& i_rhs,
-                                                          std::index_sequence< Index... > )
+constexpr SequenceT SequenceIndexedBinaryOperation( BinaryOperatorT  i_binaryOperator,
+                                                    const SequenceT& i_lhs,
+                                                    const SequenceT& i_rhs,
+                                                    std::index_sequence< Index... > )
 {
     return SequenceT( i_binaryOperator( i_lhs[ Index ], i_rhs[ Index ] )... );
-}
-
-/// \overload
-///
-/// This is a helper function for the sequence * scalar variation of \ref SequenceBinaryOperation, which expands the
-/// index sequence into a series of operations.
-template < typename BinaryOperatorT, typename SequenceT, std::size_t... Index >
-constexpr SequenceT SequenceIndexSequenceBinaryOperation( BinaryOperatorT                      i_binaryOperator,
-                                                          const SequenceT&                     i_lhs,
-                                                          const typename SequenceT::ValueType& i_rhs,
-                                                          std::index_sequence< Index... > )
-{
-    return SequenceT( i_binaryOperator( i_lhs[ Index ], i_rhs )... );
 }
 
 /// Perform a binary operation on the corresponding entries of two sequences, and return the computed sequence.
@@ -58,7 +50,20 @@ template < typename BinaryOperatorT,
 constexpr SequenceT
 SequenceBinaryOperation( BinaryOperatorT i_binaryOperator, const SequenceT& i_lhs, const SequenceT& i_rhs )
 {
-    return SequenceIndexSequenceBinaryOperation( i_binaryOperator, i_lhs, i_rhs, Indices{} );
+    return SequenceIndexedBinaryOperation( i_binaryOperator, i_lhs, i_rhs, Indices{} );
+}
+
+/// \overload
+///
+/// This is a helper function for the sequence * scalar variation of \ref SequenceBinaryOperation, which expands the
+/// index sequence into a series of operations.
+template < typename BinaryOperatorT, typename SequenceT, std::size_t... Index >
+constexpr SequenceT SequenceIndexedBinaryOperation( BinaryOperatorT                      i_binaryOperator,
+                                                    const SequenceT&                     i_lhs,
+                                                    const typename SequenceT::ValueType& i_rhs,
+                                                    std::index_sequence< Index... > )
+{
+    return SequenceT( i_binaryOperator( i_lhs[ Index ], i_rhs )... );
 }
 
 /// \overload
@@ -72,10 +77,10 @@ constexpr SequenceT SequenceBinaryOperation( BinaryOperatorT                    
                                              const SequenceT&                     i_lhs,
                                              const typename SequenceT::ValueType& i_rhs )
 {
-    return SequenceIndexSequenceBinaryOperation( i_binaryOperator, i_lhs, i_rhs, Indices{} );
+    return SequenceIndexedBinaryOperation( i_binaryOperator, i_lhs, i_rhs, Indices{} );
 }
 
-/// The \em terminating overload of \ref MutableSequenceBinaryOperation.
+/// The \em terminating overload of the sequence * sequence \ref MutableSequenceBinaryOperation.
 template < typename BinaryOperatorT,
            typename SequenceT,
            int Index                                                          = 0,
@@ -88,7 +93,7 @@ void MutableSequenceBinaryOperation( BinaryOperatorT  i_binaryOperator,
     // Nothing to do in this terminating overload.
 }
 
-/// The \em operational overload of a binary operation performed on sequences.
+/// The \em operational overload of a binary operation performed on two sequences.
 ///
 /// This is a variation of \ref SequenceBinaryOperation which cannot be used in a constexpr, because
 /// it modifies the memory of \p o_output.  For example, this is used to implement the arithmetic
@@ -117,6 +122,41 @@ void MutableSequenceBinaryOperation( BinaryOperatorT  i_binaryOperator,
 {
     // Execute for one entry of the operation.
     o_output[ Index ] = i_binaryOperator( i_lhs[ Index ], i_rhs[ Index ] );
+
+    // Recursively expand to execute on all other elements...
+    MutableSequenceBinaryOperation< BinaryOperatorT, SequenceT, Index + 1 >( i_binaryOperator, i_lhs, i_rhs, o_output );
+}
+
+/// \overload
+///
+/// The \em terminating overload of the sequence * scalar variant of \ref MutableSequenceBinaryOperation.
+template < typename BinaryOperatorT,
+           typename SequenceT,
+           int Index                                                          = 0,
+           typename std::enable_if< Index == SequenceT::EntryCount() >::type* = nullptr >
+void MutableSequenceBinaryOperation( BinaryOperatorT                      i_binaryOperator,
+                                     const SequenceT&                     i_lhs,
+                                     const typename SequenceT::ValueType& i_rhs,
+                                     SequenceT&                           o_output )
+{
+    // Nothing to do in this terminating overload.
+}
+
+/// \overload
+///
+/// This is an overload of \ref MutableSequenceBinaryOperation which performs binary operation on a sequence \p i_lhs,
+/// and a scalar \p i_scalar value.
+template < typename BinaryOperatorT,
+           typename SequenceT,
+           int Index                                                          = 0,
+           typename std::enable_if< Index != SequenceT::EntryCount() >::type* = nullptr >
+void MutableSequenceBinaryOperation( BinaryOperatorT                      i_binaryOperator,
+                                     const SequenceT&                     i_lhs,
+                                     const typename SequenceT::ValueType& i_rhs,
+                                     SequenceT&                           o_output )
+{
+    // Execute for one entry of the operation.
+    o_output[ Index ] = i_binaryOperator( i_lhs[ Index ], i_rhs );
 
     // Recursively expand to execute on all other elements...
     MutableSequenceBinaryOperation< BinaryOperatorT, SequenceT, Index + 1 >( i_binaryOperator, i_lhs, i_rhs, o_output );
