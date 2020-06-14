@@ -4,14 +4,33 @@
 ///
 /// Tools for extracting a slice from an Matrix.
 
+#include <linear/linear.h>
+
+LINEAR_ALGEBRA_NS_OPEN
+
+template < typename MatrixT, typename SliceT, size_t RowBegin, size_t ColumnBegin, std::size_t EntryIndex >
+constexpr inline typename SliceT::ValueType _MatrixSliceIndexDecompose( const MatrixT& i_matrix )
+{
+    const std::size_t rowIndex    = EntryIndex / SliceT::ColumnCount();
+    const std::size_t columnIndex = EntryIndex % SliceT::ColumnCount();
+    return i_matrix( RowBegin + rowIndex, ColumnBegin + columnIndex );
+}
+
+template < typename MatrixT, typename SliceT, size_t RowBegin, size_t ColumnBegin, std::size_t... EntryIndex >
+constexpr inline SliceT _MatrixSliceIndexExpansion( const MatrixT& i_matrix, std::index_sequence< EntryIndex... > )
+{
+    return SliceT(
+        ( _MatrixSliceIndexDecompose< MatrixT, SliceT, RowBegin, ColumnBegin, EntryIndex >( i_matrix ) )... );
+}
+
 template < typename MatrixT,
            typename SliceT,
            size_t RowBegin,
            size_t ColumnBegin,
-           typename RowIndices = std::make_index_sequence< SliceT::RowCount() >,
-           typename ColumnIndices = std::make_index_sequence< SliceT::ColumnCount() > >
-constexpr inline MatrixProductT MatrixSlice( const LeftMatrixT& i_lhs, const RightMatrixT& i_rhs )
+           typename SliceIndices = std::make_index_sequence< SliceT::EntryCount() > >
+constexpr inline SliceT _MatrixSlice( const MatrixT& i_matrix )
 {
-    static_assert( LeftMatrixT::ColumnCount() == RightMatrixT::RowCount() );
-    return _MatrixMultIndexExpansion< LeftMatrixT, RightMatrixT, MatrixProductT >( i_lhs, i_rhs, EntryIndices{} );
+    return _MatrixSliceIndexExpansion< MatrixT, SliceT, RowBegin, ColumnBegin >( i_matrix, SliceIndices{} );
 }
+
+LINEAR_ALGEBRA_NS_CLOSE

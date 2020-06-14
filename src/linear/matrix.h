@@ -11,6 +11,7 @@
 #include <linear/base/identity.h>
 #include <linear/base/inverse.h>
 #include <linear/base/multiply.h>
+#include <linear/base/slice.h>
 #include <linear/base/sequenceOperations.h>
 #include <linear/base/typeName.h>
 
@@ -258,6 +259,37 @@ public:
     }
 
     //
+    // Matrix extraction operators.
+    //
+
+    /// Get a slice of the current matrix, specified by row and column begins and ends.
+    ///
+    /// Both the begin and end indices are inclusive in the resulting slice.
+    /// For example, to return a slice of the upper-left 2 x 2 matrix of a 3 x 3 matrix:
+    /// \code{.cpp}
+    /// constexpr linear::Matrix< 3, 3 > matrix;
+    /// constexpr linear::Matrix< 2, 2 > slice = matrix.Slice< 0, 0, 1, 1 >();
+    /// \endcode
+    ///
+    /// \pre The row and column end indices must be greater or equal to their respective begin indices.
+    /// \pre The row and column end indices must be less than the current matrice's respective row or column counts.
+    ///
+    /// \return the specified matrix slice.
+    template < size_t RowBegin,
+               size_t ColumnBegin,
+               size_t RowEnd,
+               size_t ColumnEnd,
+               typename SliceT = Matrix< RowEnd - RowBegin + 1, ColumnEnd - ColumnBegin + 1 > >
+    constexpr inline SliceT Slice() const
+    {
+        static_assert( RowBegin <= RowEnd );
+        static_assert( RowBegin <= ColumnEnd );
+        static_assert( RowEnd < ROWS );
+        static_assert( ColumnEnd < COLS );
+        return _MatrixSlice< MatrixType, SliceT, RowBegin, ColumnBegin >( *this );
+    }
+
+    //
     // Linear algebra functionality.
     //
 
@@ -284,32 +316,6 @@ public:
     inline bool Inverse( MatrixType& o_inverse ) const
     {
         return _MatrixInverse( *this, o_inverse );
-    }
-
-    /// Get a slice of the current matrix, specified by row and column begins and ends.
-    ///
-    /// Both the begin and end indices are inclusive in the resulting slice.
-    /// For example, to return a slice of the upper-left 2 x 2 matrix of a 3 x 3 matrix:
-    /// \code{.cpp}
-    /// constexpr linear::Matrix< 3, 3 > matrix;
-    /// constexpr linear::Matrix< 2, 2 > slice = matrix.Slice< 0, 0, 1, 1 >();
-    /// \endcode
-    ///
-    /// \pre The row and column end indices must be greater or equal to their respective begin indices.
-    /// \pre The row and column end indices must be less than the current matrice's respective row or column counts.
-    ///
-    /// \return the specified matrix slice.
-    template < size_t RowBegin,
-               size_t ColumnBegin,
-               size_t RowEnd,
-               size_t ColumnEnd,
-               typename SliceT = Matrix< RowEnd - RowBegin + 1, ColumnEnd - ColumnBegin + 1 > >
-    constexpr inline SliceT Slice() const
-    {
-        static_assert( RowBegin <= RowEnd );
-        static_assert( RowBegin <= ColumnEnd );
-        static_assert( RowEnd < ROWS );
-        static_assert( ColumnEnd < COLS );
     }
 
     /// Get the identity matrix.
