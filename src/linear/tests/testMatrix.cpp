@@ -1,7 +1,3 @@
-//
-// This file is auto-generated, please do not modify directly!
-//
-
 #include <catch2/catch.hpp>
 
 #include <linear/matrix.h>
