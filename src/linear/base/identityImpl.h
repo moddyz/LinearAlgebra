@@ -8,6 +8,7 @@
 
 LINEAR_ALGEBRA_NS_OPEN
 
+/// Converts a sequence index into the respective identity matrix value.
 template< typename MatrixT, std::size_t Index >
 constexpr int _IdentityEntry()
 {
@@ -25,12 +26,14 @@ constexpr int _IdentityEntry()
     }
 }
 
+/// Expand each index sequence element I, to form a packed parameter list to construct \p MatrixT.
 template < typename MatrixT, std::size_t... I >
 constexpr MatrixT _IndicesToIdentity( std::index_sequence< I... > )
 {
     return MatrixT( _IdentityEntry< MatrixT, I >() ... );
 }
 
+/// Generate an index_sequence of size \ref Matrix::EntryCount().
 template < typename MatrixT, typename Indices = std::make_index_sequence< MatrixT::EntryCount() > >
 constexpr MatrixT _GetIdentity()
 {
