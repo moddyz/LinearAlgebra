@@ -1,6 +1,6 @@
 #pragma once
 
-/// \file invert.h
+/// \file row.h
 ///
 /// Matrix Row API.
 

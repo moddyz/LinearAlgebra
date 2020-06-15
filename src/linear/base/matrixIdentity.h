@@ -1,6 +1,6 @@
 #pragma once
 
-/// \file identityImpl.h
+/// \file matrixIdentity.h
 ///
 /// Implementation details to produce a compile-time generated identity matrix.
 ///

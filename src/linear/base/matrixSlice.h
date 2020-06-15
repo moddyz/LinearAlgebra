@@ -1,6 +1,6 @@
 #pragma once
 
-/// \file slice.h
+/// \file matrixSlice.h
 ///
 /// Implementation details for extracting a slice of a Matrix (compile-time supported).
 

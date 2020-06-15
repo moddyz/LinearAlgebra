@@ -2,7 +2,7 @@
 
 /// \file matrixInverse.h
 ///
-/// Matrix inverse implenmentation details.
+/// Matrix inverse implementation details.
 ///
 /// Find the unique inverse matrix of \p A  such that <p>A * A^-1 = I</p> where \p I is the identity matrix.
 
