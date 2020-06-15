@@ -2,15 +2,15 @@
 
 /// \file row.h
 ///
-/// Matrix Row API.
-
-#include <linear/base/matrixSlice.h>
+/// A collection of tools to query or manipulate the rows of a Matrix.
 
 #include <linear/matrix.h>
 
+#include <linear/base/matrixRow.h>
+
 LINEAR_ALGEBRA_NS_OPEN
 
-/// Extract a row of a matrix.
+/// Extract a single row of a matrix.
 ///
 /// \tparam MatrixT the type of matrix.
 ///
