@@ -13,9 +13,9 @@ LINEAR_ALGEBRA_NS_OPEN
 /// Inner product computation of the \p RowIndex'th row of \p i_lhs and the \p ColumnIndex'th column of \p i_rhs.
 ///
 /// Expands the index sequence into packed parameters and perform a sum of the product(s), for \p N number of entries:
-/// \verbatim
+/// \code
 /// lhs( Row, 0 ) * rhs( 0, Col ) + lhs( Row, 1 ) * rhs( 1, Col ) + ... + lhs( Row, N ) * rhs( N, Col )
-/// \endverbatim
+/// \endcode
 ///
 /// \return the inner product.
 template < typename LeftMatrixT,

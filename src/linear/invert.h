@@ -5,9 +5,9 @@
 /// Matrix inversion.
 ///
 /// The inverse matrix of \p A is the unique matrix such that
-/// \verbatim
+/// \code
 /// A * A^-1 = I
-/// \endverbatim
+/// \endcode
 /// where \p I is the identity matrix.
 
 #include <linear/base/matrixInverse.h>

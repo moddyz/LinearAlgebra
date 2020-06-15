@@ -5,9 +5,9 @@
 /// Solving linear systems of equations.
 ///
 /// A linear equation is presented as follows:
-/// \verbatim
+/// \code
 /// Ax = b
-/// \endverbatim
+/// \endcode
 /// ... where the goal is to solve for solution \p x, given matrix \p A and product \p b.
 
 #include <linear/linear.h>
