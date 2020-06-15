@@ -10,7 +10,6 @@
 #include <linear/linear.h>
 #include <linear/matrix.h>
 #include <linear/row.h>
-#include <linear/slice.h>
 
 LINEAR_ALGEBRA_NS_OPEN
 
@@ -24,10 +23,8 @@ inline bool _GaussEliminationStep( size_t i_pivotIndex, MatrixT& o_matrix, Matri
     const typename MatrixT::ValueType pivotValue = o_matrix( i_pivotIndex, i_pivotIndex );
 
     // Cache the pivot rowss
-    Matrix< 1, MatrixT::ColumnCount() > pivotRow =
-        Slice< i_pivotIndex, 0, i_pivotIndex + 1, MatrixT::ColumnCount() >( o_matrix );
-    Matrix< 1, MatrixT::ColumnCount() > inversePivotRow =
-        Slice< i_pivotIndex, 0, i_pivotIndex + 1, MatrixT::ColumnCount() >( o_inverseTransition );
+    Matrix< 1, MatrixT::ColumnCount() > pivotRow = GetRow( o_matrix, i_pivotIndex );
+    Matrix< 1, MatrixT::ColumnCount() > inversePivotRow = GetRow( o_inverseTransition, i_pivotIndex );
 
     // For each row below the pivot, try eliminate each (rowIndex, i_pivotIndex) entry by subtracting the pivot row
     // multiplied by an elimination factor from that row.
