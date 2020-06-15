@@ -7,7 +7,6 @@
 /// The entry point is \ref linear::_MatrixMult, so read from bottom up.
 
 #include <linear/linear.h>
-#include <linear/matrix.h>
 
 LINEAR_ALGEBRA_NS_OPEN
 
