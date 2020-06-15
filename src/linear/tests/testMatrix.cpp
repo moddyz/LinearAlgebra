@@ -173,42 +173,8 @@ TEST_CASE( "Matrix_ScalarDivisionAssignment" )
 }
 
 //
-// Matrix extraction functionality.
-//
-
-TEST_CASE( "Matrix_Slice" )
-{
-    linear::Matrix< 3, 3 > matrix = linear::Matrix< 3, 3 >::Identity();
-    linear::Matrix< 2, 2 > slice  = matrix.Slice< 0, 0, 1, 1 >();
-    CHECK( slice == linear::Matrix< 2, 2 >::Identity() );
-}
-
-TEST_CASE( "Matrix_Slice_constexpr" )
-{
-    constexpr linear::Matrix< 3, 3 > matrix = linear::Matrix< 3, 3 >::Identity();
-    constexpr linear::Matrix< 2, 2 > slice  = matrix.Slice< 0, 0, 1, 1 >();
-    static_assert( slice == linear::Matrix< 2, 2 >::Identity() );
-}
-
-//
 // Linear algebra functionality.
 //
-
-TEST_CASE( "Matrix_Multiplication" )
-{
-    using MatrixT   = linear::Matrix< 2, 2 >;
-    MatrixT matrixA = MatrixT::Identity();
-    MatrixT matrixB = MatrixT::Identity();
-    CHECK( matrixA * matrixB == MatrixT::Identity() );
-}
-
-TEST_CASE( "Matrix_Multiplication_constexpr" )
-{
-    using MatrixT             = linear::Matrix< 2, 2 >;
-    constexpr MatrixT matrixA = MatrixT::Identity();
-    constexpr MatrixT matrixB = MatrixT::Identity();
-    static_assert( matrixA * matrixB == MatrixT::Identity() );
-}
 
 TEST_CASE( "Matrix_Identity" )
 {
@@ -231,6 +197,7 @@ TEST_CASE( "Matrix_SetIdentity" )
     matrix.SetIdentity();
     CHECK( matrix == MatrixT( 1, 0, 0, 0, 1, 0, 0, 0, 1 ) );
 }
+
 //
 // Custom functionality.
 //

@@ -8,10 +8,7 @@
 
 #include <linear/base/almost.h>
 #include <linear/base/assert.h>
-#include <linear/base/identity.h>
-#include <linear/base/inverse.h>
-#include <linear/base/multiply.h>
-#include <linear/base/slice.h>
+#include <linear/base/matrixIdentity.h>
 #include <linear/base/sequenceOperations.h>
 #include <linear/base/typeName.h>
 
@@ -259,64 +256,8 @@ public:
     }
 
     //
-    // Matrix extraction operators.
-    //
-
-    /// Get a slice of the current matrix, specified by row and column begins and ends.
-    ///
-    /// Both the begin and end indices are inclusive in the resulting slice.
-    /// For example, to return a slice of the upper-left 2 x 2 matrix of a 3 x 3 matrix:
-    /// \code{.cpp}
-    /// constexpr linear::Matrix< 3, 3 > matrix;
-    /// constexpr linear::Matrix< 2, 2 > slice = matrix.Slice< 0, 0, 1, 1 >();
-    /// \endcode
-    ///
-    /// \pre The row and column end indices must be greater or equal to their respective begin indices.
-    /// \pre The row and column end indices must be less than the current matrice's respective row or column counts.
-    ///
-    /// \return the specified matrix slice.
-    template < size_t RowBegin,
-               size_t ColumnBegin,
-               size_t RowEnd,
-               size_t ColumnEnd,
-               typename SliceT = Matrix< RowEnd - RowBegin + 1, ColumnEnd - ColumnBegin + 1 > >
-    constexpr inline SliceT Slice() const
-    {
-        static_assert( RowBegin <= RowEnd );
-        static_assert( RowBegin <= ColumnEnd );
-        static_assert( RowEnd < ROWS );
-        static_assert( ColumnEnd < COLS );
-        return _MatrixSlice< MatrixType, SliceT, RowBegin, ColumnBegin >( *this );
-    }
-
-    //
     // Linear algebra functionality.
     //
-
-    /// Exchange rows of of the current matrix, in-place.
-    ///
-    /// \param i_rowIndexA the index of one row.
-    /// \param i_rowIndexB the index of the other row.
-    void RowExchange( size_t i_rowIndexA, size_t i_rowIndexB )
-    {
-        LINEAR_ALGEBRA_ASSERT( i_rowIndexA < ROWS );
-        LINEAR_ALGEBRA_ASSERT( i_rowIndexB < ROWS );
-        LINEAR_ALGEBRA_ASSERT( i_rowIndexA != i_rowIndexB );
-    }
-
-    /// Compute the inverse of a matrix via Gauss-Jordan elimination.
-    ///
-    /// If matrix \p current matrix is invertable, store its computed inverse in \p o_inverse.
-    ///
-    /// \pre The current matrix must be square.
-    ///
-    /// \param o_inverse the output inverted matrix.
-    ///
-    /// \return \p true if i_matrix is invertible. \p false if \p i_matrix is singular (thus cannot be inverted).
-    inline bool Inverse( MatrixType& o_inverse ) const
-    {
-        return _MatrixInverse( *this, o_inverse );
-    }
 
     /// Get the identity matrix.
     ///
@@ -433,26 +374,4 @@ constexpr inline Matrix< ROWS, COLS, ValueT > operator/( const Matrix< ROWS, COL
     return SequenceBinaryOperation( std::divides< ValueT >(), i_matrix, i_scalar );
 }
 
-/// Multiply matrices \p i_lhs and \p i_rhs, and return the matrix product.
-///
-/// \pre the \ref Matrix::ColumnCount of \p i_lhs must equal the \ref Matrix::RowCount of \p i_rhs.
-///
-/// The matrix product will assume the shape (\ref RowCount() of \p i_lhs, \ref ColumnCount() of \p i_rhs).
-///
-/// \tparam RightMatrixT the type of the right-hand side matrix.
-/// \tparam MatrixProductT the type of the matrix product.
-///
-/// \param i_lhs left-hand side matrix.
-/// \param i_rhs right-hand side matrix.
-///
-/// \return the matrix product.
-template < size_t LHS_ROWS, size_t LHS_COLS, size_t RHS_ROWS, size_t RHS_COLS, typename ValueT >
-constexpr inline Matrix< LHS_ROWS, RHS_COLS, ValueT > operator*( const Matrix< LHS_ROWS, LHS_COLS, ValueT >& i_lhs,
-                                                                 const Matrix< RHS_ROWS, RHS_COLS, ValueT >& i_rhs )
-{
-    static_assert( LHS_COLS == RHS_ROWS );
-    return _MatrixMult< Matrix< LHS_ROWS, LHS_COLS, ValueT >,
-                        Matrix< RHS_ROWS, RHS_COLS, ValueT >,
-                        Matrix< LHS_ROWS, RHS_COLS, ValueT > >( i_lhs, i_rhs );
-}
 LINEAR_ALGEBRA_NS_CLOSE

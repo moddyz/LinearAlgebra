@@ -1,6 +1,6 @@
 #pragma once
 
-/// \file multiply.h
+/// \file matrixMultiplication.h
 ///
 /// Matrix mutiplication (A * B = AB).
 ///
