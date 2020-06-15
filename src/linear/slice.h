@@ -2,7 +2,7 @@
 
 /// \file slice.h
 ///
-/// Matrix Slice API.
+/// Matrix slice API.
 
 #include <linear/base/matrixSlice.h>
 #include <linear/linear.h>

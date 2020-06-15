@@ -2,7 +2,13 @@
 
 /// \file invert.h
 ///
-/// Matrix inversion API.
+/// Matrix inversion.
+///
+/// The inverse matrix of \p A is the unique matrix such that
+/// \verbatim
+/// A * A^-1 = I
+/// \endverbatim
+/// where \p I is the identity matrix.
 
 #include <linear/base/matrixInverse.h>
 
@@ -11,11 +17,11 @@
 
 LINEAR_ALGEBRA_NS_OPEN
 
-/// Compute the inverse of a matrix via Gauss-Jordan elimination.
+/// Compute the inverse of a matrix via <b>Gauss-Jordan Elimination</b>.
 ///
-/// If matrix \p current matrix is invertable, store its computed inverse in \p o_inverse.
+/// If matrix \p i_matrix is invertible, store its computed inverse in \p o_inverse.
 ///
-/// \pre The current matrix must be square.
+/// \pre The matrix \p i_matrix must be square.
 ///
 /// \param o_inverse the output inverted matrix.
 ///

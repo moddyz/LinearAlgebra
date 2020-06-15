@@ -2,16 +2,7 @@
 
 /// \file matrixMultiplication.h
 ///
-/// Matrix mutiplication implementation details.
-///
-/// This file hosts implementation deatils of a compile-time supported matrix multiplication.
-///
-/// Mathematically described as the composition of two linear maps
-///
-/// The equation is formed as: A * B = AB.
-///
-/// Each entry (i, j) in the matrix product AB can be computed as the inner product of the \em i'th
-/// row of A and the \em j'th column of B.
+/// Matrix mutiplication implementation details of compile-time supported matrix multiplication.
 ///
 /// The entry point is \ref linear::_MatrixMult, so read from bottom up.
 

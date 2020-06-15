@@ -3,16 +3,17 @@
 /// \file matrixInverse.h
 ///
 /// Matrix inverse implementation details.
-///
-/// Find the unique inverse matrix of \p A  such that <p>A * A^-1 = I</p> where \p I is the identity matrix.
 
 #include <linear/base/assert.h>
+
 #include <linear/linear.h>
 #include <linear/matrix.h>
 #include <linear/row.h>
 
 LINEAR_ALGEBRA_NS_OPEN
 
+/// Performs an elimination step by subtracting the pivot row from all the rows below, to \em zero out
+/// the column under the pivot!
 template < typename MatrixT >
 inline bool _GaussEliminationStep( size_t i_pivotIndex, MatrixT& o_matrix, MatrixT& o_inverseTransition )
 {
