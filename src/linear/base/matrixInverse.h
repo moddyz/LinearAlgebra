@@ -10,12 +10,14 @@
 #include <linear/matrix.h>
 #include <linear/row.h>
 
+#include <iostream>
+
 LINEAR_ALGEBRA_NS_OPEN
 
-/// Performs an elimination step by subtracting the pivot row from all the rows below, to \em zero out
-/// the column under the pivot!
+/// Performs an elimination step by subtracting the pivot row from all the rows above, to \em zero out
+/// the column above the pivot!
 template < typename MatrixT >
-inline bool _GaussEliminationStep( size_t i_pivotIndex, MatrixT& o_matrix, MatrixT& o_inverseTransition )
+inline bool _JordanEliminationStep( int i_pivotIndex, MatrixT& o_matrix, MatrixT& o_inverse )
 {
     // Double check pivot.
     LINEAR_ALGEBRA_ASSERT( o_matrix( i_pivotIndex, i_pivotIndex ) != 0 );
@@ -24,12 +26,12 @@ inline bool _GaussEliminationStep( size_t i_pivotIndex, MatrixT& o_matrix, Matri
     const typename MatrixT::ValueType pivotValue = o_matrix( i_pivotIndex, i_pivotIndex );
 
     // Cache the pivot rowss
-    Matrix< 1, MatrixT::ColumnCount() > pivotRow = GetRow( o_matrix, i_pivotIndex );
-    Matrix< 1, MatrixT::ColumnCount() > inversePivotRow = GetRow( o_inverseTransition, i_pivotIndex );
+    Matrix< 1, MatrixT::ColumnCount() > pivotRow        = GetRow( o_matrix, i_pivotIndex );
+    Matrix< 1, MatrixT::ColumnCount() > inversePivotRow = GetRow( o_inverse, i_pivotIndex );
 
     // For each row below the pivot, try eliminate each (rowIndex, i_pivotIndex) entry by subtracting the pivot row
     // multiplied by an elimination factor from that row.
-    for ( size_t rowIndex = i_pivotIndex + 1; rowIndex < MatrixT::RowCount(); rowIndex++ )
+    for ( int rowIndex = i_pivotIndex - 1; rowIndex >= 0; rowIndex-- )
     {
         typename MatrixT::ValueType targetValue = o_matrix( rowIndex, i_pivotIndex );
         if ( targetValue != 0 )
@@ -39,16 +41,60 @@ inline bool _GaussEliminationStep( size_t i_pivotIndex, MatrixT& o_matrix, Matri
 
             // Eliminate the row of o_matrix.
             Matrix< 1, MatrixT::ColumnCount() > eliminationRow = pivotRow * eliminationFactor;
-            for ( size_t columnIndex = i_pivotIndex; columnIndex < MatrixT::ColumnCount(); columnIndex++ )
+            for ( int columnIndex = i_pivotIndex; columnIndex >= 0; columnIndex-- )
             {
                 o_matrix( rowIndex, columnIndex ) -= eliminationRow( 0, columnIndex );
             }
 
-            // Eliminate the row of o_inverseTransition.
+            // Eliminate the row of o_inverse.
             Matrix< 1, MatrixT::ColumnCount() > inverseEliminationRow = inversePivotRow * eliminationFactor;
-            for ( size_t columnIndex = i_pivotIndex; columnIndex < MatrixT::ColumnCount(); columnIndex++ )
+            for ( int columnIndex = i_pivotIndex; columnIndex >= 0; columnIndex-- )
             {
-                o_inverseTransition( rowIndex, columnIndex ) -= inverseEliminationRow( 0, columnIndex );
+                o_inverse( rowIndex, columnIndex ) -= inverseEliminationRow( 0, columnIndex );
+            }
+        }
+    }
+
+    return false;
+}
+
+/// Performs an elimination step by subtracting the pivot row from all the rows below, to \em zero out
+/// the column under the pivot!
+template < typename MatrixT >
+inline bool _GaussEliminationStep( int i_pivotIndex, MatrixT& o_matrix, MatrixT& o_inverse )
+{
+    // Double check pivot.
+    LINEAR_ALGEBRA_ASSERT( o_matrix( i_pivotIndex, i_pivotIndex ) != 0 );
+
+    // Store the pivotValue for usage throughout the elimination for this column.
+    const typename MatrixT::ValueType pivotValue = o_matrix( i_pivotIndex, i_pivotIndex );
+
+    // Cache the pivot rowss
+    Matrix< 1, MatrixT::ColumnCount() > pivotRow        = GetRow( o_matrix, i_pivotIndex );
+    Matrix< 1, MatrixT::ColumnCount() > inversePivotRow = GetRow( o_inverse, i_pivotIndex );
+
+    // For each row below the pivot, try eliminate each (rowIndex, i_pivotIndex) entry by subtracting the pivot row
+    // multiplied by an elimination factor from that row.
+    for ( int rowIndex = i_pivotIndex + 1; rowIndex < MatrixT::RowCount(); rowIndex++ )
+    {
+        typename MatrixT::ValueType targetValue = o_matrix( rowIndex, i_pivotIndex );
+        if ( targetValue != 0 )
+        {
+            // Compute the elimination factor.
+            typename MatrixT::ValueType eliminationFactor = targetValue / pivotValue;
+
+            // Eliminate the row of o_matrix.
+            Matrix< 1, MatrixT::ColumnCount() > eliminationRow = pivotRow * eliminationFactor;
+            for ( int columnIndex = i_pivotIndex; columnIndex < MatrixT::ColumnCount(); columnIndex++ )
+            {
+                o_matrix( rowIndex, columnIndex ) -= eliminationRow( 0, columnIndex );
+            }
+
+            // Eliminate the row of o_inverse.
+            Matrix< 1, MatrixT::ColumnCount() > inverseEliminationRow = inversePivotRow * eliminationFactor;
+            for ( int columnIndex = i_pivotIndex; columnIndex < MatrixT::ColumnCount(); columnIndex++ )
+            {
+                o_inverse( rowIndex, columnIndex ) -= inverseEliminationRow( 0, columnIndex );
             }
         }
     }
@@ -61,12 +107,12 @@ inline bool _GaussEliminationStep( size_t i_pivotIndex, MatrixT& o_matrix, Matri
 ///
 /// \return \p true if a viable row is found.  Otherwise, \p false.
 template < typename MatrixT >
-inline bool _FindAndPerformRowExchange( size_t i_pivotIndex, MatrixT& o_matrix )
+inline bool _FindAndPerformRowExchange( int i_pivotIndex, MatrixT& o_matrix )
 {
     // Double check ourselves.
     LINEAR_ALGEBRA_ASSERT( o_matrix( i_pivotIndex, i_pivotIndex ) == 0 );
 
-    for ( size_t rowIndex = i_pivotIndex + 1; rowIndex < MatrixT::RowCount(); ++rowIndex )
+    for ( int rowIndex = i_pivotIndex + 1; rowIndex < MatrixT::RowCount(); ++rowIndex )
     {
         if ( o_matrix( rowIndex, i_pivotIndex ) != 0 )
         {
@@ -91,8 +137,8 @@ inline bool _MatrixInverse( const MatrixT& i_matrix, MatrixT& o_inverse )
     // This matrix begins as the identity, and will assume the inverse after elimiination.
     o_inverse = MatrixT::Identity();
 
-    // Gauss step: E*A -> LU
-    for ( size_t pivotIndex = 0; pivotIndex < MatrixT::RowCount(); ++pivotIndex )
+    // Gauss step: E*A -> U
+    for ( int pivotIndex = 0; pivotIndex < MatrixT::RowCount() - 1; ++pivotIndex )
     {
         // Check that the current pivot is non-zero.  If it is zero perform a row exchange.
         if ( matrix( pivotIndex, pivotIndex ) == 0 && !_FindAndPerformRowExchange( pivotIndex, matrix ) )
@@ -103,7 +149,26 @@ inline bool _MatrixInverse( const MatrixT& i_matrix, MatrixT& o_inverse )
         _GaussEliminationStep( pivotIndex, matrix, o_inverse );
     }
 
-    // Jordan step.
+    // Jordan Step step: U*E -> D
+    for ( int pivotIndex = MatrixT::RowCount() - 1; pivotIndex > 0; --pivotIndex )
+    {
+        _JordanEliminationStep( pivotIndex, matrix, o_inverse );
+    }
+
+    // Divide rows by diagonal pivot values.
+    for ( int pivotIndex = 0; pivotIndex < MatrixT::RowCount(); ++pivotIndex )
+    {
+        // Left hand matrix should only have non-zero values in its diagonal now.  So safe to just set to 1
+        // instead of wasting cycles on division.
+        matrix( pivotIndex, pivotIndex ) = 1;
+
+        typename MatrixT::ValueType& pivotValue = matrix( pivotIndex, pivotIndex );
+        typename MatrixT::ValueType pivotValueInverse = 1.0 / pivotValue;
+        for ( int columnIndex = 0; columnIndex < MatrixT::ColumnCount(); columnIndex++ )
+        {
+            o_inverse( pivotIndex, columnIndex ) *= pivotValueInverse;
+        }
+    }
 
     // Successful inversion.
     return true;
