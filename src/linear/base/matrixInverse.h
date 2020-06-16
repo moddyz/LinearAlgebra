@@ -48,7 +48,7 @@ inline bool _JordanEliminationStep( int i_pivotIndex, MatrixT& o_matrix, MatrixT
 
             // Eliminate the row of o_inverse.
             Matrix< 1, MatrixT::ColumnCount() > inverseEliminationRow = inversePivotRow * eliminationFactor;
-            for ( int columnIndex = i_pivotIndex; columnIndex >= 0; columnIndex-- )
+            for ( int columnIndex = MatrixT::ColumnCount() - 1; columnIndex >= 0; columnIndex-- )
             {
                 o_inverse( rowIndex, columnIndex ) -= inverseEliminationRow( 0, columnIndex );
             }
@@ -92,7 +92,7 @@ inline bool _GaussEliminationStep( int i_pivotIndex, MatrixT& o_matrix, MatrixT&
 
             // Eliminate the row of o_inverse.
             Matrix< 1, MatrixT::ColumnCount() > inverseEliminationRow = inversePivotRow * eliminationFactor;
-            for ( int columnIndex = i_pivotIndex; columnIndex < MatrixT::ColumnCount(); columnIndex++ )
+            for ( int columnIndex = 0; columnIndex < MatrixT::ColumnCount(); columnIndex++ )
             {
                 o_inverse( rowIndex, columnIndex ) -= inverseEliminationRow( 0, columnIndex );
             }
@@ -158,12 +158,8 @@ inline bool _MatrixInverse( const MatrixT& i_matrix, MatrixT& o_inverse )
     // Divide rows by diagonal pivot values.
     for ( int pivotIndex = 0; pivotIndex < MatrixT::RowCount(); ++pivotIndex )
     {
-        // Left hand matrix should only have non-zero values in its diagonal now.  So safe to just set to 1
-        // instead of wasting cycles on division.
-        matrix( pivotIndex, pivotIndex ) = 1;
-
-        typename MatrixT::ValueType& pivotValue = matrix( pivotIndex, pivotIndex );
-        typename MatrixT::ValueType pivotValueInverse = 1.0 / pivotValue;
+        typename MatrixT::ValueType& pivotValue        = matrix( pivotIndex, pivotIndex );
+        typename MatrixT::ValueType  pivotValueInverse = 1.0 / pivotValue;
         for ( int columnIndex = 0; columnIndex < MatrixT::ColumnCount(); columnIndex++ )
         {
             o_inverse( pivotIndex, columnIndex ) *= pivotValueInverse;
