@@ -8,6 +8,20 @@ TEST_CASE( "Multiply" )
     MatrixT matrixA = MatrixT::Identity();
     MatrixT matrixB = MatrixT::Identity();
     CHECK( linear::Multiply( matrixA, matrixB ) == MatrixT::Identity() );
+
+    CHECK( linear::Multiply( linear::Matrix< 3, 3 >(
+        1, 0, 0,
+        1, 1, 1,
+        0, 0, 1
+    ), linear::Matrix< 3, 3 >(
+        2,   0, 0,
+        0,   3, 0,
+        1.5, 0, 4
+    ) )  == linear::Matrix< 3, 3 >(
+        2,   0, 0,
+        3.5, 3, 4,
+        1.5, 0, 4
+    ) );
 }
 
 TEST_CASE( "Multiply_constexpr" )
