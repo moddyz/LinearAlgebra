@@ -123,6 +123,12 @@ public:
     /// \return Value entry at row \p i_rowIndex and column \p i_columnIndex.
     constexpr inline const ValueT& operator()( size_t i_rowIndex, size_t i_columnIndex ) const
     {
+        LINEAR_ALGEBRA_ASSERT_MSG( ( i_rowIndex * COLS + i_columnIndex ) < ROWS * COLS,
+                                   "Requested (%lu, %lu) exceeded bounds (%lu, %lu)\n",
+                                   i_rowIndex,
+                                   i_columnIndex,
+                                   ROWS,
+                                   COLS );
         return m_entries[ i_rowIndex * COLS + i_columnIndex ];
     }
 
@@ -134,6 +140,12 @@ public:
     /// \return Value entry at row \p i_rowIndex and column \p i_columnIndex.
     constexpr inline ValueT& operator()( size_t i_rowIndex, size_t i_columnIndex )
     {
+        LINEAR_ALGEBRA_ASSERT_MSG( ( i_rowIndex * COLS + i_columnIndex ) < ROWS * COLS,
+                                   "Requested (%lu, %lu) exceeded bounds (%lu, %lu)\n",
+                                   i_rowIndex,
+                                   i_columnIndex,
+                                   ROWS,
+                                   COLS );
         return m_entries[ i_rowIndex * COLS + i_columnIndex ];
     }
 
@@ -144,6 +156,7 @@ public:
     /// \return Value entry at entry \p i_index.
     constexpr inline const ValueT& operator[]( size_t i_index ) const
     {
+        LINEAR_ALGEBRA_ASSERT_MSG( i_index < ROWS * COLS, "Requested index %lu exceeds size %lu\n", i_index, ROWS * COLS );
         return m_entries[ i_index ];
     }
 
@@ -154,6 +167,7 @@ public:
     /// \return Value entry at entry \p i_index.
     constexpr inline ValueT& operator[]( size_t i_index )
     {
+        LINEAR_ALGEBRA_ASSERT_MSG( i_index < ROWS * COLS, "Requested index %lu exceeds size %lu\n", i_index, ROWS * COLS );
         return m_entries[ i_index ];
     }
 
