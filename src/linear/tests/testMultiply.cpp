@@ -22,6 +22,18 @@ TEST_CASE( "Multiply" )
         3.5, 3, 4,
         1.5, 0, 4
     ) );
+
+    CHECK( linear::Multiply( linear::Matrix< 3, 1 >(
+        1, 2, 3
+    ), linear::Matrix< 1, 3 >(
+        2,
+        3,
+        1.5
+    ) ) == linear::Matrix< 3, 3 >(
+        2, 3, 1.5,
+        4, 6, 3,
+        6, 9, 4.5
+    ) );
 }
 
 TEST_CASE( "Multiply_constexpr" )

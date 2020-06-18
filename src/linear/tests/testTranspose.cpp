@@ -6,30 +6,27 @@
 
 TEST_CASE( "Matrix_Transpose" )
 {
-    using MatrixT  = linear::Matrix< 3, 3 >;
-    MatrixT matrix = MatrixT(
-        1, 2, 3,
-        1, 1, 1,
-        2, 2, 2
+    linear::Matrix< 3, 2 > matrix(
+        1, 2,
+        1, 1,
+        2, 2
     );
-    CHECK( linear::Transpose( matrix ) == MatrixT(
+    CHECK( linear::Transpose( matrix ) == linear::Matrix< 2, 3 >(
         1, 1, 2,
-        2, 1, 2,
-        3, 1, 2
+        2, 1, 2
     ) );
 }
 
 TEST_CASE( "Matrix_Transpose_constexpr" )
 {
-    using MatrixT  = linear::Matrix< 3, 3 >;
-    constexpr MatrixT matrix = MatrixT(
-        1, 2, 3,
-        1, 1, 1,
-        2, 2, 2
+    constexpr linear::Matrix< 3, 2 > matrix(
+        1, 2,
+        1, 1,
+        2, 2
     );
-    static_assert( linear::Transpose( matrix ) == MatrixT(
+
+    static_assert( linear::Transpose( matrix ) == linear::Matrix< 2, 3 >(
         1, 1, 2,
-        2, 1, 2,
-        3, 1, 2
+        2, 1, 2
     ) );
 }
