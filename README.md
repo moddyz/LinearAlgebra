@@ -17,7 +17,6 @@ constexpr MatrixT B(
     1, 1, 1,
     0, 1, 1
 );
-
 constexpr MatrixT AB = linear::Multiply( A, B );
 ```
 
