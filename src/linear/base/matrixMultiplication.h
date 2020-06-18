@@ -47,7 +47,10 @@ constexpr inline typename MatrixProductT::ValueType _InnerProduct( const LeftMat
 {
     const std::size_t rowIndex    = EntryIndex / MatrixProductT::ColumnCount();
     const std::size_t columnIndex = EntryIndex % MatrixProductT::ColumnCount();
-    return _InnerProductIndexExpansion< LeftMatrixT, RightMatrixT, MatrixProductT, rowIndex, columnIndex >( i_lhs, i_rhs, InnerProductIndices{} );
+    return _InnerProductIndexExpansion< LeftMatrixT, RightMatrixT, MatrixProductT, rowIndex, columnIndex >(
+        i_lhs,
+        i_rhs,
+        InnerProductIndices{} );
 }
 
 /// Expands the index sequence into a packed parameters to construct \p MatrixProductT, via a fold expression.

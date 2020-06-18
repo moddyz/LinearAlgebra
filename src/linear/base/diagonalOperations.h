@@ -72,4 +72,3 @@ void DiagonalUnaryOperation( MatrixEntryOperatorT i_operator, MatrixT& o_matrix 
 }
 
 LINEAR_ALGEBRA_NS_CLOSE
-

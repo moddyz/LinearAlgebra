@@ -34,7 +34,7 @@
 #define LINEAR_ALGEBRA_ASSERT_MSG( expr, format, ... )                                                                 \
     if ( !( expr ) )                                                                                                   \
     {                                                                                                                  \
-        LINEAR_ALGEBRA_NS::_Assert( #expr, __FILE__, __LINE__ );                                                      \
+        LINEAR_ALGEBRA_NS::_Assert( #expr, __FILE__, __LINE__ );                                                       \
         fprintf( stderr, format, ##__VA_ARGS__ );                                                                      \
     }
 #else

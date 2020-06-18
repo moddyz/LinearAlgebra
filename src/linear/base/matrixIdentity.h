@@ -11,8 +11,8 @@
 LINEAR_ALGEBRA_NS_OPEN
 
 /// Converts a sequence index into the respective identity matrix value.
-template< typename MatrixT, std::size_t Index >
-constexpr int _IdentityEntry()
+template < typename MatrixT, std::size_t Index >
+constexpr typename MatrixT::ValueType _MatrixIdentityEntry()
 {
     // Matrix must be square.
     static_assert( MatrixT::RowCount() == MatrixT::ColumnCount() );
@@ -32,7 +32,7 @@ constexpr int _IdentityEntry()
 template < typename MatrixT, std::size_t... EntryIndex >
 constexpr MatrixT _GetIdentityIndexExpansion( std::index_sequence< EntryIndex... > )
 {
-    return MatrixT( _IdentityEntry< MatrixT, EntryIndex >() ... );
+    return MatrixT( _MatrixIdentityEntry< MatrixT, EntryIndex >()... );
 }
 
 /// Generate an index_sequence of size \ref Matrix::EntryCount().

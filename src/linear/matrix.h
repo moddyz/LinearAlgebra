@@ -156,7 +156,10 @@ public:
     /// \return Value entry at entry \p i_index.
     constexpr inline const ValueT& operator[]( size_t i_index ) const
     {
-        LINEAR_ALGEBRA_ASSERT_MSG( i_index < ROWS * COLS, "Requested index %lu exceeds size %lu\n", i_index, ROWS * COLS );
+        LINEAR_ALGEBRA_ASSERT_MSG( i_index < ROWS * COLS,
+                                   "Requested index %lu exceeds size %lu\n",
+                                   i_index,
+                                   ROWS * COLS );
         return m_entries[ i_index ];
     }
 
@@ -167,7 +170,10 @@ public:
     /// \return Value entry at entry \p i_index.
     constexpr inline ValueT& operator[]( size_t i_index )
     {
-        LINEAR_ALGEBRA_ASSERT_MSG( i_index < ROWS * COLS, "Requested index %lu exceeds size %lu\n", i_index, ROWS * COLS );
+        LINEAR_ALGEBRA_ASSERT_MSG( i_index < ROWS * COLS,
+                                   "Requested index %lu exceeds size %lu\n",
+                                   i_index,
+                                   ROWS * COLS );
         return m_entries[ i_index ];
     }
 
