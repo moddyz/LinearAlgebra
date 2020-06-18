@@ -331,7 +331,13 @@ public:
                     ss << ", ";
                 }
             }
+
+            if ( rowIndex + 1 < ROWS )
+            {
+                ss << ", ";
+            }
         }
+        ss << "\n)";
         return ss.str();
     }
 
