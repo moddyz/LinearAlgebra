@@ -6,6 +6,49 @@
 
 This is developed in tandem while working through MIT OpenCourseWare's 18.06.  Coding and documenting the data structures and operations aided with internalization of the concepts.
 
+\section Example Usage
+
+Multiplication:
+\code{.cpp}
+using MatrixT = linear::Matrix< 3, 3 >;
+constexpr MatrixT A(
+    1, 0, 0,
+    0, 5, 0,
+    2, 3, 1
+);
+constexpr MatrixT B(
+    1, 1, 0,
+    1, 1, 1,
+    0, 1, 1
+);
+constexpr MatrixT AB = linear::Multiply( A, B );
+\endcode
+
+Inversion:
+\code{.cpp}
+using MatrixT = linear::Matrix< 3, 3 >;
+MatrixT invertable(
+    1, 0, 0,
+    0, 5, 0,
+    2, 3, 1
+);
+MatrixT inverse;
+assert( linear::Invert( invertable, inverse ) );
+\endcode
+
+Transpose:
+\code{.cpp}
+constexpr MatrixT matrix = linear::Matrix< 3, 2 >(
+    1, 2,
+    1, 1,
+    2, 2
+);
+static_assert( linear::Transpose( matrix ) == linear::Matrix< 2, 3 >(
+    1, 1, 2,
+    2, 1, 2
+) );
+\endcode
+
 \section LinearAlgebra_Building Building
 
 A convenience build script is provided at the root of the repository for building all targets, and optionally installing to a location: `./build.sh <OPTIONAL_INSTALL_LOCATION>`.
