@@ -2,7 +2,51 @@
 
 **LinearAlgebra** is general-purpose header-only linear algebra library.
 
-## Usage
+## Example Usage
+
+Multiplication:
+```cpp
+using MatrixT = linear::Matrix< 3, 3 >;
+constexpr MatrixT A(
+    1, 0, 0,
+    0, 5, 0,
+    2, 3, 1
+);
+constexpr MatrixT B(
+    1, 1, 0,
+    1, 1, 1,
+    0, 1, 1
+);
+
+constexpr MatrixT AB = linear::Multiply( A, B );
+```
+
+Inversion:
+```cpp
+using MatrixT = linear::Matrix< 3, 3 >;
+MatrixT invertable(
+    1, 0, 0,
+    0, 5, 0,
+    2, 3, 1
+);
+MatrixT inverse;
+assert( linear::Invert( invertable, inverse ) );
+```
+
+Transpose:
+```cpp
+constexpr MatrixT matrix = linear::Matrix< 3, 2 >(
+    1, 2,
+    1, 1,
+    2, 2
+);
+static_assert( linear::Transpose( matrix ) == linear::Matrix< 2, 3 >(
+    1, 1, 2,
+    2, 1, 2
+) );
+```
+
+## Building
 
 A convenience build script is also provided, for building all targets, and optionally installing to a location:
 ```
