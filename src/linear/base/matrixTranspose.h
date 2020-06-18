@@ -6,14 +6,16 @@
 
 #include <linear/linear.h>
 
+#include <iostream>
+
 LINEAR_ALGEBRA_NS_OPEN
 
 /// Converts a sequence index into the respective identity matrix value.
 template < typename MatrixT, std::size_t EntryIndex >
 constexpr typename MatrixT::ValueType _MatrixTransposeEntry( const MatrixT& i_matrix )
 {
-    const std::size_t rowIndex    = EntryIndex / MatrixT::ColumnCount();
-    const std::size_t columnIndex = EntryIndex % MatrixT::ColumnCount();
+    const std::size_t rowIndex    = EntryIndex / MatrixT::RowCount();
+    const std::size_t columnIndex = EntryIndex % MatrixT::RowCount();
     return i_matrix( columnIndex, rowIndex );
 }
 
@@ -22,7 +24,8 @@ template < typename MatrixT, std::size_t... EntryIndex >
 constexpr inline Matrix< MatrixT::ColumnCount(), MatrixT::RowCount(), typename MatrixT::ValueType >
 _MatrixTransposeIndexExpansion( const MatrixT& i_matrix, std::index_sequence< EntryIndex... > )
 {
-    return MatrixT( _MatrixTransposeEntry< MatrixT, EntryIndex >( i_matrix )... );
+    return Matrix< MatrixT::ColumnCount(), MatrixT::RowCount(), typename MatrixT::ValueType >(
+        _MatrixTransposeEntry< MatrixT, EntryIndex >( i_matrix )... );
 }
 
 /// Generate an index_sequence of size \ref Matrix::EntryCount().
