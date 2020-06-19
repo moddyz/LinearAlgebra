@@ -18,11 +18,13 @@ LINEAR_ALGEBRA_NS_OPEN
 /// \param i_rowIndeB the index of the row to extract.
 ///
 /// \return the row of a matrix.
-template < typename MatrixT, typename RowT = Matrix< 1, MatrixT::ColumnCount(), typename MatrixT::ValueType > >
-constexpr inline RowT GetRow( const MatrixT& i_matrix, size_t i_rowIndex )
+template < typename MatrixT >
+constexpr inline Matrix< 1, MatrixT::ColumnCount(), typename MatrixT::ValueType > GetRow( const MatrixT& i_matrix,
+                                                                                          size_t         i_rowIndex )
 {
     LINEAR_ALGEBRA_ASSERT( i_rowIndex < MatrixT::RowCount() );
-    return _MatrixRow< MatrixT, RowT >( i_matrix, i_rowIndex );
+    return _MatrixRow< MatrixT, Matrix< 1, MatrixT::ColumnCount(), typename MatrixT::ValueType > >( i_matrix,
+                                                                                                    i_rowIndex );
 }
 
 /// Exchange rows of of a matrix, in-place.
