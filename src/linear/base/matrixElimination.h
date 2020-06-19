@@ -45,7 +45,12 @@ inline int _FindAndPerformRowExchange( int i_pivotIndex, MatrixT& o_matrix )
 ///
 /// A possible alternative is encoding the elimination co-efficients in a sparse matrix, which would require support
 /// for sparse matrix multiplication (for another day).
-template < size_t ROWS, typename ValueT >
+///
+/// \tparam SIZE number entries to store in this elimination cache.  This generally corresponds to the row count of the matrix
+/// under elimination.
+/// \tparam ValueT the value type of the elimination factor.  This generally corresponds to the value type of the matrix
+/// under elimination.
+template < size_t SIZE, typename ValueT >
 class EliminationCache final
 {
 public:
@@ -55,12 +60,8 @@ public:
     /// An entry of the cache stores the row index and the corresponding elimination factor.
     using Entry = std::tuple< size_t, ValueT >;
 
-    constexpr EliminationCache()
-    {
-    }
-
     /// Reset the state of the elimination cache.
-    /// This is so this cache can be re-used, and for the possibility of stack allocation.
+    /// This is so this cache can be re-used across \em multiple elimination steps.
     void Reset()
     {
         m_entriesCount = 0;
@@ -69,8 +70,8 @@ public:
     /// Append a new entry to the cache.
     void Append( size_t i_rowIndex, ValueT i_value )
     {
-        LINEAR_ALGEBRA_ASSERT( i_rowIndex < ROWS );
-        LINEAR_ALGEBRA_ASSERT( m_entriesCount < ROWS );
+        LINEAR_ALGEBRA_ASSERT( i_rowIndex < SIZE );
+        LINEAR_ALGEBRA_ASSERT( m_entriesCount < SIZE );
         m_entries[ m_entriesCount++ ] = Entry( i_rowIndex, i_value );
     }
 
@@ -121,7 +122,7 @@ public:
 
 private:
     size_t m_entriesCount = 0;
-    Entry  m_entries[ ROWS ];
+    Entry  m_entries[ SIZE ];
 };
 
 /// Performs an elimination step by subtracting the pivot row from all the rows below, to \em zero out
@@ -155,7 +156,7 @@ _RecordEliminationBelowPivot( int                                               
             // Compute the elimination factor.
             typename MatrixT::ValueType eliminationFactor = targetValue * pivotValueReciprocal;
 
-            // Cache the row index and factor for replayability on another matrix.
+            // Cache the row index and factor for replay-ability on another matrix.
             o_eliminationCache.Append( rowIndex, eliminationFactor );
 
             // Eliminate a co-efficient.
