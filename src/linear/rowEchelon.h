@@ -11,12 +11,12 @@
 /// - zero rows are at the bottom of the matrix.
 /// - each pivot is to the right of the pivot of the row above it.
 ///
-/// A matrix in row echelon form can be further reduced into the row reduced echelon form (RREF),
+/// A matrix in row echelon form can be further reduced into the reduced row echelon form (RREF),
 /// with the addition of the following features:
 /// - the co-efficient in a pivot column is 1.
 /// - all the other values in a pivot column is 0.
 ///
-/// The row reduced echelon form (RREF) of a matrix allows even easier discoverability of
+/// The reduced row echelon form (RREF) of a matrix allows even easier discoverability of
 /// the pivot and free columns.
 
 #include <linear/base/matrixRowEchelon.h>
@@ -37,15 +37,15 @@ inline bool RowEchelonForm( const MatrixT& i_matrix )
     return _MatrixRowEchelonForm( i_matrix );
 }
 
-/// Compute the <em>row reduced echelon form</em> of a matrix, through elimination.
+/// Compute the <em>reduced row echelon form</em> of a matrix, through elimination.
 ///
 /// \param i_matrix the input matrix.
 ///
-/// \return the row reduced echelon form of the input matrix.
+/// \return the reduced row echelon form of the input matrix.
 template < typename MatrixT >
-inline bool RowReducedEchelonForm( const MatrixT& i_matrix )
+inline bool ReducedRowEchelonForm( const MatrixT& i_matrix )
 {
-    return _MatrixRowReducedEchelonForm( i_matrix );
+    return _MatrixReducedRowEchelonForm( i_matrix );
 }
 
 LINEAR_ALGEBRA_NS_CLOSE
