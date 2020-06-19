@@ -45,6 +45,8 @@ template < typename LeftMatrixT,
            typename InnerProductIndices = std::make_index_sequence< LeftMatrixT::ColumnCount() > >
 constexpr inline typename MatrixProductT::ValueType _InnerProduct( const LeftMatrixT& i_lhs, const RightMatrixT& i_rhs )
 {
+    // The Matrix class stores its entries row-major, thus we compute the row, column indices from the entry index
+    // by from the column count.
     const std::size_t rowIndex    = EntryIndex / MatrixProductT::ColumnCount();
     const std::size_t columnIndex = EntryIndex % MatrixProductT::ColumnCount();
     return _InnerProductIndexExpansion< LeftMatrixT, RightMatrixT, MatrixProductT, rowIndex, columnIndex >(
