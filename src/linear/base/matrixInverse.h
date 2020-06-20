@@ -6,55 +6,12 @@
 
 #include <linear/base/assert.h>
 #include <linear/base/matrixElimination.h>
+#include <linear/base/intRange.h>
 
 #include <linear/linear.h>
 #include <linear/matrix.h>
 
 LINEAR_ALGEBRA_NS_OPEN
-
-/// Performs an elimination step by subtracting the pivot row from all the rows above, to \em zero out
-/// the column above the pivot!
-template < typename MatrixT >
-inline bool _JordanEliminationStep( int i_pivotIndex, MatrixT& o_matrix, MatrixT& o_inverse )
-{
-    // Double check pivot.
-    LINEAR_ALGEBRA_ASSERT( o_matrix( i_pivotIndex, i_pivotIndex ) != 0 );
-
-    // Store the pivotValue for usage throughout the elimination for this column.
-    const typename MatrixT::ValueType pivotValue = o_matrix( i_pivotIndex, i_pivotIndex );
-
-    // Cache the pivot rowss
-    Matrix< 1, MatrixT::ColumnCount() > pivotRow        = GetRow( o_matrix, i_pivotIndex );
-    Matrix< 1, MatrixT::ColumnCount() > inversePivotRow = GetRow( o_inverse, i_pivotIndex );
-
-    // For each row below the pivot, try eliminate each (rowIndex, i_pivotIndex) entry by subtracting the pivot row
-    // multiplied by an elimination factor from that row.
-    for ( int rowIndex = i_pivotIndex - 1; rowIndex >= 0; rowIndex-- )
-    {
-        typename MatrixT::ValueType targetValue = o_matrix( rowIndex, i_pivotIndex );
-        if ( targetValue != 0 )
-        {
-            // Compute the elimination factor.
-            typename MatrixT::ValueType eliminationFactor = targetValue / pivotValue;
-
-            // Eliminate the row of o_matrix.
-            Matrix< 1, MatrixT::ColumnCount() > eliminationRow = pivotRow * eliminationFactor;
-            for ( int columnIndex = i_pivotIndex; columnIndex >= 0; columnIndex-- )
-            {
-                o_matrix( rowIndex, columnIndex ) -= eliminationRow( 0, columnIndex );
-            }
-
-            // Eliminate the row of o_inverse.
-            Matrix< 1, MatrixT::ColumnCount() > inverseEliminationRow = inversePivotRow * eliminationFactor;
-            for ( int columnIndex = MatrixT::ColumnCount() - 1; columnIndex >= 0; columnIndex-- )
-            {
-                o_inverse( rowIndex, columnIndex ) -= inverseEliminationRow( 0, columnIndex );
-            }
-        }
-    }
-
-    return false;
-}
 
 /// Compute the inverse of a matrix via Gauss-Jordan elimination.
 /// If elimination fails due to \p current matrix being \em singular, the value of \p o_inverse will be un-defined.
@@ -94,8 +51,15 @@ inline bool _MatrixInverse( const MatrixT& i_matrix, MatrixT& o_inverse )
         }
 
         // Record the elimination on matrix, then replay onto o_inverse.
-        _RecordEliminationBelowPivot( pivotIndex, eliminationCache, matrix );
-        _ReplayEliminationBelowPivot( pivotIndex, eliminationCache, o_inverse );
+        _RecordElimination( pivotIndex,
+                            /* rowRange */ IntRange( pivotIndex + 1, MatrixT::RowCount() ),
+                            /* columnRange */ IntRange( pivotIndex, MatrixT::ColumnCount() ),
+                            eliminationCache,
+                            matrix );
+        _ReplayElimination( pivotIndex,
+                            /* columnRange */ IntRange( 0, MatrixT::ColumnCount() ),
+                            eliminationCache,
+                            o_inverse );
 
         // Reset the cache for the next iteration.
         eliminationCache.Reset();
@@ -104,7 +68,19 @@ inline bool _MatrixInverse( const MatrixT& i_matrix, MatrixT& o_inverse )
     // Jordan Step step: U*E -> D
     for ( int pivotIndex = MatrixT::RowCount() - 1; pivotIndex > 0; --pivotIndex )
     {
-        _JordanEliminationStep( pivotIndex, matrix, o_inverse );
+        // Record the elimination on matrix, then replay onto o_inverse.
+        _RecordElimination( pivotIndex,
+                            /* rowRange */ IntRange( pivotIndex - 1, -1 ),
+                            /* columnRange */ IntRange( pivotIndex, -1 ),
+                            eliminationCache,
+                            matrix );
+        _ReplayElimination( pivotIndex,
+                            /* columnRange */ IntRange( MatrixT::ColumnCount() - 1, -1 ),
+                            eliminationCache,
+                            o_inverse );
+
+        // Reset the cache for the next iteration.
+        eliminationCache.Reset();
     }
 
     // Divide rows by diagonal pivot values.

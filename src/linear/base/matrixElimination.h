@@ -5,6 +5,7 @@
 /// Common matrix elimination sub-routines.
 
 #include <linear/base/assert.h>
+#include <linear/base/intRange.h>
 
 #include <linear/linear.h>
 #include <linear/matrix.h>
@@ -39,17 +40,14 @@ inline int _FindAndPerformRowExchange( int i_pivotIndex, MatrixT& o_matrix )
 /// Cache the row indices and corresponding elimination factors from a elimination step performed for a pivot.
 /// This is so that the operation can be replayed onto another matrix.
 ///
-/// EliminationCache is essentially an more efficient encoding of an elimination matrix, but replaying the operations
-/// encoded in this cache is more efficient than matrix multiplication (E*A) due to the number of no-op operations for
-/// potentially a large number of zero co-efficients.
+/// EliminationCache is essentially encodes one column of the elimination matrix.
 ///
 /// A possible alternative is encoding the elimination co-efficients in a sparse matrix, which would require support
 /// for sparse matrix multiplication (for another day).
 ///
-/// \tparam SIZE number entries to store in this elimination cache.  This generally corresponds to the row count of the matrix
-/// under elimination.
-/// \tparam ValueT the value type of the elimination factor.  This generally corresponds to the value type of the matrix
-/// under elimination.
+/// \tparam SIZE number entries to store in this elimination cache.  This generally corresponds to the row count of the
+/// matrix under elimination. \tparam ValueT the value type of the elimination factor.  This generally corresponds to
+/// the value type of the matrix under elimination.
 template < size_t SIZE, typename ValueT >
 class EliminationCache final
 {
@@ -125,8 +123,8 @@ private:
     Entry  m_entries[ SIZE ];
 };
 
-/// Performs an elimination step by subtracting the pivot row from all the rows below, to \em zero out
-/// the co-efficients under the pivot!
+/// Performs an elimination step by subtracting the pivot row from all the rows below with a non-zero co-efficient,
+/// to \em zero them out.
 ///
 /// \p o_eliminationCache is populated with the eliminated row indices and the corresponding factors.
 ///
@@ -134,9 +132,11 @@ private:
 /// replayed and performed on another matrix.
 template < typename MatrixT >
 inline void
-_RecordEliminationBelowPivot( int                                                                   i_pivotIndex,
-                              EliminationCache< MatrixT::RowCount(), typename MatrixT::ValueType >& o_eliminationCache,
-                              MatrixT&                                                              o_matrix )
+_RecordElimination( int                                                                   i_pivotIndex,
+                    const IntRange&                                                       i_rowRange,
+                    const IntRange&                                                       i_columnRange,
+                    EliminationCache< MatrixT::RowCount(), typename MatrixT::ValueType >& o_eliminationCache,
+                    MatrixT&                                                              o_matrix )
 {
     // Double check pivot.
     LINEAR_ALGEBRA_ASSERT( o_matrix( i_pivotIndex, i_pivotIndex ) != 0 );
@@ -147,8 +147,8 @@ _RecordEliminationBelowPivot( int                                               
     // Cache the pivot row.
     Matrix< 1, MatrixT::ColumnCount() > pivotRow = GetRow( o_matrix, i_pivotIndex );
 
-    // For each row below the pivot, try to eliminate any non-zero co-efficients in the
-    for ( int rowIndex = i_pivotIndex + 1; rowIndex < MatrixT::RowCount(); rowIndex++ )
+    // For each row below the pivot, try to eliminate any non-zero co-efficients.
+    for ( int rowIndex : i_rowRange )
     {
         typename MatrixT::ValueType targetValue = o_matrix( rowIndex, i_pivotIndex );
         if ( targetValue != 0 )
@@ -156,15 +156,15 @@ _RecordEliminationBelowPivot( int                                               
             // Compute the elimination factor.
             typename MatrixT::ValueType eliminationFactor = targetValue * pivotValueReciprocal;
 
-            // Cache the row index and factor for replay-ability on another matrix.
-            o_eliminationCache.Append( rowIndex, eliminationFactor );
-
             // Eliminate a co-efficient.
             Matrix< 1, MatrixT::ColumnCount() > eliminationRow = pivotRow * eliminationFactor;
-            for ( int columnIndex = i_pivotIndex; columnIndex < MatrixT::ColumnCount(); columnIndex++ )
+            for ( int columnIndex : i_columnRange )
             {
                 o_matrix( rowIndex, columnIndex ) -= eliminationRow( 0, columnIndex );
             }
+
+            // Cache the row index and factor for replay-ability on another matrix.
+            o_eliminationCache.Append( rowIndex, eliminationFactor );
         }
     }
 }
@@ -172,10 +172,11 @@ _RecordEliminationBelowPivot( int                                               
 /// Performs an elimination step by subtracting the pivot row from all the rows below, to \em zero out
 /// the co-efficients under the pivot, using by replaying the cache entries from \p i_eliminationCache.
 template < typename MatrixT >
-inline void _ReplayEliminationBelowPivot(
-    int                                                                         i_pivotIndex,
-    const EliminationCache< MatrixT::RowCount(), typename MatrixT::ValueType >& i_eliminationCache,
-    MatrixT&                                                                    o_matrix )
+inline void
+_ReplayElimination( int                                                                         i_pivotIndex,
+                    const IntRange&                                                             i_columnRange,
+                    const EliminationCache< MatrixT::RowCount(), typename MatrixT::ValueType >& i_eliminationCache,
+                    MatrixT&                                                                    o_matrix )
 {
     using EliminationCacheT = EliminationCache< MatrixT::RowCount(), typename MatrixT::ValueType >;
 
@@ -191,12 +192,11 @@ inline void _ReplayEliminationBelowPivot(
 
         // Perform elimination on target row.
         Matrix< 1, MatrixT::ColumnCount() > eliminationRow = pivotRow * eliminationFactor;
-        for ( int columnIndex = 0; columnIndex < MatrixT::ColumnCount(); columnIndex++ )
+        for ( int columnIndex : i_columnRange )
         {
             o_matrix( rowIndex, columnIndex ) -= eliminationRow( 0, columnIndex );
         }
     }
 }
-
 
 LINEAR_ALGEBRA_NS_CLOSE
