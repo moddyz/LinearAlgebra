@@ -1,6 +1,6 @@
 #pragma once
 
-/// \file matrixRow.h
+/// \file matrixTranspose.h
 ///
 /// Implementation details for transposing a M x N matrix (compile-time supported).
 

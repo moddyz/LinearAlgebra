@@ -1,6 +1,6 @@
 #pragma once
 
-/// \file invert.h
+/// \file rowEchelon.h
 ///
 /// Matrix row echelon form.
 ///
