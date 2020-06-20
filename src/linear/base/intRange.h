@@ -2,7 +2,7 @@
 
 /// \file intRange.h
 ///
-/// Integer range, for convenience iteration purposes.
+/// Integer range iteration.
 
 #include <linear/base/assert.h>
 
@@ -18,13 +18,30 @@ LINEAR_ALGEBRA_NS_OPEN
 class IntRange
 {
 public:
+    /// Initialize this integer range.
+    ///
+    /// If \p i_end > \p i_begin, the increment value is \p 1 for forwards iteration.
+    /// If \p i_end < \p i_begin, the increment value is \p -1, for backwards iteration.
+    ///
+    /// \note If \p i_end == \p i_begin, the increment value is \p 0 - there will be no range to iterate over.
+    ///
+    /// \param i_begin the beginning of the integer range.
+    /// \param i_end the end of the integer range.
     IntRange( int i_begin, int i_end )
         : m_begin( i_begin )
         , m_end( i_end )
-        , m_increment( i_begin < i_end ? 1 : -1 )
     {
+        if ( i_begin < i_end )
+        {
+            m_increment = 1;
+        }
+        else if ( i_begin > i_end )
+        {
+            m_increment = -1;
+        }
     }
 
+    /// Custom iterator over the range of integers.
     class iterator final
     {
     public:
@@ -58,13 +75,13 @@ public:
         int m_increment = 0;
     };
 
-    /// \return The iterator referring to the beginning of the entries array.
+    /// \return The iterator referring to the \em beginning of the integer range.
     iterator begin() const
     {
         return iterator( m_begin, m_increment );
     }
 
-    /// \return The iterator referring to the end of the entries array.
+    /// \return The iterator referring to the \em end of the integer range.
     iterator end() const
     {
         return iterator( m_end, m_increment );
