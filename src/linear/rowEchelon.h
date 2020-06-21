@@ -11,7 +11,7 @@
 /// - zero rows are at the bottom of the matrix.
 /// - each pivot is to the right of the pivot of the row above it.
 ///
-/// A matrix in row echelon form can be further reduced into the reduced row echelon form (RREF),
+/// A matrix in row echelon form can be further simplified into the reduced row echelon form (RREF),
 /// with the addition of the following features:
 /// - the co-efficient in a pivot column is 1.
 /// - all the other values in a pivot column is 0.
@@ -32,9 +32,10 @@ LINEAR_ALGEBRA_NS_OPEN
 ///
 /// \return the row echelon form of the input matrix.
 template < typename MatrixT >
-inline bool RowEchelonForm( const MatrixT& i_matrix )
+inline MatrixT RowEchelonForm( const MatrixT& i_matrix )
 {
-    return _MatrixRowEchelonForm( i_matrix );
+    std::array< ColumnType, MatrixT::ColumnCount() > columnType;
+    return _MatrixRowEchelonForm( i_matrix, columnType );
 }
 
 /// Compute the <em>reduced row echelon form</em> of a matrix, through elimination.
@@ -43,7 +44,7 @@ inline bool RowEchelonForm( const MatrixT& i_matrix )
 ///
 /// \return the reduced row echelon form of the input matrix.
 template < typename MatrixT >
-inline bool ReducedRowEchelonForm( const MatrixT& i_matrix )
+inline MatrixT ReducedRowEchelonForm( const MatrixT& i_matrix )
 {
     return _MatrixReducedRowEchelonForm( i_matrix );
 }

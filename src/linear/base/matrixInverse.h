@@ -5,8 +5,8 @@
 /// Matrix inverse implementation details.
 
 #include <linear/base/assert.h>
-#include <linear/base/matrixElimination.h>
 #include <linear/base/intRange.h>
+#include <linear/base/matrixElimination.h>
 
 #include <linear/linear.h>
 #include <linear/matrix.h>
@@ -36,7 +36,7 @@ inline bool _MatrixInverse( const MatrixT& i_matrix, MatrixT& o_inverse )
         if ( matrix( pivotIndex, pivotIndex ) == 0 )
         {
             // Try to find a row below with a non-zero pivot to exchange.
-            int exchangedRow = _FindAndPerformRowExchange( pivotIndex, matrix );
+            int exchangedRow = _FindAndPerformRowExchange( pivotIndex, pivotIndex, matrix );
             if ( exchangedRow != -1 )
             {
                 RowExchange( pivotIndex, exchangedRow, o_inverse );
@@ -52,11 +52,13 @@ inline bool _MatrixInverse( const MatrixT& i_matrix, MatrixT& o_inverse )
 
         // Record the elimination on matrix, then replay onto o_inverse.
         _RecordElimination( pivotIndex,
-                            /* rowRange */ IntRange( pivotIndex + 1, MatrixT::RowCount() ),
-                            /* columnRange */ IntRange( pivotIndex, MatrixT::ColumnCount() ),
+                            pivotIndex,
+                            IntRange( pivotIndex + 1, MatrixT::RowCount() ) /* rowRange */,
+                            IntRange( pivotIndex, MatrixT::ColumnCount() ) /* columnRange */,
                             eliminationCache,
                             matrix );
         _ReplayElimination( pivotIndex,
+                            pivotIndex,
                             /* columnRange */ IntRange( 0, MatrixT::ColumnCount() ),
                             eliminationCache,
                             o_inverse );
@@ -70,11 +72,13 @@ inline bool _MatrixInverse( const MatrixT& i_matrix, MatrixT& o_inverse )
     {
         // Record the elimination on matrix, then replay onto o_inverse.
         _RecordElimination( pivotIndex,
-                            /* rowRange */ IntRange( pivotIndex - 1, -1 ),
-                            /* columnRange */ IntRange( pivotIndex, -1 ),
+                            pivotIndex,
+                            IntRange( pivotIndex - 1, -1 ) /* rowRange */,
+                            IntRange( pivotIndex, -1 ) /* columnRange */,
                             eliminationCache,
                             matrix );
         _ReplayElimination( pivotIndex,
+                            pivotIndex,
                             /* columnRange */ IntRange( MatrixT::ColumnCount() - 1, -1 ),
                             eliminationCache,
                             o_inverse );
