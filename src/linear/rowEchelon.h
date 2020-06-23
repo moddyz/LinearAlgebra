@@ -23,6 +23,7 @@
 
 #include <linear/linear.h>
 #include <linear/matrix.h>
+#include <linear/rank.h>
 
 LINEAR_ALGEBRA_NS_OPEN
 
@@ -34,8 +35,8 @@ LINEAR_ALGEBRA_NS_OPEN
 template < typename MatrixT >
 inline MatrixT RowEchelonForm( const MatrixT& i_matrix )
 {
-    std::array< ColumnType, MatrixT::ColumnCount() > columnType;
-    return _MatrixRowEchelonForm( i_matrix, columnType );
+    MatrixEntryArray< MaxRank< MatrixT >(), typename MatrixT::ValueType > pivots;
+    return _MatrixRowEchelonForm( i_matrix, pivots );
 }
 
 /// Compute the <em>reduced row echelon form</em> of a matrix, through elimination.

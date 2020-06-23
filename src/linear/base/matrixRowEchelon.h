@@ -7,32 +7,22 @@
 #include <linear/base/assert.h>
 #include <linear/base/intRange.h>
 #include <linear/base/matrixElimination.h>
+#include <linear/base/matrixEntryArray.h>
 
 #include <linear/linear.h>
 #include <linear/matrix.h>
+#include <linear/rank.h>
+
+#include <iostream>
 
 LINEAR_ALGEBRA_NS_OPEN
-
-/// \enum ColumnType
-///
-/// Describes the type of column, revealed through a row echelon reduction operation.
-enum ColumnType
-{
-    /// Pivot column type, indicating that this column <em>is not</em> a combination of its previous columns,
-    /// or in other words, independent.
-    ColumnType_Pivot = 0,
-
-    /// Free column type, indicating that this column \em is a combination of its previous columns, and will
-    /// produce a special \b nullspace solution.
-    ColumnType_Free = 1
-};
 
 /// Compute the row echelon form of \p i_matrix, storing the kinds of columns revealed throughout the
 /// reduction process so that it can accelerate a calling operation like _MatrixReducedRowEchelonForm,
 /// or to find out the rank of a matrix.
 template < typename MatrixT >
-inline MatrixT _MatrixRowEchelonForm( const MatrixT&                                    i_matrix,
-                                      std::array< ColumnType, MatrixT::ColumnCount() >& o_columnType )
+inline MatrixT _MatrixRowEchelonForm( const MatrixT&                                                         i_matrix,
+                                      MatrixEntryArray< MaxRank< MatrixT >(), typename MatrixT::ValueType >& o_pivots )
 {
     // Working matrix copy.
     MatrixT matrix = i_matrix;
@@ -44,16 +34,13 @@ inline MatrixT _MatrixRowEchelonForm( const MatrixT&                            
     int pivotRowIndex = 0, pivotColIndex = 0;
     while ( pivotRowIndex < MatrixT::RowCount() && pivotColIndex < MatrixT::ColumnCount() )
     {
+        const typename MatrixT::ValueType& pivotValue = matrix( pivotRowIndex, pivotColIndex );
         if ( matrix( pivotRowIndex, pivotColIndex ) == 0 )
         {
             // Try to find a row below with a non-zero pivot to exchange.
             int exchangedRow = _FindAndPerformRowExchange( pivotRowIndex, pivotColIndex, matrix );
             if ( exchangedRow == -1 )
             {
-                // Failed to find row with non-zero co-efficient.
-                // This column has no pivot so is marked as a "free" column.
-                o_columnType[ pivotColIndex ] = ColumnType_Free;
-
                 // Only increment column index and continue with elimination.
                 pivotColIndex += 1;
                 continue;
@@ -71,7 +58,7 @@ inline MatrixT _MatrixRowEchelonForm( const MatrixT&                            
         eliminationCache.Reset();
 
         // This column has a pivot.
-        o_columnType[ pivotColIndex ] = ColumnType_Pivot;
+        o_pivots.Append( pivotRowIndex, pivotColIndex, pivotValue );
 
         // Increment both pivot row & column indices.
         pivotRowIndex += 1;
@@ -79,6 +66,46 @@ inline MatrixT _MatrixRowEchelonForm( const MatrixT&                            
     }
 
     return matrix;
+}
+
+/// Compute the reduced row echelon form of \p i_matrix.
+template < typename MatrixT >
+inline MatrixT _MatrixReducedRowEchelonForm( const MatrixT& i_matrix )
+{
+    using PivotsT = MatrixEntryArray< MaxRank< MatrixT >(), typename MatrixT::ValueType >;
+    PivotsT pivots;
+    MatrixT rowEchelonForm = _MatrixRowEchelonForm( i_matrix, pivots );
+
+    // Record elimination operations.
+    EliminationCache< MatrixT::RowCount(), typename MatrixT::ValueType > eliminationCache;
+
+    // The
+    for ( int entryIndex : IntRange( pivots.Size() - 1, -1 ) )
+    {
+        const typename PivotsT::Entry&     entry      = pivots[ entryIndex ];
+        const MatrixIndex&                 pivotIndex = std::get< 0 >( entry );
+
+        // Perform elimination, by subtracting the pivot's row from the rows above, to
+        // zero out their co-efficients in the pivot's column.
+        _RecordElimination( pivotIndex.Row(),
+                            pivotIndex.Column(),
+                            IntRange( pivotIndex.Row() - 1, -1 ) /* rowRange */,
+                            IntRange( MatrixT::ColumnCount() - 1, -1 ) /* columnRange */,
+                            eliminationCache,
+                            rowEchelonForm );
+
+        // Divide the pivot row by the pivot value, so that it becomes 1.
+        const typename PivotsT::ValueType& pivotValue = std::get< 1 >( entry );
+        typename MatrixT::ValueType  pivotValueInverse = 1.0 / pivotValue;
+        for ( int columnIndex = 0; columnIndex < MatrixT::ColumnCount(); columnIndex++ )
+        {
+            rowEchelonForm( pivotIndex.Row(), columnIndex ) *= pivotValueInverse;
+        }
+
+        eliminationCache.Reset();
+    }
+
+    return rowEchelonForm;
 }
 
 LINEAR_ALGEBRA_NS_CLOSE

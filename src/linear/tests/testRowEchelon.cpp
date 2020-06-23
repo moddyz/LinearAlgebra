@@ -17,3 +17,19 @@ TEST_CASE( "Matrix_RowEchelonForm" )
         0, 0, 0, 0
     ) );
 }
+
+TEST_CASE( "Matrix_ReducedRowEchelonForm" )
+{
+    using MatrixT = linear::Matrix< 3, 4 >;
+    MatrixT matrix(
+        1, 2, 2, 2,
+        2, 4, 6, 8,
+        3, 6, 8, 10
+    );
+
+    CHECK( linear::ReducedRowEchelonForm( matrix ) == MatrixT(
+        1, 2, 0, -2,
+        0, 0, 1, 2,
+        0, 0, 0, 0
+    ) );
+}
