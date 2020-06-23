@@ -27,7 +27,7 @@ inline bool _MatrixInverse( const MatrixT& i_matrix, MatrixT& o_inverse )
     o_inverse = MatrixT::Identity();
 
     // Use cache to record on i_matrix and replay on o_inverse.
-    EliminationCache< MatrixT::RowCount(), typename MatrixT::ValueType > eliminationCache;
+    MatrixEntryArray< MatrixT::RowCount(), typename MatrixT::ValueType > eliminationFactors;
 
     // Gauss step: E*A -> U
     for ( int pivotIndex = 0; pivotIndex < MatrixT::RowCount() - 1; ++pivotIndex )
@@ -55,16 +55,16 @@ inline bool _MatrixInverse( const MatrixT& i_matrix, MatrixT& o_inverse )
                             pivotIndex,
                             IntRange( pivotIndex + 1, MatrixT::RowCount() ) /* rowRange */,
                             IntRange( pivotIndex, MatrixT::ColumnCount() ) /* columnRange */,
-                            eliminationCache,
+                            eliminationFactors,
                             matrix );
         _ReplayElimination( pivotIndex,
                             pivotIndex,
                             /* columnRange */ IntRange( 0, MatrixT::ColumnCount() ),
-                            eliminationCache,
+                            eliminationFactors,
                             o_inverse );
 
         // Reset the cache for the next iteration.
-        eliminationCache.Reset();
+        eliminationFactors.Reset();
     }
 
     // Jordan Step step: U*E -> D
@@ -75,16 +75,16 @@ inline bool _MatrixInverse( const MatrixT& i_matrix, MatrixT& o_inverse )
                             pivotIndex,
                             IntRange( pivotIndex - 1, -1 ) /* rowRange */,
                             IntRange( pivotIndex, -1 ) /* columnRange */,
-                            eliminationCache,
+                            eliminationFactors,
                             matrix );
         _ReplayElimination( pivotIndex,
                             pivotIndex,
                             /* columnRange */ IntRange( MatrixT::ColumnCount() - 1, -1 ),
-                            eliminationCache,
+                            eliminationFactors,
                             o_inverse );
 
         // Reset the cache for the next iteration.
-        eliminationCache.Reset();
+        eliminationFactors.Reset();
     }
 
     // Divide rows by diagonal pivot values.

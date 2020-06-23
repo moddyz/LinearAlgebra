@@ -6,6 +6,7 @@
 
 #include <linear/base/assert.h>
 #include <linear/base/intRange.h>
+#include <linear/base/matrixEntryArray.h>
 
 #include <linear/linear.h>
 #include <linear/matrix.h>
@@ -34,99 +35,10 @@ inline int _FindAndPerformRowExchange( int i_pivotRowIndex, int i_pivotColIndex,
 
     return -1;
 }
-
-/// \class EliminationCache
-///
-/// Cache the row indices and corresponding elimination factors from a elimination step performed for a pivot.
-/// This is so that the operation can be replayed onto another matrix.
-///
-/// EliminationCache is essentially encodes one column of the elimination matrix.
-///
-/// A possible alternative is encoding the elimination co-efficients in a sparse matrix, which would require support
-/// for sparse matrix multiplication (for another day).
-///
-/// \tparam SIZE number entries to store in this elimination cache.  This generally corresponds to the row count of the
-/// matrix under elimination. \tparam ValueT the value type of the elimination factor.  This generally corresponds to
-/// the value type of the matrix under elimination.
-template < size_t SIZE, typename ValueT >
-class EliminationCache final
-{
-public:
-    /// \typedef ValueType
-    using ValueType = ValueT;
-
-    /// An entry of the cache stores the row index and the corresponding elimination factor.
-    using Entry = std::tuple< size_t, ValueT >;
-
-    /// Reset the state of the elimination cache.
-    /// This is so this cache can be re-used across \em multiple elimination steps.
-    void Reset()
-    {
-        m_entriesCount = 0;
-    }
-
-    /// Append a new entry to the cache.
-    void Append( size_t i_rowIndex, ValueT i_value )
-    {
-        LINEAR_ALGEBRA_ASSERT( i_rowIndex < SIZE );
-        LINEAR_ALGEBRA_ASSERT( m_entriesCount < SIZE );
-        m_entries[ m_entriesCount++ ] = Entry( i_rowIndex, i_value );
-    }
-
-    /// Custom iterator class to enable iteration over the entries of a EliminationCache.
-    class iterator final
-    {
-    public:
-        /// Iterator constructor.
-        iterator( const Entry* i_entry )
-            : m_entry( i_entry )
-        {
-        }
-
-        /// In-equality operator, for check for iteration termination.
-        bool operator!=( const iterator& i_other ) const
-        {
-            return m_entry != i_other.m_entry;
-        }
-
-        /// De-referencing operator, to get the value.
-        const Entry& operator*() const
-        {
-            return *m_entry;
-        }
-
-        /// Increment the iterator.
-        const iterator& operator++()
-        {
-            m_entry++;
-            return *this;
-        }
-
-    private:
-        const Entry* m_entry = nullptr;
-    };
-
-    /// \return The iterator referring to the beginning of the entries array.
-    iterator begin() const
-    {
-        return iterator( &m_entries[ 0 ] );
-    }
-
-    /// \return The iterator referring to the end of the entries array.
-    iterator end() const
-    {
-        return iterator( &m_entries[ m_entriesCount ] );
-    }
-
-private:
-    size_t m_entriesCount = 0;
-    Entry  m_entries[ SIZE ];
-};
-
 /// Performs an elimination step by subtracting the pivot row from all the rows below with a non-zero co-efficient,
 /// to \em zero them out.
 ///
-/// \p o_eliminationCache is populated with the eliminated row indices and the corresponding factors.
+/// \p o_eliminationFactors is populated with the eliminated row indices and the corresponding factors.
 ///
 /// Allowing the recording of the elimination factors at the respective rows allow the same operations to be efficiently
 /// replayed and performed on another matrix.
@@ -136,7 +48,7 @@ _RecordElimination( int                                                         
                     int                                                                   i_pivotColIndex,
                     const IntRange&                                                       i_rowRange,
                     const IntRange&                                                       i_columnRange,
-                    EliminationCache< MatrixT::RowCount(), typename MatrixT::ValueType >& o_eliminationCache,
+                    MatrixEntryArray< MatrixT::RowCount(), typename MatrixT::ValueType >& o_eliminationFactors,
                     MatrixT&                                                              o_matrix )
 {
     // Double check pivot.
@@ -165,38 +77,38 @@ _RecordElimination( int                                                         
             }
 
             // Cache the row index and factor for replay-ability on another matrix.
-            o_eliminationCache.Append( rowIndex, eliminationFactor );
+            o_eliminationFactors.Append( rowIndex, i_pivotColIndex, eliminationFactor );
         }
     }
 }
 
 /// Performs an elimination step by subtracting the pivot row from all the rows below, to \em zero out
-/// the co-efficients under the pivot, using by replaying the cache entries from \p i_eliminationCache.
+/// the co-efficients under the pivot, using by replaying the cache entries from \p i_eliminationFactors.
 template < typename MatrixT >
 inline void
 _ReplayElimination( int                                                                         i_pivotRowIndex,
                     int                                                                         i_pivotColIndex,
                     const IntRange&                                                             i_columnRange,
-                    const EliminationCache< MatrixT::RowCount(), typename MatrixT::ValueType >& i_eliminationCache,
+                    const MatrixEntryArray< MatrixT::RowCount(), typename MatrixT::ValueType >& i_eliminationFactors,
                     MatrixT&                                                                    o_matrix )
 {
-    using EliminationCacheT = EliminationCache< MatrixT::RowCount(), typename MatrixT::ValueType >;
+    using MatrixEntryArrayT = MatrixEntryArray< MatrixT::RowCount(), typename MatrixT::ValueType >;
 
     // Cache the pivot row.
     Matrix< 1, MatrixT::ColumnCount() > pivotRow = GetRow( o_matrix, i_pivotRowIndex );
 
     // Replay the cache and apply elimination
-    for ( const typename EliminationCacheT::Entry& entry : i_eliminationCache )
+    for ( const typename MatrixEntryArrayT::Entry& entry : i_eliminationFactors )
     {
         // Pull cache values.
-        const size_t                                 rowIndex          = std::get< 0 >( entry );
-        const typename EliminationCacheT::ValueType& eliminationFactor = std::get< 1 >( entry );
+        const MatrixIndex&                           eliminationIndex  = std::get< 0 >( entry );
+        const typename MatrixEntryArrayT::ValueType& eliminationFactor = std::get< 1 >( entry );
 
         // Perform elimination on target row.
         Matrix< 1, MatrixT::ColumnCount() > eliminationRow = pivotRow * eliminationFactor;
         for ( int columnIndex : i_columnRange )
         {
-            o_matrix( rowIndex, columnIndex ) -= eliminationRow( 0, columnIndex );
+            o_matrix( eliminationIndex.Row(), columnIndex ) -= eliminationRow( 0, columnIndex );
         }
     }
 }

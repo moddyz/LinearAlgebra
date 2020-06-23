@@ -28,7 +28,7 @@ inline MatrixT _MatrixRowEchelonForm( const MatrixT&                            
     MatrixT matrix = i_matrix;
 
     // Record elimination operations.
-    EliminationCache< MatrixT::RowCount(), typename MatrixT::ValueType > eliminationCache;
+    MatrixEntryArray< MatrixT::RowCount(), typename MatrixT::ValueType > eliminationFactors;
 
     // Elimination, reducing matrix A into U (upper triangular).
     int pivotRowIndex = 0, pivotColIndex = 0;
@@ -52,10 +52,10 @@ inline MatrixT _MatrixRowEchelonForm( const MatrixT&                            
                             pivotColIndex,
                             IntRange( pivotRowIndex + 1, MatrixT::RowCount() ) /* rowRange */,
                             IntRange( pivotColIndex, MatrixT::ColumnCount() ) /* columnRange */,
-                            eliminationCache,
+                            eliminationFactors,
                             matrix );
 
-        eliminationCache.Reset();
+        eliminationFactors.Reset();
 
         // This column has a pivot.
         o_pivots.Append( pivotRowIndex, pivotColIndex, pivotValue );
@@ -77,7 +77,7 @@ inline MatrixT _MatrixReducedRowEchelonForm( const MatrixT& i_matrix )
     MatrixT rowEchelonForm = _MatrixRowEchelonForm( i_matrix, pivots );
 
     // Record elimination operations.
-    EliminationCache< MatrixT::RowCount(), typename MatrixT::ValueType > eliminationCache;
+    MatrixEntryArray< MatrixT::RowCount(), typename MatrixT::ValueType > eliminationFactors;
 
     // The
     for ( int entryIndex : IntRange( pivots.Size() - 1, -1 ) )
@@ -91,7 +91,7 @@ inline MatrixT _MatrixReducedRowEchelonForm( const MatrixT& i_matrix )
                             pivotIndex.Column(),
                             IntRange( pivotIndex.Row() - 1, -1 ) /* rowRange */,
                             IntRange( MatrixT::ColumnCount() - 1, -1 ) /* columnRange */,
-                            eliminationCache,
+                            eliminationFactors,
                             rowEchelonForm );
 
         // Divide the pivot row by the pivot value, so that it becomes 1.
@@ -102,7 +102,7 @@ inline MatrixT _MatrixReducedRowEchelonForm( const MatrixT& i_matrix )
             rowEchelonForm( pivotIndex.Row(), columnIndex ) *= pivotValueInverse;
         }
 
-        eliminationCache.Reset();
+        eliminationFactors.Reset();
     }
 
     return rowEchelonForm;
