@@ -45,6 +45,22 @@ static_assert( linear::Transpose( matrix ) == linear::Matrix< 2, 3 >(
 ) );
 ```
 
+Reduced row echelon form:
+```cpp
+using MatrixT = linear::Matrix< 3, 4 >;
+MatrixT matrix(
+    1, 2, 2, 2,
+    2, 4, 6, 8,
+    3, 6, 8, 10
+);
+
+assert( linear::ReducedRowEchelonForm( matrix ) == MatrixT(
+    1, 2, 0, -2,
+    0, 0, 1, 2,
+    0, 0, 0, 0
+) );
+```
+
 ## Building
 
 A convenience build script is also provided, for building all targets, and optionally installing to a location:
