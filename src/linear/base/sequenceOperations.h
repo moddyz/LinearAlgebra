@@ -20,7 +20,7 @@
 
 #include <type_traits>
 
-LINEAR_ALGEBRA_NS_OPEN
+LINEAR_NS_OPEN
 
 /// This is a helper function for the sequence * sequence variation of  \ref SequenceBinaryOperation, which expands the
 /// index sequence into a series of operations.
@@ -265,4 +265,4 @@ constexpr bool SequenceLogicalUnaryOperation( LogicalOperatorT i_logicalOperator
                                                                                                  i_sequence ) );
 }
 
-LINEAR_ALGEBRA_NS_CLOSE
+LINEAR_NS_CLOSE

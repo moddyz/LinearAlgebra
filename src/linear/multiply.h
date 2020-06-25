@@ -16,7 +16,7 @@
 
 #include <linear/base/matrixMultiplication.h>
 
-LINEAR_ALGEBRA_NS_OPEN
+LINEAR_NS_OPEN
 
 /// Multiply matrices \p i_lhs and \p i_rhs, and return the matrix product.
 ///
@@ -42,4 +42,4 @@ constexpr inline MatrixProductT Multiply( const LHSMatrixT& i_lhs, const RHSMatr
     return _MatrixMult< LHSMatrixT, RHSMatrixT, MatrixProductT >( i_lhs, i_rhs );
 }
 
-LINEAR_ALGEBRA_NS_CLOSE
+LINEAR_NS_CLOSE

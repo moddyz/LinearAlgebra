@@ -4,7 +4,7 @@
 
 #include <linear/linear.h>
 
-LINEAR_ALGEBRA_NS_OPEN
+LINEAR_NS_OPEN
 
 /// Function for comparing whether two values \p i_valueA and \p i_valueB are almost equal,
 /// within the threshold \p i_epsilon.
@@ -18,4 +18,4 @@ constexpr bool AlmostEqual( const ValueT& i_valueA, const ValueT& i_valueB )
     return std::abs( i_valueA - i_valueB ) < 0.0001;
 }
 
-LINEAR_ALGEBRA_NS_CLOSE
+LINEAR_NS_CLOSE

@@ -6,7 +6,7 @@
 
 #include <linear/linear.h>
 
-LINEAR_ALGEBRA_NS_OPEN
+LINEAR_NS_OPEN
 
 /// \class MatrixIndex
 ///
@@ -84,7 +84,7 @@ public:
     /// Set the value \p i_value at (\p i_rowIndex, \p i_columnIndex) of this array.
     inline void Append( size_t i_rowIndex, size_t i_columnIndex, const ValueT& i_value )
     {
-        LINEAR_ALGEBRA_ASSERT( m_entriesCount < CAPACITY );
+        LINEAR_ASSERT( m_entriesCount < CAPACITY );
         m_entries[ m_entriesCount++ ] = std::make_tuple( MatrixIndex( i_rowIndex, i_columnIndex ), i_value );
     }
 
@@ -146,4 +146,4 @@ private:
     std::array< Entry, CAPACITY > m_entries;
 };
 
-LINEAR_ALGEBRA_NS_CLOSE
+LINEAR_NS_CLOSE

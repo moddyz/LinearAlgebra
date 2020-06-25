@@ -8,7 +8,7 @@
 
 #include <iostream>
 
-LINEAR_ALGEBRA_NS_OPEN
+LINEAR_NS_OPEN
 
 /// Converts a entry index into the respective transposed matrix entry.
 template < typename MatrixT, std::size_t EntryIndex >
@@ -38,4 +38,4 @@ _MatrixTranspose( const MatrixT& i_matrix )
     return _MatrixTransposeIndexExpansion( i_matrix, EntryIndices{} );
 }
 
-LINEAR_ALGEBRA_NS_CLOSE
+LINEAR_NS_CLOSE

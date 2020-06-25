@@ -15,7 +15,7 @@
 #include <linear/linear.h>
 #include <linear/matrix.h>
 
-LINEAR_ALGEBRA_NS_OPEN
+LINEAR_NS_OPEN
 
 /// Find transpose of \p i_matrix.
 ///
@@ -31,4 +31,4 @@ Transpose( const MatrixT& i_matrix )
     return _MatrixTranspose( i_matrix );
 }
 
-LINEAR_ALGEBRA_NS_CLOSE
+LINEAR_NS_CLOSE

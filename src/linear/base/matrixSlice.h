@@ -6,7 +6,7 @@
 
 #include <linear/linear.h>
 
-LINEAR_ALGEBRA_NS_OPEN
+LINEAR_NS_OPEN
 
 /// Each entry index needs to be decomposed into the slice's row and column index, to extract the region of interest
 /// from \p i_matrix.
@@ -37,4 +37,4 @@ constexpr inline SliceT _MatrixSlice( const MatrixT& i_matrix )
     return _MatrixSliceIndexExpansion< MatrixT, SliceT, RowOffset, ColumnOffset >( i_matrix, SliceIndices{} );
 }
 
-LINEAR_ALGEBRA_NS_CLOSE
+LINEAR_NS_CLOSE

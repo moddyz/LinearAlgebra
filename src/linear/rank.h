@@ -9,15 +9,15 @@
 
 #include <linear/linear.h>
 
-LINEAR_ALGEBRA_NS_OPEN
+LINEAR_NS_OPEN
 
 /// Compute the \em maximum rank a matrix of type \p MatrixT can have.
 ///
 /// \return the maximum rank.
-template< typename MatrixT >
+template < typename MatrixT >
 constexpr inline size_t MaxRank()
 {
     return std::min( MatrixT::RowCount(), MatrixT::ColumnCount() );
 }
 
-LINEAR_ALGEBRA_NS_CLOSE
+LINEAR_NS_CLOSE

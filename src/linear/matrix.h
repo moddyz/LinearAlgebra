@@ -16,7 +16,7 @@
 #include <cstring>
 #include <sstream>
 
-LINEAR_ALGEBRA_NS_OPEN
+LINEAR_NS_OPEN
 
 /// \class Matrix
 ///
@@ -65,19 +65,19 @@ public:
         static_assert( sizeof...( i_entries ) == EntryCount() );
     }
 
-#ifdef LINEAR_ALGEBRA_DEBUG
+#ifdef LINEAR_DEBUG
     /// Copy constructor.
     Matrix( const MatrixType& i_matrix )
     {
         std::memcpy( ( void* ) m_entries, ( const void* ) i_matrix.m_entries, sizeof( MatrixType ) );
-        LINEAR_ALGEBRA_ASSERT( !HasNans() );
+        LINEAR_ASSERT( !HasNans() );
     }
 
     /// Copy assignment operator.
     Matrix& operator=( const MatrixType& i_matrix )
     {
         std::memcpy( ( void* ) m_entries, ( const void* ) i_matrix.m_entries, sizeof( MatrixType ) );
-        LINEAR_ALGEBRA_ASSERT( !HasNans() );
+        LINEAR_ASSERT( !HasNans() );
         return *this;
     }
 #endif
@@ -123,12 +123,12 @@ public:
     /// \return Value entry at row \p i_rowIndex and column \p i_columnIndex.
     constexpr inline const ValueT& operator()( size_t i_rowIndex, size_t i_columnIndex ) const
     {
-        LINEAR_ALGEBRA_ASSERT_MSG( ( i_rowIndex * COLS + i_columnIndex ) < ROWS * COLS,
-                                   "Requested (%lu, %lu) exceeded bounds (%lu, %lu)\n",
-                                   i_rowIndex,
-                                   i_columnIndex,
-                                   ROWS,
-                                   COLS );
+        LINEAR_ASSERT_MSG( ( i_rowIndex * COLS + i_columnIndex ) < ROWS * COLS,
+                           "Requested (%lu, %lu) exceeded bounds (%lu, %lu)\n",
+                           i_rowIndex,
+                           i_columnIndex,
+                           ROWS,
+                           COLS );
         return m_entries[ i_rowIndex * COLS + i_columnIndex ];
     }
 
@@ -140,12 +140,12 @@ public:
     /// \return Value entry at row \p i_rowIndex and column \p i_columnIndex.
     constexpr inline ValueT& operator()( size_t i_rowIndex, size_t i_columnIndex )
     {
-        LINEAR_ALGEBRA_ASSERT_MSG( ( i_rowIndex * COLS + i_columnIndex ) < ROWS * COLS,
-                                   "Requested (%lu, %lu) exceeded bounds (%lu, %lu)\n",
-                                   i_rowIndex,
-                                   i_columnIndex,
-                                   ROWS,
-                                   COLS );
+        LINEAR_ASSERT_MSG( ( i_rowIndex * COLS + i_columnIndex ) < ROWS * COLS,
+                           "Requested (%lu, %lu) exceeded bounds (%lu, %lu)\n",
+                           i_rowIndex,
+                           i_columnIndex,
+                           ROWS,
+                           COLS );
         return m_entries[ i_rowIndex * COLS + i_columnIndex ];
     }
 
@@ -156,10 +156,7 @@ public:
     /// \return Value entry at entry \p i_index.
     constexpr inline const ValueT& operator[]( size_t i_index ) const
     {
-        LINEAR_ALGEBRA_ASSERT_MSG( i_index < ROWS * COLS,
-                                   "Requested index %lu exceeds size %lu\n",
-                                   i_index,
-                                   ROWS * COLS );
+        LINEAR_ASSERT_MSG( i_index < ROWS * COLS, "Requested index %lu exceeds size %lu\n", i_index, ROWS * COLS );
         return m_entries[ i_index ];
     }
 
@@ -170,10 +167,7 @@ public:
     /// \return Value entry at entry \p i_index.
     constexpr inline ValueT& operator[]( size_t i_index )
     {
-        LINEAR_ALGEBRA_ASSERT_MSG( i_index < ROWS * COLS,
-                                   "Requested index %lu exceeds size %lu\n",
-                                   i_index,
-                                   ROWS * COLS );
+        LINEAR_ASSERT_MSG( i_index < ROWS * COLS, "Requested index %lu exceeds size %lu\n", i_index, ROWS * COLS );
         return m_entries[ i_index ];
     }
 
@@ -214,7 +208,7 @@ public:
     constexpr inline MatrixType operator+( const MatrixType& i_matrix ) const
     {
         // TODO How to perform compile-time nan-check?
-        // LINEAR_ALGEBRA_ASSERT( !HasNans() );
+        // LINEAR_ASSERT( !HasNans() );
         return SequenceBinaryOperation( std::plus< ValueType >(), *this, i_matrix );
     }
 
@@ -227,7 +221,7 @@ public:
     constexpr inline MatrixType operator-( const MatrixType& i_matrix ) const
     {
         // TODO How to perform compile-time nan-check?
-        // LINEAR_ALGEBRA_ASSERT( !HasNans() );
+        // LINEAR_ASSERT( !HasNans() );
         return SequenceBinaryOperation( std::minus< ValueType >(), *this, i_matrix );
     }
 
@@ -238,7 +232,7 @@ public:
     /// \pre the current matrix and \p i_matrix must have the same shape.
     inline void operator+=( const MatrixType& i_matrix )
     {
-        LINEAR_ALGEBRA_ASSERT( !HasNans() );
+        LINEAR_ASSERT( !HasNans() );
         MutableSequenceBinaryOperation( std::plus< ValueType >(), *this, i_matrix, *this );
     }
 
@@ -249,7 +243,7 @@ public:
     /// \pre the current matrix and \p i_matrix must have the same shape.
     inline void operator-=( const MatrixType& i_matrix )
     {
-        LINEAR_ALGEBRA_ASSERT( !HasNans() );
+        LINEAR_ASSERT( !HasNans() );
         MutableSequenceBinaryOperation( std::minus< ValueType >(), *this, i_matrix, *this );
     }
 
@@ -259,7 +253,7 @@ public:
     template < typename ScalarT >
     inline void operator*=( const ScalarT& i_scalar )
     {
-        LINEAR_ALGEBRA_ASSERT( !HasNans() );
+        LINEAR_ASSERT( !HasNans() );
         MutableSequenceBinaryOperation( std::multiplies< ValueType >(), *this, i_scalar, *this );
     }
 
@@ -269,9 +263,9 @@ public:
     template < typename ScalarT >
     inline void operator/=( const ScalarT& i_scalar )
     {
-        LINEAR_ALGEBRA_ASSERT( !HasNans() );
-        LINEAR_ALGEBRA_ASSERT( !std::isnan( i_scalar ) );
-        LINEAR_ALGEBRA_ASSERT( i_scalar != 0 );
+        LINEAR_ASSERT( !HasNans() );
+        LINEAR_ASSERT( !std::isnan( i_scalar ) );
+        LINEAR_ASSERT( i_scalar != 0 );
         MutableSequenceBinaryOperation( std::divides< ValueType >(), *this, i_scalar, *this );
     }
 
@@ -396,8 +390,8 @@ template < size_t ROWS, size_t COLS, typename ValueT >
 constexpr inline Matrix< ROWS, COLS, ValueT > operator/( const Matrix< ROWS, COLS, ValueT >& i_matrix,
                                                          const ValueT&                       i_scalar )
 {
-    LINEAR_ALGEBRA_ASSERT( i_scalar != 0 );
+    LINEAR_ASSERT( i_scalar != 0 );
     return SequenceBinaryOperation( std::divides< ValueT >(), i_matrix, i_scalar );
 }
 
-LINEAR_ALGEBRA_NS_CLOSE
+LINEAR_NS_CLOSE

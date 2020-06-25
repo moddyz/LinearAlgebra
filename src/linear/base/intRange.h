@@ -8,7 +8,7 @@
 
 #include <linear/linear.h>
 
-LINEAR_ALGEBRA_NS_OPEN
+LINEAR_NS_OPEN
 
 /// \class IntRange
 ///
@@ -93,5 +93,4 @@ private:
     int m_increment = 0;
 };
 
-LINEAR_ALGEBRA_NS_CLOSE
-
+LINEAR_NS_CLOSE

@@ -15,7 +15,7 @@
 #include <linear/linear.h>
 #include <linear/matrix.h>
 
-LINEAR_ALGEBRA_NS_OPEN
+LINEAR_NS_OPEN
 
 /// Compute the inverse of a matrix via <b>Gauss-Jordan Elimination</b>.
 ///
@@ -32,4 +32,4 @@ inline bool Invert( const MatrixT& i_matrix, MatrixT& o_inverse )
     return _MatrixInverse( i_matrix, o_inverse );
 }
 
-LINEAR_ALGEBRA_NS_CLOSE
+LINEAR_NS_CLOSE

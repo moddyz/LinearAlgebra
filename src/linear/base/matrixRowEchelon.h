@@ -15,7 +15,7 @@
 
 #include <iostream>
 
-LINEAR_ALGEBRA_NS_OPEN
+LINEAR_NS_OPEN
 
 /// Compute the row echelon form of \p i_matrix, storing the kinds of columns revealed throughout the
 /// reduction process so that it can accelerate a calling operation like _MatrixReducedRowEchelonForm,
@@ -82,8 +82,8 @@ inline MatrixT _MatrixReducedRowEchelonForm( const MatrixT& i_matrix )
     // The
     for ( int entryIndex : IntRange( pivots.Size() - 1, -1 ) )
     {
-        const typename PivotsT::Entry&     entry      = pivots[ entryIndex ];
-        const MatrixIndex&                 pivotIndex = std::get< 0 >( entry );
+        const typename PivotsT::Entry& entry      = pivots[ entryIndex ];
+        const MatrixIndex&             pivotIndex = std::get< 0 >( entry );
 
         // Perform elimination, by subtracting the pivot's row from the rows above, to
         // zero out their co-efficients in the pivot's column.
@@ -95,8 +95,8 @@ inline MatrixT _MatrixReducedRowEchelonForm( const MatrixT& i_matrix )
                             rowEchelonForm );
 
         // Divide the pivot row by the pivot value, so that it becomes 1.
-        const typename PivotsT::ValueType& pivotValue = std::get< 1 >( entry );
-        typename MatrixT::ValueType  pivotValueInverse = 1.0 / pivotValue;
+        const typename PivotsT::ValueType& pivotValue        = std::get< 1 >( entry );
+        typename MatrixT::ValueType        pivotValueInverse = 1.0 / pivotValue;
         for ( int columnIndex = 0; columnIndex < MatrixT::ColumnCount(); columnIndex++ )
         {
             rowEchelonForm( pivotIndex.Row(), columnIndex ) *= pivotValueInverse;
@@ -108,4 +108,4 @@ inline MatrixT _MatrixReducedRowEchelonForm( const MatrixT& i_matrix )
     return rowEchelonForm;
 }
 
-LINEAR_ALGEBRA_NS_CLOSE
+LINEAR_NS_CLOSE

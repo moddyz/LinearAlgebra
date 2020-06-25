@@ -25,7 +25,7 @@
 #include <linear/matrix.h>
 #include <linear/rank.h>
 
-LINEAR_ALGEBRA_NS_OPEN
+LINEAR_NS_OPEN
 
 /// Compute the <em>row echelon form</em> of a matrix, through elimination.
 ///
@@ -50,4 +50,4 @@ inline MatrixT ReducedRowEchelonForm( const MatrixT& i_matrix )
     return _MatrixReducedRowEchelonForm( i_matrix );
 }
 
-LINEAR_ALGEBRA_NS_CLOSE
+LINEAR_NS_CLOSE

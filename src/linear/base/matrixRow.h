@@ -6,7 +6,7 @@
 
 #include <linear/linear.h>
 
-LINEAR_ALGEBRA_NS_OPEN
+LINEAR_NS_OPEN
 
 /// Index sequence expansion into packed parameters, to initialize the row matrix.
 template < typename MatrixT, typename RowT, std::size_t... ColumnIndex >
@@ -25,4 +25,4 @@ constexpr inline RowT _MatrixRow( const MatrixT& i_matrix, size_t i_rowIndex )
     return _MatrixRowIndexExpansion< MatrixT, RowT >( i_matrix, i_rowIndex, ColumnIndices{} );
 }
 
-LINEAR_ALGEBRA_NS_CLOSE
+LINEAR_NS_CLOSE

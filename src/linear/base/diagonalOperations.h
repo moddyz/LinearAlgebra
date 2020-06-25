@@ -13,7 +13,7 @@
 
 #include <type_traits>
 
-LINEAR_ALGEBRA_NS_OPEN
+LINEAR_NS_OPEN
 
 /// The \em terminating code path taken when performing a unary operation each diagonal entry of matrix \p o_matrix.
 ///
@@ -71,4 +71,4 @@ void DiagonalUnaryOperation( MatrixEntryOperatorT i_operator, MatrixT& o_matrix 
     DiagonalUnaryOperation< MatrixEntryOperatorT, MatrixT, RowIndex + 1, ColumnIndex + 1 >( i_operator, o_matrix );
 }
 
-LINEAR_ALGEBRA_NS_CLOSE
+LINEAR_NS_CLOSE

@@ -12,7 +12,7 @@
 #include <linear/matrix.h>
 #include <linear/row.h>
 
-LINEAR_ALGEBRA_NS_OPEN
+LINEAR_NS_OPEN
 
 /// Find a row \em below row \p i_pivotRowIndex in matrix \p o_matrix such that its co-efficient
 /// (at \p i_pivotColIndex) is not 0, then exchange it with the pivot row.
@@ -22,7 +22,7 @@ template < typename MatrixT >
 inline int _FindAndPerformRowExchange( int i_pivotRowIndex, int i_pivotColIndex, MatrixT& o_matrix )
 {
     // Double check that value at the current pivot is 0 (which is why a row-exchange is required in the first place!)
-    LINEAR_ALGEBRA_ASSERT( o_matrix( i_pivotRowIndex, i_pivotColIndex ) == 0 );
+    LINEAR_ASSERT( o_matrix( i_pivotRowIndex, i_pivotColIndex ) == 0 );
 
     for ( int rowIndex = i_pivotRowIndex + 1; rowIndex < MatrixT::RowCount(); ++rowIndex )
     {
@@ -52,7 +52,7 @@ _RecordElimination( int                                                         
                     MatrixT&                                                              o_matrix )
 {
     // Double check pivot.
-    LINEAR_ALGEBRA_ASSERT( o_matrix( i_pivotRowIndex, i_pivotColIndex ) != 0 );
+    LINEAR_ASSERT( o_matrix( i_pivotRowIndex, i_pivotColIndex ) != 0 );
 
     // Store the reciprocal of the pivot co-efficient for usage throughout this elimination step.
     const typename MatrixT::ValueType pivotValueReciprocal = 1.0 / o_matrix( i_pivotRowIndex, i_pivotColIndex );
@@ -113,4 +113,4 @@ _ReplayElimination( int                                                         
     }
 }
 
-LINEAR_ALGEBRA_NS_CLOSE
+LINEAR_NS_CLOSE

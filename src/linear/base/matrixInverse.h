@@ -11,7 +11,7 @@
 #include <linear/linear.h>
 #include <linear/matrix.h>
 
-LINEAR_ALGEBRA_NS_OPEN
+LINEAR_NS_OPEN
 
 /// Compute the inverse of a matrix via Gauss-Jordan elimination.
 /// If elimination fails due to \p current matrix being \em singular, the value of \p o_inverse will be un-defined.
@@ -102,4 +102,4 @@ inline bool _MatrixInverse( const MatrixT& i_matrix, MatrixT& o_inverse )
     return true;
 }
 
-LINEAR_ALGEBRA_NS_CLOSE
+LINEAR_NS_CLOSE

@@ -8,7 +8,7 @@
 #include <linear/linear.h>
 #include <linear/matrix.h>
 
-LINEAR_ALGEBRA_NS_OPEN
+LINEAR_NS_OPEN
 
 /// Extract a slice of the current matrix, specified by row and column begins and ends.
 ///
@@ -40,4 +40,4 @@ constexpr inline SliceT Slice( const SourceMatrixT& i_matrix )
     return _MatrixSlice< SourceMatrixT, SliceT, SLICE_ROW_BEGIN, SLICE_COLUMN_BEGIN >( i_matrix );
 }
 
-LINEAR_ALGEBRA_NS_CLOSE
+LINEAR_NS_CLOSE

@@ -8,7 +8,7 @@
 
 #include <linear/linear.h>
 
-LINEAR_ALGEBRA_NS_OPEN
+LINEAR_NS_OPEN
 
 /// Utility for extracing the string name of a type \p T.
 ///
@@ -40,4 +40,4 @@ constexpr std::string_view TypeName()
     return name;
 }
 
-LINEAR_ALGEBRA_NS_CLOSE
+LINEAR_NS_CLOSE

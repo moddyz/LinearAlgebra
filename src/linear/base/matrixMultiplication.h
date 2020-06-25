@@ -8,7 +8,7 @@
 
 #include <linear/linear.h>
 
-LINEAR_ALGEBRA_NS_OPEN
+LINEAR_NS_OPEN
 
 /// Inner product computation of the \p RowIndex'th row of \p i_lhs and the \p ColumnIndex'th column of \p i_rhs.
 ///
@@ -82,4 +82,4 @@ constexpr inline MatrixProductT _MatrixMult( const LeftMatrixT& i_lhs, const Rig
     return _MatrixMultIndexExpansion< LeftMatrixT, RightMatrixT, MatrixProductT >( i_lhs, i_rhs, EntryIndices{} );
 }
 
-LINEAR_ALGEBRA_NS_CLOSE
+LINEAR_NS_CLOSE

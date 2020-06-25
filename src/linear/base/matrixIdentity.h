@@ -8,7 +8,7 @@
 
 #include <linear/linear.h>
 
-LINEAR_ALGEBRA_NS_OPEN
+LINEAR_NS_OPEN
 
 /// Converts a sequence index into the respective identity matrix value.
 template < typename MatrixT, std::size_t Index >
@@ -42,4 +42,4 @@ constexpr MatrixT _GetIdentity()
     return _GetIdentityIndexExpansion< MatrixT >( EntryIndices{} );
 }
 
-LINEAR_ALGEBRA_NS_CLOSE
+LINEAR_NS_CLOSE
