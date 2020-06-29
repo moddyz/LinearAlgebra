@@ -1,6 +1,7 @@
 #pragma once
 
 /// \file rank.h
+/// \ingroup LinearAlgebra_Operations
 ///
 /// Matrix rank.
 ///
@@ -12,6 +13,7 @@
 LINEAR_NS_OPEN
 
 /// Compute the \em maximum rank a matrix of type \p MatrixT can have.
+/// \ingroup LinearAlgebra_Operations
 ///
 /// \return the maximum rank.
 template < typename MatrixT >

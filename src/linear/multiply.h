@@ -1,6 +1,7 @@
 #pragma once
 
 /// \file multiply.h
+/// \ingroup LinearAlgebra_Operations
 ///
 /// Matrix multiplication.
 ///
@@ -19,6 +20,7 @@
 LINEAR_NS_OPEN
 
 /// Multiply matrices \p i_lhs and \p i_rhs, and return the matrix product.
+/// \ingroup LinearAlgebra_Operations
 ///
 /// \pre the \ref Matrix::ColumnCount of \p i_lhs must equal the \ref Matrix::RowCount of \p i_rhs.
 ///

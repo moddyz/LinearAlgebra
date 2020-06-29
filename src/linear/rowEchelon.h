@@ -1,6 +1,7 @@
 #pragma once
 
 /// \file rowEchelon.h
+/// \ingroup LinearAlgebra_Operations
 ///
 /// Matrix row echelon form.
 ///
@@ -28,6 +29,7 @@
 LINEAR_NS_OPEN
 
 /// Compute the <em>row echelon form</em> of a matrix, through elimination.
+/// \ingroup LinearAlgebra_Operations
 ///
 /// \param i_matrix the input matrix.
 ///
@@ -40,6 +42,7 @@ inline MatrixT RowEchelonForm( const MatrixT& i_matrix )
 }
 
 /// Compute the <em>reduced row echelon form</em> of a matrix, through elimination.
+/// \ingroup LinearAlgebra_Operations
 ///
 /// \param i_matrix the input matrix.
 ///

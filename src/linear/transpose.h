@@ -1,6 +1,7 @@
 #pragma once
 
 /// \file transpose.h
+/// \ingroup LinearAlgebra_Operations
 ///
 /// Matrix transpose.
 ///
@@ -18,6 +19,7 @@
 LINEAR_NS_OPEN
 
 /// Find transpose of \p i_matrix.
+/// \ingroup LinearAlgebra_Operations
 ///
 /// \tparam MatrixT The input matrix type.
 ///

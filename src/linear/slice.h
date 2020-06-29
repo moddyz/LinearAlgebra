@@ -1,8 +1,9 @@
 #pragma once
 
 /// \file slice.h
+/// \ingroup LinearAlgebra_Operations
 ///
-/// Matrix slice API.
+/// Matrix slice.
 
 #include <linear/base/matrixSlice.h>
 #include <linear/linear.h>
@@ -11,6 +12,7 @@
 LINEAR_NS_OPEN
 
 /// Extract a slice of the current matrix, specified by row and column begins and ends.
+/// \ingroup LinearAlgebra_Operations
 ///
 /// Both the begin and end indices are inclusive in the resulting slice.
 /// For example, to return a slice of the upper-left 2 x 2 matrix of a 3 x 3 matrix:

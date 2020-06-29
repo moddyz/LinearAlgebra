@@ -1,6 +1,7 @@
 #pragma once
 
 /// \file invert.h
+/// \ingroup LinearAlgebra_Operations
 ///
 /// Matrix inversion.
 ///
@@ -18,6 +19,7 @@
 LINEAR_NS_OPEN
 
 /// Compute the inverse of a matrix via <b>Gauss-Jordan Elimination</b>.
+/// \ingroup LinearAlgebra_Operations
 ///
 /// If matrix \p i_matrix is invertible, store its computed inverse in \p o_inverse.
 ///

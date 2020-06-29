@@ -1,8 +1,9 @@
 #pragma once
 
 /// \file row.h
+/// \ingroup LinearAlgebra_Operations
 ///
-/// A collection of tools to query or manipulate the rows of a Matrix.
+/// Query or manipulate the rows of a Matrix.
 
 #include <linear/matrix.h>
 
@@ -11,6 +12,7 @@
 LINEAR_NS_OPEN
 
 /// Extract a single row of a matrix.
+/// \ingroup LinearAlgebra_Operations
 ///
 /// \tparam MatrixT the type of matrix.
 ///
@@ -28,6 +30,7 @@ constexpr inline Matrix< 1, MatrixT::ColumnCount(), typename MatrixT::ValueType 
 }
 
 /// Exchange rows of of a matrix, in-place.
+/// \ingroup LinearAlgebra_Operations
 ///
 /// \tparam MatrixT the type of matrix.
 ///

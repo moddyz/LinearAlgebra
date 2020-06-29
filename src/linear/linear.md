@@ -65,6 +65,10 @@ assert( linear::ReducedRowEchelonForm( matrix ) == MatrixT(
 ) );
 \endcode
 
+\section Library
+
+Browse \ref LinearAlgebra_Types and \ref LinearAlgebra_Operations for available functionality.
+
 \section LinearAlgebra_Building Building
 
 A convenience build script is provided at the root of the repository for building all targets, and optionally installing to a location: `./build.sh <OPTIONAL_INSTALL_LOCATION>`.
@@ -95,3 +99,8 @@ This project is also presents an opportunity to build experience with template m
 
 The LinearAlgebra project is hosted on GitHub: https://github.com/moddyz/LinearAlgebra.
 
+\defgroup LinearAlgebra_Types Types
+\brief Linear algebra value types.
+
+\defgroup LinearAlgebra_Operations Operations
+\brief Linear algebra operations.

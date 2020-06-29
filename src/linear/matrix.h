@@ -1,6 +1,7 @@
 #pragma once
 
 /// \file matrix.h
+/// \ingroup LinearAlgebra_Types
 ///
 /// A matrix is rectangular array of numbers, arranged in to rows and columns.
 
@@ -19,6 +20,7 @@
 LINEAR_NS_OPEN
 
 /// \class Matrix
+/// \ingroup LinearAlgebra_Types
 ///
 /// Class representing a ROWS x COLS \em dense matrix.
 ///
