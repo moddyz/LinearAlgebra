@@ -3,6 +3,7 @@
 /// \file base/almost.h
 
 #include <linear/linear.h>
+#include <linear/base/abs.h>
 
 LINEAR_NS_OPEN
 
@@ -15,7 +16,7 @@ LINEAR_NS_OPEN
 template < typename ValueT >
 constexpr bool AlmostEqual( const ValueT& i_valueA, const ValueT& i_valueB )
 {
-    return std::abs( i_valueA - i_valueB ) < 0.0001;
+    return Abs( i_valueA - i_valueB ) < 0.0001;
 }
 
 LINEAR_NS_CLOSE
