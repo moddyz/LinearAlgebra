@@ -4,6 +4,8 @@
 ///
 /// Internal implementation for a fixed size array for storage of matrix indices and associated data.
 
+#include <array>
+
 #include <linear/linear.h>
 
 LINEAR_NS_OPEN
