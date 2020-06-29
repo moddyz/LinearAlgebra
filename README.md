@@ -4,17 +4,11 @@
 
 ## Table of Contents
 
-- [Build Status](#build-status)
 - [Example Usage](#example-usage)
 - [Documentation](#documentation)
 - [Building](#building)
+- [Build Status](#build-status)
 - [Motivation](#motivation)
-
-## Build Status
-
-|       | master | 
-| ----- | ------ | 
-| macOS-10.14 | [![Build Status](https://travis-ci.com/moddyz/LinearAlgebra.svg?branch=master)](https://travis-ci.com/moddyz/LinearAlgebra) |
 
 ## Example Usage
 
@@ -89,6 +83,12 @@ A convenience build script is also provided, for building all targets, and optio
 
 - `>= CMake-3.17`
 - `C++17`
+
+## Build Status
+
+|       | master | 
+| ----- | ------ | 
+| macOS-10.14 | [![Build Status](https://travis-ci.com/moddyz/LinearAlgebra.svg?branch=master)](https://travis-ci.com/moddyz/LinearAlgebra) |
 
 ## Motivation
 
