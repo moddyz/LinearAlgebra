@@ -8,6 +8,8 @@
 
 #include <linear/linear.h>
 
+#include <linear/base/assert.h>
+
 LINEAR_NS_OPEN
 
 /// \class MatrixIndex

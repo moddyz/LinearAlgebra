@@ -21,8 +21,9 @@ LINEAR_NS_OPEN
 /// reduction process so that it can accelerate a calling operation like _MatrixReducedRowEchelonForm,
 /// or to find out the rank of a matrix.
 template < typename MatrixT >
-inline MatrixT _MatrixRowEchelonForm( const MatrixT&                                                         i_matrix,
-                                      MatrixEntryArray< MaxRank< MatrixT >(), typename MatrixT::ValueType >& o_pivots )
+inline MatrixT _MatrixRowEchelonForm(
+    const MatrixT&                                                                                            i_matrix,
+    MatrixEntryArray< std::min( MatrixT::RowCount(), MatrixT::ColumnCount() ), typename MatrixT::ValueType >& o_pivots )
 {
     // Working matrix copy.
     MatrixT matrix = i_matrix;
@@ -72,7 +73,8 @@ inline MatrixT _MatrixRowEchelonForm( const MatrixT&                            
 template < typename MatrixT >
 inline MatrixT _MatrixReducedRowEchelonForm( const MatrixT& i_matrix )
 {
-    using PivotsT = MatrixEntryArray< MaxRank< MatrixT >(), typename MatrixT::ValueType >;
+    using PivotsT =
+        MatrixEntryArray< std::min( MatrixT::RowCount(), MatrixT::ColumnCount() ), typename MatrixT::ValueType >;
     PivotsT pivots;
     MatrixT rowEchelonForm = _MatrixRowEchelonForm( i_matrix, pivots );
 
