@@ -4,14 +4,14 @@
 ///
 /// Matrix row echelon reduction implementation details.
 
+#include <linear/linear.h>
+
 #include <linear/base/assert.h>
 #include <linear/base/intRange.h>
 #include <linear/base/matrixElimination.h>
 #include <linear/base/matrixEntryArray.h>
 
-#include <linear/linear.h>
 #include <linear/matrix.h>
-#include <linear/rank.h>
 
 #include <iostream>
 
