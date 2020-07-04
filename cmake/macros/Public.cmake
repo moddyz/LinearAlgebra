@@ -8,6 +8,9 @@ include(
 
 # Build doxygen documentation utility.
 #
+# Positional arguments:
+#   DOCUMENTATION_NAME: The name of the documentation (this will also be the target name).
+#
 # Options:
 #   GENERATE_TAGFILE
 #       Boolean option to specify if a tagfile should be generated.
@@ -19,6 +22,8 @@ include(
 # Multi-value arguments:
 #   INPUTS
 #       Input source files to generate documentation for.
+#   TAGFILES
+#       Tag files for linking to external documentation.
 #   DEPENDENCIES
 #       Target names which the documentation generation should depend on.
 #
@@ -28,6 +33,9 @@ include(
 # - DOXYGEN_INPUTS
 #       Set from INPUTS argument.
 #       Please assign @DOXYGEN_INPUTS@ to the INPUTS property in the DOXYFILE.
+# - DOXYGEN_TAGFILES
+#       Set from TAGFILES argument.
+#       Please assign @DOXYGEN_TAGFILES@ to the TAGFILES property in the DOXYFILE.
 # - DOXYGEN_TAGFILE
 #       Path to the generated tagfile - if GENERATE_TAGFILE is TRUE.
 #       Please assign @DOXYGEN_TAGFILE@ to the GENERATE_TAGFILE property in the DOXYFILE.
@@ -49,6 +57,7 @@ function(
     )
     set(multiValueArgs
         INPUTS
+        TAGFILES
         DEPENDENCIES
     )
 
@@ -83,6 +92,7 @@ function(
     # Configure Doxyfile.
     set(DOXYGEN_INPUT_DOXYFILE ${args_DOXYFILE})
     string(REPLACE ";" " \\\n" DOXYGEN_INPUTS "${args_INPUTS}")
+    string(REPLACE ";" " \\\n" DOXYGEN_TAGFILES "${args_TAGFILES}")
     set(DOXYGEN_OUTPUT_DIR ${CMAKE_BINARY_DIR}/docs/${DOCUMENTATION_NAME})
     set(DOXYGEN_OUTPUT_DOXYFILE "${DOXYGEN_OUTPUT_DIR}/Doxyfile")
     set(DOXYGEN_OUTPUT_HTML_INDEX "${DOXYGEN_OUTPUT_DIR}/html/index.html")
@@ -391,3 +401,27 @@ macro(
         )
     endforeach()
 endmacro()
+
+# Convenience macro for adding the current source directory as a header only library.
+#
+# Positional arguments:
+#   LIBRARY: The target name of this header only library.
+function(
+    add_header_only_library
+    LIBRARY
+)
+    # Add a new library target.
+    add_library(
+        ${LIBRARY}
+        IMPORTED  # TODO: Figure out what this keyword does, precisely.
+        INTERFACE # This library target does not provide source files.  (Header only!)
+        GLOBAL    # Make this library target available in directories above this one.
+    )
+
+    # Any target which links against the library will inherit
+    # the current source directory as an include path.
+    target_include_directories(
+        ${LIBRARY}
+        INTERFACE ${CMAKE_CURRENT_SOURCE_DIR}
+    )
+endfunction()
