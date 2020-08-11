@@ -4,7 +4,7 @@
 ///
 /// Common matrix elimination sub-routines.
 
-#include <linear/base/assert.h>
+#include <linear/base/diagnostic.h>
 #include <linear/base/intRange.h>
 #include <linear/base/matrixEntryArray.h>
 

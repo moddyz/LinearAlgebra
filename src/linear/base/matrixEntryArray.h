@@ -8,7 +8,7 @@
 
 #include <linear/linear.h>
 
-#include <linear/base/assert.h>
+#include <linear/base/diagnostic.h>
 
 LINEAR_NS_OPEN
 

@@ -4,7 +4,7 @@
 ///
 /// Integer range iteration.
 
-#include <linear/base/assert.h>
+#include <linear/base/diagnostic.h>
 
 #include <linear/linear.h>
 

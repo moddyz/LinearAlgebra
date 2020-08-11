@@ -8,7 +8,7 @@
 #include <linear/linear.h>
 
 #include <linear/base/almost.h>
-#include <linear/base/assert.h>
+#include <linear/base/diagnostic.h>
 #include <linear/base/matrixIdentity.h>
 #include <linear/base/sequenceOperations.h>
 #include <linear/base/typeName.h>

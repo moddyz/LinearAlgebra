@@ -4,7 +4,7 @@
 ///
 /// Matrix inverse implementation details.
 
-#include <linear/base/assert.h>
+#include <linear/base/diagnostic.h>
 #include <linear/base/intRange.h>
 #include <linear/base/matrixElimination.h>
 
