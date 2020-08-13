@@ -1,6 +1,6 @@
 #pragma once
 
-/// \file invert.h
+/// \file inverse.h
 /// \ingroup LinearAlgebra_Operations
 ///
 /// Matrix inversion.
@@ -29,7 +29,7 @@ LINEAR_NS_OPEN
 ///
 /// \return \p true if i_matrix is invertible. \p false if \p i_matrix is singular (thus cannot be inverted).
 template < typename MatrixT >
-inline bool Invert( const MatrixT& i_matrix, MatrixT& o_inverse )
+inline bool Inverse( const MatrixT& i_matrix, MatrixT& o_inverse )
 {
     return _MatrixInverse( i_matrix, o_inverse );
 }

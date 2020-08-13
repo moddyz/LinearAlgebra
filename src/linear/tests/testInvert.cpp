@@ -1,6 +1,6 @@
 #include <catch2/catch.hpp>
 
-#include <linear/invert.h>
+#include <linear/inverse.h>
 #include <linear/multiply.h>
 
 #include <iostream>
@@ -9,12 +9,12 @@ template < typename MatrixT >
 void CHECK_INVERSE( const MatrixT& i_matrix )
 {
     MatrixT inverse;
-    CHECK( linear::Invert( i_matrix, inverse ) );
+    CHECK( linear::Inverse( i_matrix, inverse ) );
     CHECK( linear::Multiply( i_matrix, inverse ) == MatrixT::Identity() );
     CHECK( linear::Multiply( inverse, i_matrix ) == MatrixT::Identity() );
 }
 
-TEST_CASE( "Matrix_Invert" )
+TEST_CASE( "Matrix_Inverse" )
 {
     CHECK_INVERSE( linear::Matrix< 3, 3 >(
         1, 0, 0,

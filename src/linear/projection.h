@@ -17,7 +17,7 @@
 /// P = A(A^TA)^-1A^T
 /// \f]
 
-#include <linear/invert.h>
+#include <linear/inverse.h>
 #include <linear/linear.h>
 #include <linear/matrix.h>
 #include <linear/multiply.h>
@@ -45,7 +45,7 @@ ProjectionMatrix( const MatrixT& i_matrix )
 
     // (A^T * A)^-1
     ATAMatrixT aTransposeAInverse;
-    LINEAR_VERIFY( Invert( aTransposeA, aTransposeAInverse ) );
+    LINEAR_VERIFY( Inverse( aTransposeA, aTransposeAInverse ) );
 
     // A * (A^T * A)^-1 * A^T
     return Multiply( Multiply( i_matrix, aTransposeAInverse ), aTranspose );

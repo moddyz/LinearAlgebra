@@ -33,7 +33,7 @@ MatrixT invertable(
     2, 3, 1
 );
 MatrixT inverse;
-assert( linear::Invert( invertable, inverse ) );
+assert( linear::Inverse( invertable, inverse ) );
 \endcode
 
 Transpose:
