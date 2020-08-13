@@ -37,6 +37,10 @@ template < size_t ROWS, size_t COLS, typename ValueT = float >
 class Matrix final
 {
 public:
+    //-------------------------------------------------------------------------
+    /// \name Type definitions
+    //-------------------------------------------------------------------------
+
     /// \var ValueType
     ///
     /// Convenience type definition for the value type of the entries.
@@ -47,9 +51,9 @@ public:
     /// Convenience type definition for the current matrix type.
     using MatrixType = Matrix< ROWS, COLS, ValueT >;
 
-    //
-    // Constructors.
-    //
+    //-------------------------------------------------------------------------
+    /// \name Construction
+    //-------------------------------------------------------------------------
 
     /// Default constructor, initializing entries to \em all zeroes.
     constexpr Matrix()
@@ -85,9 +89,9 @@ public:
     }
 #endif
 
-    //
-    // Shape query.
-    //
+    //-------------------------------------------------------------------------
+    /// \name Shape
+    //-------------------------------------------------------------------------
 
     /// Get the row size of this matrix.
     ///
@@ -129,9 +133,9 @@ public:
             i_rowIndex );
     }
 
-    //
-    // Entry-access operators.
-    //
+    //-------------------------------------------------------------------------
+    /// \name Entry access
+    //-------------------------------------------------------------------------
 
     /// Matrix entry read-access by row & column indices.
     ///
@@ -189,9 +193,9 @@ public:
         return m_entries[ i_index ];
     }
 
-    //
-    // Logical operators.
-    //
+    //-------------------------------------------------------------------------
+    /// \name Comparison operators
+    //-------------------------------------------------------------------------
 
     /// Equality comparison operator.
     ///
@@ -213,9 +217,9 @@ public:
         return !( *this == i_matrix );
     }
 
-    //
-    // Basic arithmetic operators.
-    //
+    //-------------------------------------------------------------------------
+    /// \name Arithmetic operators
+    //-------------------------------------------------------------------------
 
     /// Matrix addition.
     ///
@@ -287,9 +291,9 @@ public:
         MutableSequenceBinaryOperation( std::divides< ValueType >(), *this, i_scalar, *this );
     }
 
-    //
-    // Linear algebra functionality.
-    //
+    //-------------------------------------------------------------------------
+    /// \name Identity element
+    //-------------------------------------------------------------------------
 
     /// Get the identity matrix.
     ///
@@ -309,9 +313,9 @@ public:
         ( *this ) = _GetIdentity< MatrixType >();
     }
 
-    //
-    // Custom functionality.
-    //
+    //-------------------------------------------------------------------------
+    /// \name Debugging
+    //-------------------------------------------------------------------------
 
     /// Check if any of the entries is not a number (NaN).
     ///
