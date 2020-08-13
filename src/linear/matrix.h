@@ -10,6 +10,7 @@
 #include <linear/base/almost.h>
 #include <linear/base/diagnostic.h>
 #include <linear/base/matrixIdentity.h>
+#include <linear/base/matrixRow.h>
 #include <linear/base/sequenceOperations.h>
 #include <linear/base/typeName.h>
 
@@ -111,6 +112,21 @@ public:
     constexpr static inline int EntryCount()
     {
         return ROWS * COLS;
+    }
+
+    /// Extract a single row of a matrix.
+    /// \ingroup LinearAlgebra_Operations
+    ///
+    /// \param i_rowIndex the index of the row to extract.
+    ///
+    /// \return the row of a matrix.
+    constexpr inline Matrix< 1, MatrixType::ColumnCount(), typename MatrixType::ValueType >
+    GetRow( size_t i_rowIndex ) const
+    {
+        LINEAR_ASSERT( i_rowIndex < MatrixType::RowCount() );
+        return _MatrixRow< MatrixType, Matrix< 1, MatrixType::ColumnCount(), typename MatrixType::ValueType > >(
+            *this,
+            i_rowIndex );
     }
 
     //

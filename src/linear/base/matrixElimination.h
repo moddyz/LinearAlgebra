@@ -58,7 +58,7 @@ _RecordElimination( int                                                         
     const typename MatrixT::ValueType pivotValueReciprocal = 1.0 / o_matrix( i_pivotRowIndex, i_pivotColIndex );
 
     // Cache the pivot row.
-    Matrix< 1, MatrixT::ColumnCount() > pivotRow = GetRow( o_matrix, i_pivotRowIndex );
+    Matrix< 1, MatrixT::ColumnCount() > pivotRow = o_matrix.GetRow( i_pivotRowIndex );
 
     // For each row below the pivot, try to eliminate any non-zero co-efficients.
     for ( int rowIndex : i_rowRange )
@@ -95,7 +95,7 @@ _ReplayElimination( int                                                         
     using MatrixEntryArrayT = MatrixEntryArray< MatrixT::RowCount(), typename MatrixT::ValueType >;
 
     // Cache the pivot row.
-    Matrix< 1, MatrixT::ColumnCount() > pivotRow = GetRow( o_matrix, i_pivotRowIndex );
+    Matrix< 1, MatrixT::ColumnCount() > pivotRow = o_matrix.GetRow( i_pivotRowIndex );
 
     // Replay the cache and apply elimination
     for ( const typename MatrixEntryArrayT::Entry& entry : i_eliminationFactors )

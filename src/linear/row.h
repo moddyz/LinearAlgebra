@@ -7,27 +7,7 @@
 
 #include <linear/matrix.h>
 
-#include <linear/base/matrixRow.h>
-
 LINEAR_NS_OPEN
-
-/// Extract a single row of a matrix.
-/// \ingroup LinearAlgebra_Operations
-///
-/// \tparam MatrixT the type of matrix.
-///
-/// \param o_matrix the source matrix.
-/// \param i_rowIndeB the index of the row to extract.
-///
-/// \return the row of a matrix.
-template < typename MatrixT >
-constexpr inline Matrix< 1, MatrixT::ColumnCount(), typename MatrixT::ValueType > GetRow( const MatrixT& i_matrix,
-                                                                                          size_t         i_rowIndex )
-{
-    LINEAR_ASSERT( i_rowIndex < MatrixT::RowCount() );
-    return _MatrixRow< MatrixT, Matrix< 1, MatrixT::ColumnCount(), typename MatrixT::ValueType > >( i_matrix,
-                                                                                                    i_rowIndex );
-}
 
 /// Exchange rows of of a matrix, in-place.
 /// \ingroup LinearAlgebra_Operations
@@ -47,7 +27,7 @@ void RowExchange( size_t i_rowIndexA, size_t i_rowIndexB, MatrixT& o_matrix )
     constexpr size_t columnCount = MatrixT::ColumnCount();
 
     // Temporarily take out copy of row A.
-    Matrix< 1, columnCount > rowA = GetRow( o_matrix, i_rowIndexA );
+    Matrix< 1, columnCount > rowA = o_matrix.GetRow( i_rowIndexA );
 
     // Copy row B -> row A.
     for ( size_t columnIndex = 0; columnIndex < columnCount; ++columnIndex )
