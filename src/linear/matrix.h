@@ -9,6 +9,7 @@
 
 #include <linear/base/almost.h>
 #include <linear/base/diagnostic.h>
+#include <linear/base/matrixColumn.h>
 #include <linear/base/matrixIdentity.h>
 #include <linear/base/matrixRow.h>
 #include <linear/base/sequenceOperations.h>
@@ -125,35 +126,35 @@ public:
     /// Matrix entry read-access by row & column indices.
     ///
     /// \param i_rowIndex row of the entry to access.
-    /// \param i_columnIndex column of the entry to access.
+    /// \param i_colIndex column of the entry to access.
     ///
-    /// \return Value entry at row \p i_rowIndex and column \p i_columnIndex.
-    constexpr inline const ValueT& operator()( size_t i_rowIndex, size_t i_columnIndex ) const
+    /// \return Value entry at row \p i_rowIndex and column \p i_colIndex.
+    constexpr inline const ValueT& operator()( size_t i_rowIndex, size_t i_colIndex ) const
     {
-        LINEAR_ASSERT_MSG( ( i_rowIndex * COLS + i_columnIndex ) < ROWS * COLS,
+        LINEAR_ASSERT_MSG( ( i_rowIndex * COLS + i_colIndex ) < ROWS * COLS,
                            "Requested (%lu, %lu) exceeded bounds (%lu, %lu)\n",
                            i_rowIndex,
-                           i_columnIndex,
+                           i_colIndex,
                            ROWS,
                            COLS );
-        return m_entries[ i_rowIndex * COLS + i_columnIndex ];
+        return m_entries[ i_rowIndex * COLS + i_colIndex ];
     }
 
     /// Matrix entry write-access by row & column indices.
     ///
     /// \param i_rowIndex row of the entry to access.
-    /// \param i_columnIndex column of the entry to access.
+    /// \param i_colIndex column of the entry to access.
     ///
-    /// \return Value entry at row \p i_rowIndex and column \p i_columnIndex.
-    constexpr inline ValueT& operator()( size_t i_rowIndex, size_t i_columnIndex )
+    /// \return Value entry at row \p i_rowIndex and column \p i_colIndex.
+    constexpr inline ValueT& operator()( size_t i_rowIndex, size_t i_colIndex )
     {
-        LINEAR_ASSERT_MSG( ( i_rowIndex * COLS + i_columnIndex ) < ROWS * COLS,
+        LINEAR_ASSERT_MSG( ( i_rowIndex * COLS + i_colIndex ) < ROWS * COLS,
                            "Requested (%lu, %lu) exceeded bounds (%lu, %lu)\n",
                            i_rowIndex,
-                           i_columnIndex,
+                           i_colIndex,
                            ROWS,
                            COLS );
-        return m_entries[ i_rowIndex * COLS + i_columnIndex ];
+        return m_entries[ i_rowIndex * COLS + i_colIndex ];
     }
 
     /// Matrix entry read-access by single index, with respect to row-major.
@@ -179,7 +180,7 @@ public:
     }
 
     //-------------------------------------------------------------------------
-    /// \name Row column access
+    /// \name Row access
     //-------------------------------------------------------------------------
 
     /// Extract a single row of a matrix.
@@ -209,7 +210,42 @@ public:
         LINEAR_ASSERT( i_rowIndex < MatrixType::RowCount() );
         for ( size_t columnIndex = 0; columnIndex < MatrixType::ColumnCount(); ++columnIndex )
         {
-            ( *this )[ i_rowIndex * MatrixType::ColumnCount() + columnIndex ] = i_row[ columnIndex ];
+            ( *this )( i_rowIndex, columnIndex ) = i_row[ columnIndex ];
+        }
+    }
+
+    //-------------------------------------------------------------------------
+    /// \name Column access
+    //-------------------------------------------------------------------------
+
+    /// Extract a single column of a matrix.
+    /// \ingroup LinearAlgebra_Operations
+    ///
+    /// \param i_colIndex the index of the row to extract.
+    ///
+    /// \return the row of a matrix.
+    constexpr inline Matrix< MatrixType::RowCount(), 1, typename MatrixType::ValueType >
+    GetColumn( size_t i_colIndex ) const
+    {
+        LINEAR_ASSERT( i_colIndex < MatrixType::ColumnCount() );
+        return _MatrixColumn< MatrixType, Matrix< MatrixType::RowCount(), 1, typename MatrixType::ValueType > >(
+            *this,
+            i_colIndex );
+    }
+
+    /// Extract a single column of a matrix.
+    /// \ingroup LinearAlgebra_Operations
+    ///
+    /// \param i_colIndex the index of the row to extract.
+    ///
+    /// \return the row of a matrix.
+    inline void SetColumn( size_t                                                                     i_colIndex,
+                           const Matrix< MatrixType::RowCount(), 1, typename MatrixType::ValueType >& i_column )
+    {
+        LINEAR_ASSERT( i_colIndex < MatrixType::ColumnCount() );
+        for ( size_t rowIndex = 0; rowIndex < MatrixType::RowCount(); ++rowIndex )
+        {
+            ( *this )( rowIndex, i_colIndex ) = i_column[ rowIndex ];
         }
     }
 

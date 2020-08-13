@@ -199,7 +199,7 @@ TEST_CASE( "Matrix_SetIdentity" )
 }
 
 //
-// Row & column operations
+// Row operations
 //
 
 TEST_CASE( "GetRow" )
@@ -222,6 +222,32 @@ TEST_CASE( "SetRow" )
     linear::Matrix< 1, 3 > row( 1, 2, 3 );
     matrix.SetRow( 1, row );
     CHECK( row == matrix.GetRow( 1 ) );
+}
+
+//
+// Column operations
+//
+
+TEST_CASE( "GetColumn" )
+{
+    linear::Matrix< 3, 3 > matrix = linear::Matrix< 3, 3 >::Identity();
+    linear::Matrix< 3, 1 > column = matrix.GetColumn( 2 );
+    CHECK( column == linear::Matrix< 3, 1 >( 0, 0, 1 ) );
+}
+
+TEST_CASE( "GetColumn_constexpr" )
+{
+    constexpr linear::Matrix< 3, 3 > matrix = linear::Matrix< 3, 3 >::Identity();
+    constexpr linear::Matrix< 3, 1 > column = matrix.GetColumn( 2 );
+    static_assert( column == linear::Matrix< 3, 1 >( 0, 0, 1 ) );
+}
+
+TEST_CASE( "SetColumn" )
+{
+    linear::Matrix< 3, 3 > matrix = linear::Matrix< 3, 3 >::Identity();
+    linear::Matrix< 3, 1 > column( 1, 2, 3 );
+    matrix.SetColumn( 1, column );
+    CHECK( column == matrix.GetColumn( 1 ) );
 }
 
 //
