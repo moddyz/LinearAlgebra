@@ -78,14 +78,14 @@ public:
     Matrix( const MatrixType& i_matrix )
     {
         std::memcpy( ( void* ) m_entries, ( const void* ) i_matrix.m_entries, sizeof( MatrixType ) );
-        LINEAR_ASSERT( !HasNans() );
+        LINEAR_ASSERT( !HasNaNs() );
     }
 
     /// Copy assignment operator.
     Matrix& operator=( const MatrixType& i_matrix )
     {
         std::memcpy( ( void* ) m_entries, ( const void* ) i_matrix.m_entries, sizeof( MatrixType ) );
-        LINEAR_ASSERT( !HasNans() );
+        LINEAR_ASSERT( !HasNaNs() );
         return *this;
     }
 #endif
@@ -286,7 +286,7 @@ public:
     constexpr inline MatrixType operator+( const MatrixType& i_matrix ) const
     {
         // TODO How to perform compile-time nan-check?
-        // LINEAR_ASSERT( !HasNans() );
+        // LINEAR_ASSERT( !HasNaNs() );
         return SequenceBinaryOperation( std::plus< ValueType >(), *this, i_matrix );
     }
 
@@ -299,7 +299,7 @@ public:
     constexpr inline MatrixType operator-( const MatrixType& i_matrix ) const
     {
         // TODO How to perform compile-time nan-check?
-        // LINEAR_ASSERT( !HasNans() );
+        // LINEAR_ASSERT( !HasNaNs() );
         return SequenceBinaryOperation( std::minus< ValueType >(), *this, i_matrix );
     }
 
@@ -310,7 +310,7 @@ public:
     /// \pre the current matrix and \p i_matrix must have the same shape.
     inline void operator+=( const MatrixType& i_matrix )
     {
-        LINEAR_ASSERT( !HasNans() );
+        LINEAR_ASSERT( !HasNaNs() );
         MutableSequenceBinaryOperation( std::plus< ValueType >(), *this, i_matrix, *this );
     }
 
@@ -321,7 +321,7 @@ public:
     /// \pre the current matrix and \p i_matrix must have the same shape.
     inline void operator-=( const MatrixType& i_matrix )
     {
-        LINEAR_ASSERT( !HasNans() );
+        LINEAR_ASSERT( !HasNaNs() );
         MutableSequenceBinaryOperation( std::minus< ValueType >(), *this, i_matrix, *this );
     }
 
@@ -331,7 +331,7 @@ public:
     template < typename ScalarT >
     inline void operator*=( const ScalarT& i_scalar )
     {
-        LINEAR_ASSERT( !HasNans() );
+        LINEAR_ASSERT( !HasNaNs() );
         MutableSequenceBinaryOperation( std::multiplies< ValueType >(), *this, i_scalar, *this );
     }
 
@@ -341,7 +341,7 @@ public:
     template < typename ScalarT >
     inline void operator/=( const ScalarT& i_scalar )
     {
-        LINEAR_ASSERT( !HasNans() );
+        LINEAR_ASSERT( !HasNaNs() );
         LINEAR_ASSERT( !std::isnan( i_scalar ) );
         LINEAR_ASSERT( i_scalar != 0 );
         MutableSequenceBinaryOperation( std::divides< ValueType >(), *this, i_scalar, *this );
@@ -376,7 +376,7 @@ public:
     /// Check if any of the entries is not a number (NaN).
     ///
     /// \return \p true if any of the entries is not a number.
-    constexpr inline bool HasNans() const
+    constexpr inline bool HasNaNs() const
     {
         return SequenceLogicalUnaryOperation(
             std::logical_or< bool >(),

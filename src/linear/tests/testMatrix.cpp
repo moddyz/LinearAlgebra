@@ -270,12 +270,12 @@ TEST_CASE( "Matrix_RowCount_ColumnCount_EntryCount_constexpr" )
     static_assert( linear::Matrix< 3, 4 >::EntryCount() == 12 );
 }
 
-TEST_CASE( "Matrix_HasNans" )
+TEST_CASE( "Matrix_HasNaNs" )
 {
     constexpr size_t             rows = 5, cols = 5;
     linear::Matrix< rows, cols > matrix;
-    CHECK( !matrix.HasNans() );
+    CHECK( !matrix.HasNaNs() );
     matrix( 0, 0 ) = NAN;
-    CHECK( matrix.HasNans() );
+    CHECK( matrix.HasNaNs() );
 }
 
