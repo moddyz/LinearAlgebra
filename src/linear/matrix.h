@@ -118,21 +118,6 @@ public:
         return ROWS * COLS;
     }
 
-    /// Extract a single row of a matrix.
-    /// \ingroup LinearAlgebra_Operations
-    ///
-    /// \param i_rowIndex the index of the row to extract.
-    ///
-    /// \return the row of a matrix.
-    constexpr inline Matrix< 1, MatrixType::ColumnCount(), typename MatrixType::ValueType >
-    GetRow( size_t i_rowIndex ) const
-    {
-        LINEAR_ASSERT( i_rowIndex < MatrixType::RowCount() );
-        return _MatrixRow< MatrixType, Matrix< 1, MatrixType::ColumnCount(), typename MatrixType::ValueType > >(
-            *this,
-            i_rowIndex );
-    }
-
     //-------------------------------------------------------------------------
     /// \name Entry access
     //-------------------------------------------------------------------------
@@ -191,6 +176,41 @@ public:
     {
         LINEAR_ASSERT_MSG( i_index < ROWS * COLS, "Requested index %lu exceeds size %lu\n", i_index, ROWS * COLS );
         return m_entries[ i_index ];
+    }
+
+    //-------------------------------------------------------------------------
+    /// \name Row column access
+    //-------------------------------------------------------------------------
+
+    /// Extract a single row of a matrix.
+    /// \ingroup LinearAlgebra_Operations
+    ///
+    /// \param i_rowIndex the index of the row to extract.
+    ///
+    /// \return the row of a matrix.
+    constexpr inline Matrix< 1, MatrixType::ColumnCount(), typename MatrixType::ValueType >
+    GetRow( size_t i_rowIndex ) const
+    {
+        LINEAR_ASSERT( i_rowIndex < MatrixType::RowCount() );
+        return _MatrixRow< MatrixType, Matrix< 1, MatrixType::ColumnCount(), typename MatrixType::ValueType > >(
+            *this,
+            i_rowIndex );
+    }
+
+    /// Extract a single column of a matrix.
+    /// \ingroup LinearAlgebra_Operations
+    ///
+    /// \param i_rowIndex the index of the row to extract.
+    ///
+    /// \return the row of a matrix.
+    inline void SetRow( size_t                                                                        i_rowIndex,
+                        const Matrix< 1, MatrixType::ColumnCount(), typename MatrixType::ValueType >& i_row )
+    {
+        LINEAR_ASSERT( i_rowIndex < MatrixType::RowCount() );
+        for ( size_t columnIndex = 0; columnIndex < MatrixType::ColumnCount(); ++columnIndex )
+        {
+            ( *this )[ i_rowIndex * MatrixType::ColumnCount() + columnIndex ] = i_row[ columnIndex ];
+        }
     }
 
     //-------------------------------------------------------------------------
