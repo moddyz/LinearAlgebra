@@ -25,6 +25,7 @@ template < typename MatrixT >
 constexpr inline MatrixT Normalize( const MatrixT& i_columnVector )
 {
     static_assert( MatrixT::ColumnCount() == 1 );
+    LINEAR_ASSERT( Multiply( Transpose( i_columnVector ), i_columnVector )[ 0 ] != 0 );
     return i_columnVector / ( float ) sqrt( Multiply( Transpose( i_columnVector ), i_columnVector )[ 0 ] );
 }
 
