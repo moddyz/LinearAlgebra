@@ -98,7 +98,7 @@ MatrixT matrix(
     0, 3, 6
 );
 MatrixT orthonormal = linear::Orthonormalize( matrix );
-assert( orthonormal == linear::Matrix< 3, 3 >(
+assert( orthonormal == MatrixT(
         1, 0, 0,
         0, 0, 1,
         0, 1, 0
