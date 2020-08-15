@@ -69,6 +69,44 @@ assert( linear::ReducedRowEchelonForm( matrix ) == MatrixT(
 ) );
 ```
 
+Projection:
+```cpp
+linear::Matrix< 3, 1 > vector(
+    2,
+    3,
+    4
+);
+linear::Matrix< 3, 2 > subspace(
+    1, 1,
+    0, 1,
+    0, 0
+);
+assert( linear::Projection( vector, subspace ) == linear::Matrix< 3, 1 >(
+        2,
+        3,
+        0
+    )
+);
+```
+
+Orthonormalization:
+```cpp
+using MatrixT = linear::Matrix< 3, 3 >;
+MatrixT matrix(
+    1, 2, 4,
+    0, 0, 5,
+    0, 3, 6
+);
+MatrixT orthonormal = linear::Orthonormalize( matrix );
+assert( orthonormal == linear::Matrix< 3, 3 >(
+        1, 0, 0,
+        0, 0, 1,
+        0, 1, 0
+    )
+);
+```
+
+
 ## Documentation
 
 Doxygen documentation based on the latest state of master, [hosted by GitHub Pages](https://moddyz.github.io/LinearAlgebra/).
