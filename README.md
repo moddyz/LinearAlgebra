@@ -106,6 +106,15 @@ assert( orthonormal == MatrixT(
 );
 ```
 
+Determinant:
+```cpp
+linear::Matrix< 3, 3 > matrix(
+    1, 2, 3,
+    2, 2, 3,
+    3, 3, 3
+);
+assert( linear::Determinant( matrix ) == 3 );
+```
 
 ## Documentation
 
