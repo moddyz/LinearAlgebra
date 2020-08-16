@@ -18,7 +18,7 @@ LINEAR_NS_OPEN
 template < typename MatrixT >
 inline bool _MatrixInverse( const MatrixT& i_matrix, MatrixT& o_inverse )
 {
-    static_assert( MatrixT::RowCount() == MatrixT::RowCount() );
+    static_assert( MatrixT::RowCount() == MatrixT::ColumnCount() );
 
     // Left-hand-side working matrix.  This will assume the identity matrix after the full Gauss-Jordan elimination.
     MatrixT matrix = i_matrix;
@@ -65,6 +65,12 @@ inline bool _MatrixInverse( const MatrixT& i_matrix, MatrixT& o_inverse )
 
         // Reset the cache for the next iteration.
         eliminationFactors.Reset();
+    }
+
+    // Check the last pivot exists!
+    if ( matrix( MatrixT::RowCount() - 1, MatrixT::RowCount() - 1 ) == 0 )
+    {
+        return false;
     }
 
     // Jordan Step step: U*E -> D
