@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 3.12)
 
 # Project Name
 project(
-    CXXTemplate
+    LinearAlgebra
     VERSION 0.0
     DESCRIPTION "Basic template for starting out a new CMake-based project."
     LANGUAGES CXX
