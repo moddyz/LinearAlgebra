@@ -10,10 +10,10 @@ if(BUILD_DOCUMENTATION)
         GENERATE_TAGFILE
             TRUE
         DOXYFILE
-            ${PROJECT_SOURCE_DIR}/src/Doxyfile.in
+            ${PROJECT_SOURCE_DIR}/src/linear/Doxyfile.in
         INPUTS
-            ${PROJECT_SOURCE_DIR}/src/exampleSharedLibrary/
+            ${PROJECT_SOURCE_DIR}/src/linear
         DEPENDENCIES
-            exampleSharedLibrary
+            linear
     )
 endif()
