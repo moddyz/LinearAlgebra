@@ -1,14 +1,41 @@
+![Build and test](https://github.com/moddyz/LinearAlgebra/workflows/Build%20and%20test/badge.svg)
+
 # LinearAlgebra
 
 **LinearAlgebra** is general-purpose header-only linear algebra library.
 
+This is developed in tandem while working through [MIT OpenCourseWare's 18.06](https://ocw.mit.edu/courses/mathematics/18-06-linear-algebra-spring-2010/) - thanks MIT and Professor Strang!
+
 ## Table of Contents
 
+- [Dependencies](#dependencies)
+- [Building](#building)
 - [Example Usage](#example-usage)
 - [Documentation](#documentation)
-- [Building](#building)
-- [Build Status](#build-status)
-- [Motivation](#motivation)
+
+### Dependencies
+
+The following dependencies are mandatory:
+- C++ compiler
+- [CMake](https://cmake.org/documentation/) (3.12 or greater)
+
+The following dependencies are optional:
+- [Doxygen](https://www.doxygen.nl/index.html) and [graphiviz](https://graphviz.org/) for documentation.
+
+## Building
+
+Example snippet for building this project:
+```
+mkdir build && cd build
+cmake -DCMAKE_INSTALL_PREFIX="/apps/LinearAlgebra/" ..
+cmake --build  . -- VERBOSE=1 -j8 all test install
+```
+CMake options for configuring this project:
+
+| CMake Variable name     | Description                                                            | Default |
+| ----------------------- | ---------------------------------------------------------------------- | ------- |
+| `BUILD_TESTING`         | Enable automated testing.                                              | `OFF`   |
+| `BUILD_DOCUMENTATION`   | Build documentation.                                                   | `OFF`   |
 
 ## Example Usage
 
@@ -119,27 +146,3 @@ assert( linear::Determinant( matrix ) == 3 );
 ## Documentation
 
 Doxygen documentation based on the latest state of master, [hosted by GitHub Pages](https://moddyz.github.io/LinearAlgebra/).
-
-## Building
-
-A convenience build script is provided, for building all targets, and optionally installing to a location:
-```
-./build.sh <OPTIONAL_INSTALL_LOCATION>
-```
-### Requirements
-
-- `>= CMake-3.17`
-- `C++17`
-- `doxygen` and `graphviz` (optional for documentation)
-
-## Build Status
-
-|       | master | 
-| ----- | ------ | 
-| macOS-10.14 | [![Build Status](https://travis-ci.com/moddyz/LinearAlgebra.svg?branch=master)](https://travis-ci.com/moddyz/LinearAlgebra) |
-
-## Motivation
-
-This is developed in tandem while working through [MIT OpenCourseWare's 18.06](https://ocw.mit.edu/courses/mathematics/18-06-linear-algebra-spring-2010/) - thanks MIT and Professor Strang!  Coding and documenting the data structures and operations aided with internalization of the concepts. 
-
-This project is also presents an opportunity to build experience with template metaprogramming.
