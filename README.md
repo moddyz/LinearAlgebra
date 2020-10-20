@@ -27,7 +27,7 @@ The following dependencies are optional:
 Example snippet for building this project:
 ```
 mkdir build && cd build
-cmake -DCMAKE_INSTALL_PREFIX="/apps/LinearAlgebra/" ..
+cmake -DBUILD_TESTING=ON -DCMAKE_INSTALL_PREFIX="/apps/LinearAlgebra/" ..
 cmake --build  . -- VERBOSE=1 -j8 all test install
 ```
 CMake options for configuring this project:
@@ -43,14 +43,14 @@ Multiplication:
 ```cpp
 using MatrixT = linear::Matrix< 3, 3 >;
 constexpr MatrixT A(
-    1, 0, 0,
-    0, 5, 0,
-    2, 3, 1
+    1.0f, 0.0f, 0.0f,
+    0.0f, 5.0f, 0.0f,
+    2.0f, 3.0f, 1.0f
 );
 constexpr MatrixT B(
-    1, 1, 0,
-    1, 1, 1,
-    0, 1, 1
+    1.0f, 1.0f, 0.0f,
+    1.0f, 1.0f, 1.0f,
+    0.0f, 1.0f, 1.0f
 );
 constexpr MatrixT AB = linear::Multiply( A, B );
 ```
@@ -59,9 +59,9 @@ Inversion:
 ```cpp
 using MatrixT = linear::Matrix< 3, 3 >;
 MatrixT invertable(
-    1, 0, 0,
-    0, 5, 0,
-    2, 3, 1
+    1.0f, 0.0f, 0.0f,
+    0.0f, 5.0f, 0.0f,
+    2.0f, 3.0f, 1.0f
 );
 MatrixT inverse;
 assert( linear::Inverse( invertable, inverse ) );
@@ -70,13 +70,13 @@ assert( linear::Inverse( invertable, inverse ) );
 Transpose:
 ```cpp
 constexpr MatrixT matrix = linear::Matrix< 3, 2 >(
-    1, 2,
-    1, 1,
-    2, 2
+    1.0f, 2.0f,
+    1.0f, 1.0f,
+    2.0f, 2.0f
 );
 static_assert( linear::Transpose( matrix ) == linear::Matrix< 2, 3 >(
-    1, 1, 2,
-    2, 1, 2
+    1.0f, 1.0f, 2.0f,
+    2.0f, 1.0f, 2.0f
 ) );
 ```
 
@@ -84,34 +84,34 @@ Reduced row echelon form:
 ```cpp
 using MatrixT = linear::Matrix< 3, 4 >;
 MatrixT matrix(
-    1, 2, 2, 2,
-    2, 4, 6, 8,
-    3, 6, 8, 10
+    1.0f, 2.0f, 2.0f, 2.0f,
+    2.0f, 4.0f, 6.0f, 8.0f,
+    3.0f, 6.0f, 8.0f, 10.0f
 );
 
 assert( linear::ReducedRowEchelonForm( matrix ) == MatrixT(
-    1, 2, 0, -2,
-    0, 0, 1, 2,
-    0, 0, 0, 0
+    1.0f, 2.0f, 0.0f, -2.0f,
+    0.0f, 0.0f, 1.0f, 2.0f,
+    0.0f, 0.0f, 0.0f, 0.0f
 ) );
 ```
 
 Projection:
 ```cpp
 linear::Matrix< 3, 1 > vector(
-    2,
-    3,
-    4
+    2.0f,
+    3.0f,
+    4.0f
 );
 linear::Matrix< 3, 2 > subspace(
-    1, 1,
-    0, 1,
-    0, 0
+    1.0f, 1.0f,
+    0.0f, 1.0f,
+    0.0f, 0.0f
 );
 assert( linear::Projection( vector, subspace ) == linear::Matrix< 3, 1 >(
-        2,
-        3,
-        0
+        2.0f,
+        3.0f,
+        0.0f
     )
 );
 ```
@@ -120,15 +120,15 @@ Orthonormalization:
 ```cpp
 using MatrixT = linear::Matrix< 3, 3 >;
 MatrixT matrix(
-    1, 2, 4,
-    0, 0, 5,
-    0, 3, 6
+    1.0f, 2.0f, 4.0f,
+    0.0f, 0.0f, 5.0f,
+    0.0f, 3.0f, 6.0f
 );
 MatrixT orthonormal = linear::Orthonormalize( matrix );
 assert( orthonormal == MatrixT(
-        1, 0, 0,
-        0, 0, 1,
-        0, 1, 0
+        1.0f, 0.0f, 0.0f,
+        0.0f, 0.0f, 1.0f,
+        0.0f, 1.0f, 0.0f
     )
 );
 ```
@@ -136,9 +136,9 @@ assert( orthonormal == MatrixT(
 Determinant:
 ```cpp
 linear::Matrix< 3, 3 > matrix(
-    1, 2, 3,
-    2, 2, 3,
-    3, 3, 3
+    1.0f, 2.0f, 3.0f,
+    2.0f, 2.0f, 3.0f,
+    3.0f, 3.0f, 3.0f
 );
 assert( linear::Determinant( matrix ) == 3 );
 ```
