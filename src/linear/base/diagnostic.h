@@ -68,15 +68,15 @@
 LINEAR_NS_OPEN
 
 /// Not intended to be used directly, \ref LINEAR_ASSERT instead.
-inline void _Assert( const char* i_expression, const char* i_file, size_t i_line )
+inline void _Assert( const char* i_expression, const char* i_file, int i_line )
 {
-    LINEAR_LOG_ERROR( "Assertion failed for expression: %s, at %s:%lu\n", i_expression, i_file, i_line );
+    LINEAR_LOG_ERROR( "Assertion failed for expression: %s, at %s:%i\n", i_expression, i_file, i_line );
 }
 
 /// Not intended to be used directly, \ref LINEAR_VERIFY instead.
-inline void _Verify( const char* i_expression, const char* i_file, size_t i_line )
+inline void _Verify( const char* i_expression, const char* i_file, int i_line )
 {
-    LINEAR_LOG_ERROR( "Verification failed for expression: %s, at %s:%lu\n", i_expression, i_file, i_line );
+    LINEAR_LOG_ERROR( "Verification failed for expression: %s, at %s:%i\n", i_expression, i_file, i_line );
 }
 
 LINEAR_NS_CLOSE
