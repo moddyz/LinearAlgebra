@@ -17,10 +17,10 @@
 ///
 /// In release builds, this is compiled out.
 #ifdef LINEAR_DEBUG
-#define LINEAR_ASSERT( expr )                                                                                              \
+#define LINEAR_ASSERT( expr )                                                                                          \
     if ( !( expr ) )                                                                                                   \
     {                                                                                                                  \
-        LINEAR_NS::_Assert( #expr, __FILE__, __LINE__ );                                                                   \
+        LINEAR_NS::_Assert( #expr, __FILE__, __LINE__ );                                                               \
     }
 #else
 #define LINEAR_ASSERT( expr, ... ) void()
@@ -28,14 +28,14 @@
 
 /// \def LINEAR_ASSERT_MSG( expr, format, ... )
 ///
-/// Similar to \ref LINEAR_ASSERT, with the addition of a formatted message when the expression \p expr fails to evaluate
-/// in debug builds.
+/// Similar to \ref LINEAR_ASSERT, with the addition of a formatted message when the expression \p expr fails to
+/// evaluate in debug builds.
 #ifdef LINEAR_DEBUG
-#define LINEAR_ASSERT_MSG( expr, format, ... )                                                                             \
+#define LINEAR_ASSERT_MSG( expr, format, ... )                                                                         \
     if ( !( expr ) )                                                                                                   \
     {                                                                                                                  \
-        LINEAR_NS::_Assert( #expr, __FILE__, __LINE__ );                                                                   \
-        LINEAR_LOG_ERROR( format, ##__VA_ARGS__ );                                                                         \
+        LINEAR_NS::_Assert( #expr, __FILE__, __LINE__ );                                                               \
+        LINEAR_LOG_ERROR( format, ##__VA_ARGS__ );                                                                     \
     }
 #else
 #define LINEAR_ASSERT_MSG( expr, format, ... ) void()
@@ -48,20 +48,21 @@
 ///
 /// LINEAR_VERIFY is different from \ref LINEAR_ASSERT in that it does \em not get compiled out for release builds,
 /// so use sparingly!
-#define LINEAR_VERIFY( expr )                                                                                              \
+#define LINEAR_VERIFY( expr )                                                                                          \
     if ( !( expr ) )                                                                                                   \
     {                                                                                                                  \
-        LINEAR_NS::_Assert( #expr, __FILE__, __LINE__ );                                                                   \
+        LINEAR_NS::_Assert( #expr, __FILE__, __LINE__ );                                                               \
     }
 
 /// \def LINEAR_VERIFY_MSG( expr, format, ... )
 ///
-/// Similar to \ref LINEAR_VERIFY, with the addition of a formatted message when the expression \p expr fails to evaluate.
-#define LINEAR_VERIFY_MSG( expr, format, ... )                                                                             \
+/// Similar to \ref LINEAR_VERIFY, with the addition of a formatted message when the expression \p expr fails to
+/// evaluate.
+#define LINEAR_VERIFY_MSG( expr, format, ... )                                                                         \
     if ( !( expr ) )                                                                                                   \
     {                                                                                                                  \
-        LINEAR_NS::_Verify( #expr, __FILE__, __LINE__ );                                                                   \
-        LINEAR_LOG_ERROR( format, ##__VA_ARGS__ );                                                                         \
+        LINEAR_NS::_Verify( #expr, __FILE__, __LINE__ );                                                               \
+        LINEAR_LOG_ERROR( format, ##__VA_ARGS__ );                                                                     \
     }
 
 LINEAR_NS_OPEN

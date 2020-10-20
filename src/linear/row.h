@@ -24,8 +24,8 @@ void RowExchange( size_t i_rowIndexA, size_t i_rowIndexB, MatrixT& o_matrix )
     LINEAR_ASSERT( i_rowIndexB < MatrixT::RowCount() );
     LINEAR_ASSERT( i_rowIndexA != i_rowIndexB );
 
-    constexpr size_t columnCount = MatrixT::ColumnCount();
-    Matrix< 1, columnCount > rowA = o_matrix.GetRow( i_rowIndexA );
+    constexpr size_t         columnCount = MatrixT::ColumnCount();
+    Matrix< 1, columnCount > rowA        = o_matrix.GetRow( i_rowIndexA );
 
     o_matrix.SetRow( i_rowIndexA, o_matrix.GetRow( i_rowIndexB ) );
     o_matrix.SetRow( i_rowIndexB, rowA );

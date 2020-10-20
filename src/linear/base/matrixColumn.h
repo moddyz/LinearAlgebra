@@ -17,9 +17,7 @@ _MatrixColumnIndexExpansion( const MatrixT& i_matrix, size_t i_colIndex, std::in
 }
 
 /// Generates a index sequence of the same length as the number of entries in a single column of \p i_matrix.
-template < typename MatrixT,
-           typename ColumnT,
-           typename RowIndices = std::make_index_sequence< MatrixT::RowCount() > >
+template < typename MatrixT, typename ColumnT, typename RowIndices = std::make_index_sequence< MatrixT::RowCount() > >
 constexpr inline ColumnT _MatrixColumn( const MatrixT& i_matrix, size_t i_colIndex )
 {
     return _MatrixColumnIndexExpansion< MatrixT, ColumnT >( i_matrix, i_colIndex, RowIndices{} );
