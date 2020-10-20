@@ -2,8 +2,8 @@
 
 /// \file base/almost.h
 
-#include <linear/linear.h>
 #include <linear/base/abs.h>
+#include <linear/linear.h>
 
 LINEAR_NS_OPEN
 

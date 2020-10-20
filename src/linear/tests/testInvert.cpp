@@ -17,23 +17,23 @@ void CHECK_INVERSE( const MatrixT& i_matrix )
 TEST_CASE( "Matrix_Inverse" )
 {
     CHECK_INVERSE( linear::Matrix< 3, 3 >(
-        1, 0, 0,
-        0, 5, 0,
-        2, 3, 1
+        1.0f, 0.0f, 0.0f,
+        0.0f, 5.0f, 0.0f,
+        2.0f, 3.0f, 1.0f
     ) );
 
     CHECK_INVERSE( linear::Matrix< 4, 4 >(
-        1, 7, 0.25, 8,
-        0, 5, 8, 9,
-        2, -3, 1, 1.3,
-        8, 1, 2, 1.3
+        1.0f, 7.0f, 0.25f, 8.0f,
+        0.0f, 5.0f, 8.0f, 9.0f,
+        2.0f, -3.0f, 1.0f, 1.3f,
+        8.0f, 1.0f, 2.0f, 1.3f
     ) );
 
     CHECK_INVERSE( linear::Matrix< 5, 5 >(
-        1, 7, 0,  8,   0,
-        5, 8, 9,  2,  -3,
-        9, 0, 1,  23, -2,
-        0, 1, 1,  0,  -9,
-        1, 8, 1,  2,   1.3
+        1.0f, 7.0f, 0.0f,  8.0f,   0.0f,
+        5.0f, 8.0f, 9.0f,  2.0f,  -3.0f,
+        9.0f, 0.0f, 1.0f,  23.0f, -2.0f,
+        0.0f, 1.0f, 1.0f,  0.0f,  -9.0f,
+        1.0f, 8.0f, 1.0f,  2.0f,   1.3f
     ) );
 }

@@ -7,28 +7,28 @@
 TEST_CASE( "Matrix_Orthonormalize" )
 {
     CHECK( linear::Orthonormalize( linear::Matrix< 4, 2 >(
-            1, -2,
-            1,  0,
-            1,  1,
-            1,  3
+            1.0f, -2.0f,
+            1.0f,  0.0f,
+            1.0f,  1.0f,
+            1.0f,  3.0f
         )
     ) == linear::Matrix< 4, 2 >(
-            0.5, -0.693375,
-            0.5, -0.138675,
-            0.5,  0.138675,
-            0.5,  0.693375
+            0.5f, -0.693375f,
+            0.5f, -0.138675f,
+            0.5f,  0.138675f,
+            0.5f,  0.693375f
         )
     );
 
     CHECK( linear::Orthonormalize( linear::Matrix< 3, 3 >(
-            1, 2, 4,
-            0, 0, 5,
-            0, 3, 6
+            1.0f, 2.0f, 4.0f,
+            0.0f, 0.0f, 5.0f,
+            0.0f, 3.0f, 6.0f
         )
     ) == linear::Matrix< 3, 3 >(
-            1, 0, 0,
-            0, 0, 1,
-            0, 1, 0
+            1.0f, 0.0f, 0.0f,
+            0.0f, 0.0f, 1.0f,
+            0.0f, 1.0f, 0.0f
         )
     );
 }

@@ -10,29 +10,29 @@ TEST_CASE( "Multiply" )
     CHECK( linear::Multiply( matrixA, matrixB ) == MatrixT::Identity() );
 
     CHECK( linear::Multiply( linear::Matrix< 3, 3 >(
-        1, 0, 0,
-        1, 1, 1,
-        0, 0, 1
+        1.0f, 0.0f, 0.0f,
+        1.0f, 1.0f, 1.0f,
+        0.0f, 0.0f, 1.0f
     ), linear::Matrix< 3, 3 >(
-        2,   0, 0,
-        0,   3, 0,
-        1.5, 0, 4
+        2.0f, 0.0f, 0.0f,
+        0.0f, 3.0f, 0.0f,
+        1.5f, 0.0f, 4.0f
     ) )  == linear::Matrix< 3, 3 >(
-        2,   0, 0,
-        3.5, 3, 4,
-        1.5, 0, 4
+        2.0f, 0.0f, 0.0f,
+        3.5f, 3.0f, 4.0f,
+        1.5f, 0.0f, 4.0f
     ) );
 
     CHECK( linear::Multiply( linear::Matrix< 3, 1 >(
-        1, 2, 3
+        1.0f, 2.0f, 3.0f
     ), linear::Matrix< 1, 3 >(
-        2,
-        3,
-        1.5
+        2.0f,
+        3.0f,
+        1.5f
     ) ) == linear::Matrix< 3, 3 >(
-        2, 3, 1.5,
-        4, 6, 3,
-        6, 9, 4.5
+        2.0f, 3.0f, 1.5f,
+        4.0f, 6.0f, 3.0f,
+        6.0f, 9.0f, 4.5f
     ) );
 }
 
