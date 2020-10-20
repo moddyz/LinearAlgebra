@@ -1,17 +1,19 @@
 var searchData=
 [
-  ['linearalgebra',['LinearAlgebra',['../index.html',1,'']]],
-  ['linear_2eh',['linear.h',['../linear_8h.html',1,'']]],
-  ['linear_5fassert',['LINEAR_ASSERT',['../diagnostic_8h.html#ac3cc250d9da6d8924f498f2baacbb82b',1,'diagnostic.h']]],
-  ['linear_5fassert_5fmsg',['LINEAR_ASSERT_MSG',['../diagnostic_8h.html#a4cd315d3b64aed936fbf6cc294820ea6',1,'diagnostic.h']]],
-  ['linear_5flog_5ferror',['LINEAR_LOG_ERROR',['../log_8h.html#a159a789f6868f8c3f67760c5075035b4',1,'log.h']]],
-  ['linear_5flog_5finfo',['LINEAR_LOG_INFO',['../log_8h.html#a563e71c18428150fcc6bc66ca7a622cb',1,'log.h']]],
-  ['linear_5flog_5fwarn',['LINEAR_LOG_WARN',['../log_8h.html#a4d149e56c75834d2acc4c272e0d65f60',1,'log.h']]],
-  ['linear_5fns',['LINEAR_NS',['../linear_8h.html#a16694088e9bdc96ebc831ee5353d3396',1,'linear.h']]],
-  ['linear_5fns_5fclose',['LINEAR_NS_CLOSE',['../linear_8h.html#a338eda1efc3f642c92a784e5cb31c6dc',1,'linear.h']]],
-  ['linear_5fns_5fopen',['LINEAR_NS_OPEN',['../linear_8h.html#ac60fb5db7f991385b26aca97d1f19f70',1,'linear.h']]],
-  ['linear_5fns_5fusing',['LINEAR_NS_USING',['../linear_8h.html#afb64174b24f9a07572e1d3e56c713e73',1,'linear.h']]],
-  ['linear_5fverify',['LINEAR_VERIFY',['../diagnostic_8h.html#a05057b58d49bde7e1a13fd54bb6f50e9',1,'diagnostic.h']]],
-  ['linear_5fverify_5fmsg',['LINEAR_VERIFY_MSG',['../diagnostic_8h.html#a70b2a2e45377d73d3cc37bc29f5c8a4f',1,'diagnostic.h']]],
-  ['log_2eh',['log.h',['../log_8h.html',1,'']]]
+  ['operations',['Operations',['../group__LinearAlgebra__Operations.html',1,'']]],
+  ['operator_21_3d',['operator!=',['../classMatrix.html#a8baae2fb27734db42a28a31ac4565864',1,'Matrix']]],
+  ['operator_28_29',['operator()',['../classMatrix.html#a0920ad1e64d7752e85d854b7010716dc',1,'Matrix::operator()(size_t i_rowIndex, size_t i_colIndex) const'],['../classMatrix.html#a0c693480f46d25411ee0f3232f3325cc',1,'Matrix::operator()(size_t i_rowIndex, size_t i_colIndex)']]],
+  ['operator_2a',['operator*',['../matrix_8h.html#a3225305b37a1d0982a7465cd61a44063',1,'operator*(const Matrix&lt; ROWS, COLS, ValueT &gt; &amp;i_matrix, const ValueT &amp;i_scalar):&#160;matrix.h'],['../matrix_8h.html#a520da3a2ac68cf1399379309364aa5c8',1,'operator*(const ValueT &amp;i_scalar, const Matrix&lt; ROWS, COLS, ValueT &gt; &amp;i_matrix):&#160;matrix.h']]],
+  ['operator_2a_3d',['operator*=',['../classMatrix.html#a245645bc24b68e81280dbc7f91fd1359',1,'Matrix']]],
+  ['operator_2b',['operator+',['../classMatrix.html#abb2f97b6dd1690f8a20c6cf1ffb301d6',1,'Matrix']]],
+  ['operator_2b_3d',['operator+=',['../classMatrix.html#ace13996884a1a90572aa853ea0e49869',1,'Matrix']]],
+  ['operator_2d',['operator-',['../classMatrix.html#a600d6ed214494ff9bd374c72c6e00b8e',1,'Matrix']]],
+  ['operator_2d_3d',['operator-=',['../classMatrix.html#af470c987578a9270067d39378e7a50f6',1,'Matrix']]],
+  ['operator_2f',['operator/',['../matrix_8h.html#a9ad1419149428906d10fa44bc649e84a',1,'matrix.h']]],
+  ['operator_2f_3d',['operator/=',['../classMatrix.html#abc0bb02ccd9c6be870a6cd7d7236c617',1,'Matrix']]],
+  ['operator_3c_3c',['operator&lt;&lt;',['../matrix_8h.html#a70162b2cb678345db0d97740c4a782e8',1,'matrix.h']]],
+  ['operator_3d_3d',['operator==',['../classMatrix.html#a8a5d9b124fc3552b5c4709a4e2aadbb6',1,'Matrix']]],
+  ['operator_5b_5d',['operator[]',['../classMatrix.html#ae0a28a895c78159b8a1ec0a90cb618a7',1,'Matrix::operator[](size_t i_index) const'],['../classMatrix.html#a5604da909e3f6cf44a5866c04098837d',1,'Matrix::operator[](size_t i_index)']]],
+  ['orthonormalize',['Orthonormalize',['../group__LinearAlgebra__Operations.html#ga253b1135710d6d0e4e0537013da3dd03',1,'orthonormalize.h']]],
+  ['orthonormalize_2eh',['orthonormalize.h',['../orthonormalize_8h.html',1,'']]]
 ];

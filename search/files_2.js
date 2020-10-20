@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['intrange_2eh',['intRange.h',['../intRange_8h.html',1,'']]],
-  ['inverse_2eh',['inverse.h',['../inverse_8h.html',1,'']]]
+  ['matrix_2eh',['matrix.h',['../matrix_8h.html',1,'']]],
+  ['multiply_2eh',['multiply.h',['../multiply_8h.html',1,'']]]
 ];

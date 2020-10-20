@@ -1,23 +1,7 @@
-<map id="/home/richard/code/LinearAlgebra/src/linear/projection.h" name="/home/richard/code/LinearAlgebra/src/linear/projection.h">
-<area shape="rect" id="node2" href="$inverse_8h.html" title="Determinant computation. " alt="" coords="1497,109,1607,136"/>
-<area shape="rect" id="node5" href="$linear_8h.html" title="LinearAlgebra: A general&#45;purpose header&#45;only linear algebra library. " alt="" coords="884,632,983,659"/>
-<area shape="rect" id="node13" href="$matrix_8h.html" title="A matrix is rectangular array of numbers, arranged in to rows and columns. " alt="" coords="1144,408,1248,435"/>
-<area shape="rect" id="node27" href="$multiply_8h.html" title="Matrix multiplication. " alt="" coords="1687,333,1801,360"/>
-<area shape="rect" id="node29" href="$transpose_8h.html" title="Matrix transpose. " alt="" coords="1849,333,1975,360"/>
-<area shape="rect" id="node3" href="$matrixInverse_8h.html" title="Matrix inverse implementation details. " alt="" coords="360,184,539,211"/>
-<area shape="rect" id="node4" href="$diagnostic_8h.html" title="Diagnostic utilities. " alt="" coords="81,483,239,509"/>
-<area shape="rect" id="node9" href="$intRange_8h.html" title="Integer range iteration. " alt="" coords="27,333,179,360"/>
-<area shape="rect" id="node10" href="$matrixElimination_8h.html" title="Common matrix elimination sub&#45;routines. " alt="" coords="241,259,441,285"/>
-<area shape="rect" id="node6" href="$log_8h.html" title="Logging utility functions. " alt="" coords="77,557,195,584"/>
-<area shape="rect" id="node11" href="$matrixEntryArray_8h.html" title="Internal implementation for a fixed size array for storage of matrix indices and associated data..." alt="" coords="191,408,390,435"/>
-<area shape="rect" id="node26" href="$row_8h.html" title="Row operations to perform on a Matrix. " alt="" coords="379,333,469,360"/>
-<area shape="rect" id="node14" href="$almost_8h.html" title="linear/base/almost.h" alt="" coords="568,483,707,509"/>
-<area shape="rect" id="node16" href="$matrixColumn_8h.html" title="Implementation details for extracting a column of a Matrix (compile&#45;time supported). " alt="" coords="1083,557,1264,584"/>
-<area shape="rect" id="node17" href="$matrixIdentity_8h.html" title="Implementation details to produce a compile&#45;time generated identity matrix. " alt="" coords="1288,557,1467,584"/>
-<area shape="rect" id="node18" href="$matrixRow_8h.html" title="Implementation details for extracting a row of a Matrix (compile&#45;time supported). ..." alt="" coords="1491,557,1653,584"/>
-<area shape="rect" id="node19" href="$sequenceOperations_8h.html" title="Compile&#45;time recursion for performing an unary or binary operation on every single entry of a set of ..." alt="" coords="731,483,949,509"/>
-<area shape="rect" id="node21" href="$typeName_8h.html" title="Utilities to infer type names. " alt="" coords="973,483,1133,509"/>
-<area shape="rect" id="node15" href="$abs_8h.html" title="linear/base/abs.h" alt="" coords="566,557,687,584"/>
-<area shape="rect" id="node28" href="$matrixMultiplication_8h.html" title="Matrix mutiplication implementation details of compile&#45;time supported matrix multiplication. " alt="" coords="1686,408,1898,435"/>
-<area shape="rect" id="node30" href="$matrixTranspose_8h.html" title="Implementation details for transposing a M x N matrix (compile&#45;time supported). " alt="" coords="1972,408,2169,435"/>
+<map id="/home/runner/work/LinearAlgebra/LinearAlgebra/src/linear/projection.h" name="/home/runner/work/LinearAlgebra/LinearAlgebra/src/linear/projection.h">
+<area shape="rect" id="node2" href="$inverse_8h.html" title="Determinant computation. " alt="" coords="282,109,393,136"/>
+<area shape="rect" id="node4" href="$linear_8h.html" title="LinearAlgebra: A general&#45;purpose header&#45;only linear algebra library. " alt="" coords="5,259,104,285"/>
+<area shape="rect" id="node5" href="$matrix_8h.html" title="A matrix is rectangular array of numbers, arranged in to rows and columns. " alt="" coords="681,184,785,211"/>
+<area shape="rect" id="node16" href="$multiply_8h.html" title="Matrix multiplication. " alt="" coords="445,109,558,136"/>
+<area shape="rect" id="node18" href="$transpose_8h.html" title="Matrix transpose. " alt="" coords="661,109,787,136"/>
 </map>

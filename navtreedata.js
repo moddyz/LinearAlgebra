@@ -1,15 +1,8 @@
 var NAVTREE =
 [
   [ "LinearAlgebra", "index.html", [
-    [ "Introduction", "index.html#LinearAlgebra_Introduction", null ],
-    [ "Usage", "index.html#Example", null ],
-    [ "Library", "index.html#Library", null ],
-    [ "Building", "index.html#LinearAlgebra_Building", [
-      [ "Building Python Bindings", "index.html#LinearAlgebra_Building_PythonBindings", null ]
-    ] ],
-    [ "Developer Notes", "index.html#LinearAlgebra_DeveloperNotes", [
-      [ "Source Tree", "index.html#LinearAlgebra_DeveloperNotes_SourceTree", null ],
-      [ "Motivation", "index.html#LinearAlgebra_DeveloperNotes_Motivation", null ]
+    [ "Introduction", "index.html#LinearAlgebra_Introduction", [
+      [ "Source Tree", "index.html#LinearAlgebra_DeveloperNotes_SourceTree", null ]
     ] ],
     [ "GitHub Repository", "index.html#LinearAlgebra_GitHubHosted", null ],
     [ "Modules", "modules.html", "modules" ],
@@ -35,7 +28,7 @@ var NAVTREE =
 
 var NAVTREEINDEX =
 [
-"abs_8h.html"
+"annotated.html"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';

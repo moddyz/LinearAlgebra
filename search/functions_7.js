@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['hasnans',['HasNaNs',['../classMatrix.html#ac44212902d33062f181017c3524174c1',1,'Matrix']]]
+  ['normalize',['Normalize',['../group__LinearAlgebra__Operations.html#ga497285c28094678dd43a87fe8d638244',1,'normalize.h']]]
 ];

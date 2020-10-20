@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['entry',['Entry',['../classMatrixEntryArray.html#af4f23c7dc38c47c8e70acb12eb17ded9',1,'MatrixEntryArray']]]
+  ['matrixtype',['MatrixType',['../classMatrix.html#a48f91f99e494e7db74d2116c93c1db50',1,'Matrix']]]
 ];

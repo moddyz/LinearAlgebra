@@ -1,5 +1,4 @@
 var searchData=
 [
-  ['determinant',['Determinant',['../group__LinearAlgebra__Operations.html#gac730d146eb83fe5ef2a823f64804036d',1,'determinant.h']]],
-  ['diagnostic_2eh',['diagnostic.h',['../diagnostic_8h.html',1,'']]]
+  ['hasnans',['HasNaNs',['../classMatrix.html#ac44212902d33062f181017c3524174c1',1,'Matrix']]]
 ];

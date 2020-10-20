@@ -1,14 +1,4 @@
-<map id="/home/richard/code/LinearAlgebra/src/linear/transpose.h" name="/home/richard/code/LinearAlgebra/src/linear/transpose.h">
-<area shape="rect" id="node2" href="$matrixTranspose_8h.html" title="Implementation details for transposing a M x N matrix (compile&#45;time supported). " alt="" coords="5,109,203,136"/>
-<area shape="rect" id="node3" href="$linear_8h.html" title="LinearAlgebra: A general&#45;purpose header&#45;only linear algebra library. " alt="" coords="943,333,1041,360"/>
-<area shape="rect" id="node5" href="$matrix_8h.html" title="A matrix is rectangular array of numbers, arranged in to rows and columns. " alt="" coords="951,109,1055,136"/>
-<area shape="rect" id="node6" href="$almost_8h.html" title="linear/base/almost.h" alt="" coords="1352,184,1491,211"/>
-<area shape="rect" id="node8" href="$diagnostic_8h.html" title="Diagnostic utilities. " alt="" coords="1515,184,1674,211"/>
-<area shape="rect" id="node12" href="$matrixColumn_8h.html" title="Implementation details for extracting a column of a Matrix (compile&#45;time supported). " alt="" coords="277,259,459,285"/>
-<area shape="rect" id="node13" href="$matrixIdentity_8h.html" title="Implementation details to produce a compile&#45;time generated identity matrix. " alt="" coords="483,259,661,285"/>
-<area shape="rect" id="node14" href="$matrixRow_8h.html" title="Implementation details for extracting a row of a Matrix (compile&#45;time supported). ..." alt="" coords="685,259,848,285"/>
-<area shape="rect" id="node15" href="$sequenceOperations_8h.html" title="Compile&#45;time recursion for performing an unary or binary operation on every single entry of a set of ..." alt="" coords="613,184,832,211"/>
-<area shape="rect" id="node17" href="$typeName_8h.html" title="Utilities to infer type names. " alt="" coords="856,184,1016,211"/>
-<area shape="rect" id="node7" href="$abs_8h.html" title="linear/base/abs.h" alt="" coords="1289,259,1410,285"/>
-<area shape="rect" id="node9" href="$log_8h.html" title="Logging utility functions. " alt="" coords="1536,259,1653,285"/>
+<map id="/home/runner/work/LinearAlgebra/LinearAlgebra/src/linear/transpose.h" name="/home/runner/work/LinearAlgebra/LinearAlgebra/src/linear/transpose.h">
+<area shape="rect" id="node3" href="$linear_8h.html" title="LinearAlgebra: A general&#45;purpose header&#45;only linear algebra library. " alt="" coords="5,184,104,211"/>
+<area shape="rect" id="node4" href="$matrix_8h.html" title="A matrix is rectangular array of numbers, arranged in to rows and columns. " alt="" coords="815,109,919,136"/>
 </map>

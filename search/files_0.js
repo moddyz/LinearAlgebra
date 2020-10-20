@@ -1,5 +1,4 @@
 var searchData=
 [
-  ['abs_2eh',['abs.h',['../abs_8h.html',1,'']]],
-  ['almost_2eh',['almost.h',['../almost_8h.html',1,'']]]
+  ['inverse_2eh',['inverse.h',['../inverse_8h.html',1,'']]]
 ];

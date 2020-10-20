@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['getcolumn',['GetColumn',['../group__LinearAlgebra__Operations.html#ga16cd0160ebb8b5729134a87990376e1e',1,'Matrix']]],
-  ['getrow',['GetRow',['../group__LinearAlgebra__Operations.html#gadb925522e023edcdd4275ed2bab76ed1',1,'Matrix']]],
-  ['getstring',['GetString',['../classMatrix.html#a289676db9ba3497318fabcacf1b58bc2',1,'Matrix']]]
+  ['matrix',['Matrix',['../classMatrix.html#ac60af474f9b0b6854aa5a4c28991e178',1,'Matrix::Matrix()'],['../classMatrix.html#a11b3eaae6dbea3ba91e2e3667df27bf4',1,'Matrix::Matrix(Args... i_entries)']]],
+  ['maxrank',['MaxRank',['../group__LinearAlgebra__Operations.html#ga89529f50c69cfa4abea8076675027241',1,'rank.h']]],
+  ['multiply',['Multiply',['../group__LinearAlgebra__Operations.html#ga5ef49f85647f99cb45f8649a51f2f511',1,'multiply.h']]]
 ];

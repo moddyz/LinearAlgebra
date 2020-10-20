@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['matrixtype',['MatrixType',['../classMatrix.html#a48f91f99e494e7db74d2116c93c1db50',1,'Matrix']]]
+  ['valuetype',['ValueType',['../classMatrix.html#a3f27b4c9d86c991e260c0708f46dd22a',1,'Matrix']]]
 ];

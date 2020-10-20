@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['end',['end',['../classIntRange.html#ac9aef000e102788a455061bfc0d6f119',1,'IntRange::end()'],['../classMatrixEntryArray.html#a94db3130ade25279b16971b7c9043b2a',1,'MatrixEntryArray::end()']]],
-  ['entrycount',['EntryCount',['../classMatrix.html#a81129f24358d5e39934698aba2d26653',1,'Matrix']]]
+  ['identity',['Identity',['../classMatrix.html#aded579386daf0cb44546736913c75d6f',1,'Matrix']]],
+  ['inverse',['Inverse',['../group__LinearAlgebra__Operations.html#ga607332b7693fef15a3980e17f142a25d',1,'inverse.h']]]
 ];

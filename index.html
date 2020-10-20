@@ -31,7 +31,7 @@
    <div id="projectname">LinearAlgebra
    &#160;<span id="projectnumber">0.0</span>
    </div>
-   <div id="projectbrief">A general-purpose header-only linear algebra library.</div>
+   <div id="projectbrief">Basic template for starting out a new CMake-based project.</div>
   </td>
  </tr>
  </tbody>
@@ -89,31 +89,13 @@ $(document).ready(function(){initNavTree('index.html','');});
 Introduction</h1>
 <p><b>LinearAlgebra</b> is general-purpose header-only linear algebra library.</p>
 <p>This is developed in tandem while working through MIT OpenCourseWare's 18.06. Coding and documenting the data structures and operations aided with internalization of the concepts.</p>
-<h1><a class="anchor" id="Example"></a>
-Usage</h1>
-<p>Multiplication: </p><div class="fragment"><div class="line"><span class="keyword">using</span> MatrixT = linear::Matrix&lt; 3, 3 &gt;;</div><div class="line">constexpr MatrixT A(</div><div class="line">    1, 0, 0,</div><div class="line">    0, 5, 0,</div><div class="line">    2, 3, 1</div><div class="line">);</div><div class="line">constexpr MatrixT B(</div><div class="line">    1, 1, 0,</div><div class="line">    1, 1, 1,</div><div class="line">    0, 1, 1</div><div class="line">);</div><div class="line">constexpr MatrixT AB = <a class="code" href="group__LinearAlgebra__Operations.html#ga5ef49f85647f99cb45f8649a51f2f511">linear::Multiply</a>( A, B );</div></div><!-- fragment --><p>Inversion: </p><div class="fragment"><div class="line"><span class="keyword">using</span> MatrixT = linear::Matrix&lt; 3, 3 &gt;;</div><div class="line">MatrixT invertable(</div><div class="line">    1, 0, 0,</div><div class="line">    0, 5, 0,</div><div class="line">    2, 3, 1</div><div class="line">);</div><div class="line">MatrixT inverse;</div><div class="line">assert( <a class="code" href="group__LinearAlgebra__Operations.html#ga607332b7693fef15a3980e17f142a25d">linear::Inverse</a>( invertable, inverse ) );</div></div><!-- fragment --><p>Transpose: </p><div class="fragment"><div class="line">constexpr MatrixT matrix = linear::Matrix&lt; 3, 2 &gt;(</div><div class="line">    1, 2,</div><div class="line">    1, 1,</div><div class="line">    2, 2</div><div class="line">);</div><div class="line">static_assert( <a class="code" href="group__LinearAlgebra__Operations.html#ga10f0c8910be836d69e5a2899235f046c">linear::Transpose</a>( matrix ) == linear::Matrix&lt; 2, 3 &gt;(</div><div class="line">    1, 1, 2,</div><div class="line">    2, 1, 2</div><div class="line">) );</div></div><!-- fragment --><p>Reduced row echelon form: </p><div class="fragment"><div class="line"><span class="keyword">using</span> MatrixT = linear::Matrix&lt; 3, 4 &gt;;</div><div class="line">MatrixT matrix(</div><div class="line">    1, 2, 2, 2,</div><div class="line">    2, 4, 6, 8,</div><div class="line">    3, 6, 8, 10</div><div class="line">);</div><div class="line"></div><div class="line">assert( <a class="code" href="group__LinearAlgebra__Operations.html#gac720247356966c2515846924a407b71d">linear::ReducedRowEchelonForm</a>( matrix ) == MatrixT(</div><div class="line">    1, 2, 0, -2,</div><div class="line">    0, 0, 1, 2,</div><div class="line">    0, 0, 0, 0</div><div class="line">) );</div></div><!-- fragment --><h1><a class="anchor" id="Library"></a>
-Library</h1>
-<p>Browse <a class="el" href="group__LinearAlgebra__Types.html">Types</a> and <a class="el" href="group__LinearAlgebra__Operations.html">Operations</a> for available functionality.</p>
-<h1><a class="anchor" id="LinearAlgebra_Building"></a>
-Building</h1>
-<p>A convenience build script is provided at the root of the repository for building all targets, and optionally installing to a location: <code>./build.sh &lt;OPTIONAL_INSTALL_LOCATION&gt;</code>.</p>
-<h2><a class="anchor" id="LinearAlgebra_Building_PythonBindings"></a>
-Building Python Bindings</h2>
-<p>To build python bindings for LinearAlgebra, set the cmake option <code>BUILD_PYTHON_BINDINGS="ON"</code> when configuring cmake.</p>
-<h1><a class="anchor" id="LinearAlgebra_DeveloperNotes"></a>
-Developer Notes</h1>
+<p>See <a href="https://github.com/moddyz/LinearAlgebra#example-usage">README.md: Example Usage</a> for example usage.</p>
 <h2><a class="anchor" id="LinearAlgebra_DeveloperNotes_SourceTree"></a>
 Source Tree</h2>
 <p>The C++ headers are organized as follows:</p><ul>
 <li><code>src/linear</code> - Linear Algebra types and operations.</li>
 <li><code>src/linear/base</code> - Common support utilities and implementation details.</li>
 </ul>
-<p>Python bindings for are available under <code>src/linear/python</code>.</p>
-<p>Tests and benchmark code reside within the respective subdirectories.</p>
-<h2><a class="anchor" id="LinearAlgebra_DeveloperNotes_Motivation"></a>
-Motivation</h2>
-<p>This is developed in tandem while working through <a href="https://ocw.mit.edu/courses/mathematics/18-06-linear-algebra-spring-2010/">MIT OpenCourseWare's 18.06</a> - thanks MIT and Professor Strang! Coding and documenting the data structures and operations aided with internalization of the concepts.</p>
-<p>This project is also presents an opportunity to build experience with template metaprogramming.</p>
 <h1><a class="anchor" id="LinearAlgebra_GitHubHosted"></a>
 GitHub Repository</h1>
 <p>The LinearAlgebra project is hosted on GitHub: <a href="https://github.com/moddyz/LinearAlgebra">https://github.com/moddyz/LinearAlgebra</a>. </p>

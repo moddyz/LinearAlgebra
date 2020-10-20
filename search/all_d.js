@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['projection',['Projection',['../group__LinearAlgebra__Operations.html#ga1a3817815814472b2d3d391a836c7cc5',1,'projection.h']]],
-  ['projection_2eh',['projection.h',['../projection_8h.html',1,'']]],
-  ['projectionmatrix',['ProjectionMatrix',['../group__LinearAlgebra__Operations.html#ga882e96b34eeb7b40aa5882c8e722a732',1,'projection.h']]]
+  ['types',['Types',['../group__LinearAlgebra__Types.html',1,'']]],
+  ['transpose',['Transpose',['../group__LinearAlgebra__Operations.html#ga10f0c8910be836d69e5a2899235f046c',1,'transpose.h']]],
+  ['transpose_2eh',['transpose.h',['../transpose_8h.html',1,'']]]
 ];
