@@ -145,4 +145,4 @@ assert( linear::Determinant( matrix ) == 3 );
 
 ## Documentation
 
-Doxygen documentation based on the latest state of master, [hosted by GitHub Pages](https://moddyz.github.io/LinearAlgebra/).
+Doxygen documentation based on the latest state of the main branch is [hosted by GitHub Pages](https://moddyz.github.io/LinearAlgebra/).
