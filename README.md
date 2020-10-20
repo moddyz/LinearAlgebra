@@ -16,7 +16,7 @@ This is developed in tandem while working through [MIT OpenCourseWare's 18.06](h
 ### Dependencies
 
 The following dependencies are mandatory:
-- C++ compiler
+- C++ compiler (C++17)
 - [CMake](https://cmake.org/documentation/) (3.12 or greater)
 
 The following dependencies are optional:
