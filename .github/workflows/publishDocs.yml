@@ -1,0 +1,56 @@
+name: Publish documentation
+
+# Publish documentation only on push to main.
+on: 
+  push:
+    branches:
+      - main
+
+jobs:
+
+  # Build and test project.
+  publish-docs:
+    strategy:
+      matrix:
+        build:
+          - 1
+        include:
+          - build: 1
+            build-type: Release
+            build-tests: 'OFF'
+            build-docs: 'ON'
+    name: 'Ubuntu 18.04
+      <type=${{ matrix.build-type }},
+       tests=${{ matrix.build-tests }},
+       docs=${{ matrix.build-docs }}>'
+    runs-on: ubuntu-18.04
+    steps:
+      - name: Install dependencies (Linux)
+        run: sudo apt-get install cmake doxygen graphviz
+      - uses: actions/checkout@v2
+      - name: Create build directories
+        run: |
+          mkdir _build
+          mkdir _install
+      - name: Configure
+        run: |
+          cmake -DCMAKE_BUILD_TYPE=${{ matrix.build-type }} \
+                -DBUILD_TESTING=${{ matrix.build-tests }} \
+                -DBUILD_DOCUMENTATION=${{ matrix.build-docs }} \
+                -DCMAKE_INSTALL_PREFIX=../_install \
+                ..
+        working-directory: _build
+      - name: Build
+        run: |
+          cmake --build . \
+                --verbose \
+                --target docs \
+                --config ${{ matrix.build-type }}
+        working-directory: _build
+      - name: Deploy
+        uses: JamesIves/github-pages-deploy-action@3.6.2
+        with:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          BRANCH: gh-pages # The branch the action should deploy to.
+          FOLDER: _build/docs/docs/html
+          CLEAN: true # Automatically remove deleted files from the deploy branch
